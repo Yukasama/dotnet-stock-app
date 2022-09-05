@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Obliviate</title>
+
+    <link rel="icon" href="~/img/favicon.ico" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesomefree/css/all.min.css" />
+    <link rel="stylesheet" href="~/Obliviate.styles.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/css/layout/navbar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout/sidebar.css" asp-append-version="true" />
+    
+    <link rel="stylesheet" href="~/css/classes/master.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/config.css" asp-append-version="true" />
+
+</head>
+<body>
+
+    <nav class="navbar border">
+        <div class="nav_container flex_box">
+            <div>
+                <img class="nav_img" src="~/img/favicon.png" />
+                <a href=""></a>
+            </div>
+        </div>
+        <div class="searchbar">
+            <i class="fa-solid fa-search"></i>
+            <input class="input searchbar" placeholder="Search.."/>
+        </div>
+        <div class="profile flex_box">
+            <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="list profile_container">
+            <div class="list_link">
+                <i class="fa-solid fa-headset list_icon"></i>
+                <a href="" class="list_text">Settings</a>
+            </div>
+            <div class="list_link">
+                <i class="fa-solid fa-headset list_icon"></i>
+                <a href="" class="list_text">Settings</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="list sidebar">
+        <div class="list_link">
+            <i class="fa-solid fa-headset list_icon"></i>
+            <a href="" class="list_text">Settings</a>
+        </div>
+        <div class="list_link">
+            <i class="fa-solid fa-headset list_icon"></i>
+            <a href="" class="list_text">Settings</a>
+        </div>
+        <div class="side_separator"></div>
+        <div class="list_link">
+            <i class="fa-solid fa-headset list_icon"></i>
+            <a href="" class="list_text">Settings</a>
+        </div>
+        <div class="list_link">
+            <i class="fa-solid fa-headset list_icon"></i>
+            <a href="" class="list_text">Settings</a>
+        </div>
+        <div class="list_link">
+            <i class="fa-solid fa-headset list_icon"></i>
+            <a href="" class="list_text">Settings</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Obliviate - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/js/web/event.js"></script>
+    <script src="~/js/project/navbar.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

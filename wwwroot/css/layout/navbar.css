@@ -1,0 +1,62 @@
+﻿.navbar {
+    height: var(--height-navbar);
+    width: 100%;
+    background: var(--color-theme);
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    position: fixed;
+    transition: height 0.2s;
+}
+.nav_container {
+    margin-left: 5%;
+}
+.nav_img {
+    height: 55px;
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background: var(--color-theme-contrast);
+    padding: 5px 40px 5px 10px;
+    transition: padding 0.3s;
+}
+.searchbar i {
+    font-size: 18px;
+    padding: 5px;
+    transform: translate(0, 0.5px);
+}
+
+.profile {
+    margin-right: 5%;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.profile:hover {
+    background: var(--color-theme-contrast);
+}
+.profile i {
+    font-size: 22px;
+}
+
+.profile_container {
+    position: absolute;
+    width: 250px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    top: 90px;
+    right: 1%;
+}
+
+
+@media screen and (max-width: 768px) {
+    .searchbar {
+        padding: 5px 10px;
+    }
+}

@@ -1,0 +1,4 @@
+﻿.sidebar {
+    position: fixed;
+    top: var(--height-navbar);
+}

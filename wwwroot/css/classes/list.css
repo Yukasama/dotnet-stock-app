@@ -1,0 +1,40 @@
+﻿.list {
+    width: 250px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.list_link {
+    height: 50px;
+    align-items: center;
+    display: flex;
+    border-radius: 10px;
+    border: 1px solid red;
+}
+
+.list_link:hover {
+    background: var(--color-light);
+}
+
+.list_icon {
+    position: absolute;
+    font-size: 20px;
+    margin: 20px;
+}
+
+.list_text {
+    margin-left: 60px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.list_separator {
+    height: 1px;
+    width: 230px;
+    margin: 8px 5px;
+    background: var(--color-light);
+}
