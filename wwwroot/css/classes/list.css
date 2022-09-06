@@ -1,20 +1,25 @@
 ﻿.list {
-    width: 250px;
+    width: 280px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 5px;
+    background: var(--color-theme);
 }
 
-.list_link {
+.list_link, .list_nolink {
+    display: block;
     height: 50px;
     align-items: center;
     display: flex;
-    border-radius: 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
-
+.list_nolink { 
+    cursor: initial;
+}
 .list_link:hover {
     background: var(--color-light);
 }
@@ -23,30 +28,65 @@
 }
 
 .list_icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
     font-size: 20px;
     margin: 20px;
 }
-
 .list_text {
-    margin: 1px 0 0 60px;
-    position: absolute;
-    cursor: pointer;
+    margin: 20px 20px 20px 0;
 }
 
 .list_separator {
     height: 1px;
-    width: 225px;
-    margin: 4px;
+    width: 245px;
+    margin: 4px 8px;
     background: var(--color-separator);
 }
 
-.list_link .no_button {
-    margin: 1px 0 0 55px;
+.list_container {
+    display: flex;
+    flex-direction: column;
 }
-.list_link:hover .no_button {
-    background: var(--color-light);
+.list_con_text {
+    font-size: 14px;
 }
+.user_name {
+    font-size: 16px;
+}
+.manage_account {
+    color: var(--color-first) !important;
+}
+
+.list_path {
+    height: 40px;
+}
+.page_path {
+    font-size: 14px;
+}
+
+.dark_mode_icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    height: 20px;
+    width: 20px;
+}
+.dark_icon, .light_icon {
+    position: absolute;
+    opacity: 0;
+    margin: 0;
+    transform: translate(0, -10px);
+    transition: transform 0.3s;
+}
+.light_icon {
+    transform: translate(0, 10px);
+}
+.dark_icon.dark_show, .light_icon.dark_show {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+.list_link:hover > .dark_mode_icons > .dark_icon, 
+.list_link:hover > .dark_mode_icons > .light_icon {
+    color: var(--color-first) !important;
+}
+

@@ -19,8 +19,7 @@
     <link rel="stylesheet" href="~/css/config.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/classes/master.css" asp-append-version="true" />
 
-    <link rel="stylesheet" href="~/css/layout/navbar.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/layout/sidebar.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/layout/layout.css" asp-append-version="true" />
 
 </head>
 <body>
@@ -28,7 +27,7 @@
     <nav class="navbar">
         <div class="nav_container flex_box">
             <div>
-                <img class="nav_img" src="~/img/favicon.png" />
+                <img class="logo" src="~/img/favicon.png" />
                 <a href=""></a>
             </div>
         </div>
@@ -42,26 +41,35 @@
                 <i class="fa-solid fa-user"></i>
             </div>
             <div class="list profile_container">
-                <div class="list_link">
+                <div class="list_nolink">
                     <i class="fa-solid fa-user list_icon"></i>
-                    <div class="list_container border">
-                        <a class="list_con_text">@User.Identity?.Name?.Split("@")[0].ToUpper()</a>
+                    <div class="list_container">
+                        <!-- @User.Identity?.Name?.Split("@")[0].ToUpper() -->
+                        <a class="list_con_text user_name">Yukasama</a>
                         <a class="list_con_text manage_account" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Account</a>
                     </div>
                 </div>
-                <div class="list_link">
-                    <i class="fa-solid fa-moon list_icon"></i>
-                    <a href="" class="list_text">Dark Mode</a>
-                </div>
-                <div class="list_link">
-                    <i class="fa-solid fa-flag list_icon"></i>
-                    <a href="" class="list_text">Language</a>
-                </div>
                 <div class="list_separator"></div>
-                <form class="list_link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <a class="list_link dark_mode">
+                    <div class="dark_mode_icons">
+                        <i class="fa-solid fa-moon list_icon dark_icon"></i>
+                        <i class="fa-solid fa-sun list_icon light_icon"></i>     
+                    </div>
+                    <p class="list_text">Theme</p>
+                </a>
+                <a class="list_link">
+                    <i class="fa-solid fa-flag list_icon"></i>
+                    <p class="list_text">Language</p>
+                </a>
+                <a class="list_link" href="">
+                    <i class="fa-solid fa-gear list_icon"></i>
+                    <p class="list_text">Settings</p>
+                </a>
+                <div class="list_separator"></div>
+                <a class="list_link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                     <i class="fa-solid fa-arrow-right-from-bracket list_icon"></i>
-                    <button type="submit" class="list_text no_button">Logout</button>
-                </form>
+                    <p type="submit" class="list_text">Logout</p>
+                </a>
             </div>
         }
         else
@@ -74,31 +82,73 @@
     </nav>
 
     <div class="list sidebar">
-        <div class="list_link">
-            <i class="fa-solid fa-home list_icon"></i>
-            <a href="" class="list_text">Home</a>
-        </div>
-        <div class="list_link">
-            <i class="fa-solid fa-headset list_icon"></i>
-            <a href="" class="list_text">Settings</a>
-        </div>
+        <a class="list_nolink list_path">
+            <i class="fa-solid fa-shoe-prints list_icon"></i>
+            <p class="list_text page_path">Account > Login</p>
+        </a>
         <div class="list_separator"></div>
-        <div class="list_link">
-            <i class="fa-solid fa-headset list_icon"></i>
-            <a href="" class="list_text">Settings</a>
-        </div>
-        <div class="list_link">
-            <i class="fa-solid fa-headset list_icon"></i>
-            <a href="" class="list_text">Settings</a>
-        </div>
-        <div class="list_link">
-            <i class="fa-solid fa-headset list_icon"></i>
-            <a href="" class="list_text">Settings</a>
-        </div>
+        <a class="list_link" asp-page="/Home">
+            <i class="fa-solid fa-home list_icon"></i>
+            <p class="list_text">Home</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-signal list_icon"></i>
+            <p class="list_text">Portfolio</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-eye list_icon"></i>
+            <p class="list_text">Watchlist</p>
+        </a>
+        <div class="list_separator"></div>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-calendar list_icon"></i>
+            <p class="list_text">Calendar</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-list-check list_icon"></i>
+            <p class="list_text">Portfolio Manager</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-chart-line list_icon"></i>
+            <p class="list_text">Algorithm</p>
+        </a>
+        <div class="list_separator"></div>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
     </div>
 
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="content">
+        <main role="main" class="">
             @RenderBody()
         </main>
     </div>
@@ -114,6 +164,7 @@
 
     <script src="~/js/web/event.js"></script>
     <script src="~/js/project/navbar.js"></script>
+    <script src="~/js/web/darkmode.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 

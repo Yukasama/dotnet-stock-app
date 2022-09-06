@@ -1,4 +1,5 @@
 ﻿.sidebar {
     position: fixed;
     top: var(--height-navbar);
+    z-index: 9;
 }

@@ -1,0 +1,9 @@
+﻿@import url(navbar.css);
+@import url(sidebar.css);
+
+
+.content {
+    transform: translate(280px, 80px);
+    height: 100%;
+    width: 100%;
+}

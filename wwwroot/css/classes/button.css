@@ -254,12 +254,3 @@
 .button_animated:hover .button_arrow .button_arrow_line3 {
   transform: rotate(-45deg) translate(5px, 5px);
 }
-
-
-
-
-.no_button {
-    background: var(--color-theme);
-    outline: none;
-    border: none;
-}
