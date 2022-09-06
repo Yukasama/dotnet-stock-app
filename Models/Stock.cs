@@ -6,8 +6,7 @@ namespace Obliviate.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         public float peRatio { get; set; } = 0;
 
         public Stock()
