@@ -43,3 +43,10 @@
     margin: 4px;
     background: var(--color-separator);
 }
+
+.list_link .no_button {
+    margin: 1px 0 0 55px;
+}
+.list_link:hover .no_button {
+    background: var(--color-light);
+}

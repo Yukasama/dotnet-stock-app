@@ -20,12 +20,12 @@
 .normal_button {
   padding: 8px 25px;
   background: var(--color-first);
-  color: white;
+  color: white !important;
   transition: background 0.2s;
 }
 .normal_button i,
 .normal_button a {
-  color: white;
+  color: white !important;
 }
 .normal_button_outline {
   background: var(--color-theme);
@@ -253,4 +253,13 @@
 }
 .button_animated:hover .button_arrow .button_arrow_line3 {
   transform: rotate(-45deg) translate(5px, 5px);
+}
+
+
+
+
+.no_button {
+    background: var(--color-theme);
+    outline: none;
+    border: none;
 }

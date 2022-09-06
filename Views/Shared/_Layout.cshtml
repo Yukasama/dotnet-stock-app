@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -32,23 +36,41 @@
             <i class="fa-solid fa-search"></i>
             <input class="input searchbar" placeholder="Search.."/>
         </div>
-        <div class="profile flex_box">
-            <i class="fa-solid fa-user"></i>
-        </div>
-        <div class="list profile_container">
-            <div class="list_link">
-                <i class="fa-solid fa-headset list_icon"></i>
-                <a href="" class="list_text">Profile</a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="profile flex_box">
+                <i class="fa-solid fa-user"></i>
             </div>
-            <div class="list_link">
-                <i class="fa-solid fa-moon list_icon"></i>
-                <a href="" class="list_text">Dark Mode</a>
+            <div class="list profile_container">
+                <div class="list_link">
+                    <i class="fa-solid fa-user list_icon"></i>
+                    <div class="list_container border">
+                        <a class="list_con_text">@User.Identity?.Name?.Split("@")[0].ToUpper()</a>
+                        <a class="list_con_text manage_account" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Account</a>
+                    </div>
+                </div>
+                <div class="list_link">
+                    <i class="fa-solid fa-moon list_icon"></i>
+                    <a href="" class="list_text">Dark Mode</a>
+                </div>
+                <div class="list_link">
+                    <i class="fa-solid fa-flag list_icon"></i>
+                    <a href="" class="list_text">Language</a>
+                </div>
+                <div class="list_separator"></div>
+                <form class="list_link" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <i class="fa-solid fa-arrow-right-from-bracket list_icon"></i>
+                    <button type="submit" class="list_text no_button">Logout</button>
+                </form>
             </div>
-            <div class="list_link">
-                <i class="fa-solid fa-flag list_icon"></i>
-                <a href="" class="list_text">Language</a>
+        }
+        else
+        {
+            <div class="nav_login flex_box">
+                <a class="" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                <a class="normal_button" asp-area="Identity" asp-page="/Account/Register">Register</a> 
             </div>
-        </div>
+        }
     </nav>
 
     <div class="list sidebar">
