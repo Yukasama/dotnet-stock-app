@@ -25,7 +25,7 @@
     --color-first-light: rgba(19, 98, 218, 0.4);
 
     --height-navbar: 80px;
-    --width-sidebar: 210px;
+    --width-sidebar: 280px;
 
     --border-radius: 15px;
     --gap: 12px;
@@ -55,9 +55,20 @@
     scroll-behavior: smooth;
     color: var(--color-reverse) !important;
 }
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-first);
+}
+
 body {
-    overflow-x: hidden;
     background: var(--color-theme);
+    overflow-x: hidden;
 }
 ul, ol {
     list-style: none;

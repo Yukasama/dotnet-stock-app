@@ -3,7 +3,7 @@
 
 
 .content {
-    transform: translate(280px, 80px);
-    height: 100%;
-    width: 100%;
+    transform: translate(calc(var(--width-sidebar) + 5px), calc(var(--height-navbar) + 5px));
+    height: calc(100% - var(--height-navbar));
+    width: calc(100% - var(--width-sidebar));
 }

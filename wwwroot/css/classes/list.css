@@ -1,10 +1,9 @@
 ﻿.list {
-    width: 280px;
+    width: var(--width-sidebar);
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 5px;
     background: var(--color-theme);
 }
@@ -30,6 +29,10 @@
 .list_icon {
     font-size: 20px;
     margin: 20px;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
 }
 .list_text {
     margin: 20px 20px 20px 0;
@@ -38,8 +41,9 @@
 .list_separator {
     height: 1px;
     width: 245px;
-    margin: 4px 8px;
-    background: var(--color-separator);
+    margin: 3px 8px;
+    padding: 0.5px 0;
+    background: var(--color-separator) !important;
 }
 
 .list_container {
@@ -61,6 +65,7 @@
 }
 .page_path {
     font-size: 14px;
+    color: var(--color-first) !important;
 }
 
 .dark_mode_icons {
