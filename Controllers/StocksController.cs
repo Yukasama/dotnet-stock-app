@@ -155,6 +155,21 @@ namespace Obliviate.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //POST Stocks/Update
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update([Bind("Id,Name,peRatio")] Stock stock)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(stock);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(stock);
+        }
+
+
         private bool StockExists(int id)
         {
           return (_context.Stock?.Any(e => e.Id == id)).GetValueOrDefault();
