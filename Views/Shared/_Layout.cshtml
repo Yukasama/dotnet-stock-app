@@ -41,9 +41,11 @@
             </div>
         </div>
         @if (SignInManager.IsSignedIn(User))
-        {
-            <div class="profile flex_box">
-                <i class="fa-solid fa-user"></i>
+        {   
+            <div class="profile_wrapper">
+                <div class="profile flex_box">
+                    <i class="fa-solid fa-user"></i>
+                </div>
             </div>
             <div class="list profile_container">
                 <div class="list_nolink">

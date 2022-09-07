@@ -20,7 +20,7 @@
 .logo.dark {
   filter: invert(0);
 }
-.logo_container a {
+.logo_container div a {
     height: 100%;
     width: 100%;
 }
@@ -45,12 +45,16 @@
   transform: translate(0, 0.5px);
 }
 
+.profile_wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
 .profile {
   height: 50px;
   width: 50px;
   border-radius: 50%;
   cursor: pointer;
-  flex: 1;
 }
 .profile:hover {
   background: var(--color-theme-contrast);
@@ -74,6 +78,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .searchbar {
+      width: 80%;
+  }
   .searchbar {
     padding: 5px 10px;
   }
