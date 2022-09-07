@@ -15,6 +15,13 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAntiforgery();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequiredLength = 8;
+});
+
 builder.Services.AddAuthentication()
    .AddGoogle(options =>
    {
@@ -22,9 +29,24 @@ builder.Services.AddAuthentication()
        config.GetSection("Authentication:Google");
        options.ClientId = googleAuthNSection["ClientId"];
        options.ClientSecret = googleAuthNSection["ClientSecret"];
+   })
+   .AddFacebook(options =>
+   {
+       IConfigurationSection facebookAuthNSection =
+       config.GetSection("Authentication:Facebook");
+       options.AppId = facebookAuthNSection["AppId"];
+       options.AppSecret = facebookAuthNSection["AppSecret"];
+       options.AccessDeniedPath = "/AccessDeniedPathInfo";
+   })
+   .AddMicrosoftAccount(options =>
+   {
+       options.ClientId = config["Authentication:Microsoft:ClientId"];
+       options.ClientSecret = config["Authentication:Microsoft:ClientSecret"];
    });
 
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
