@@ -1,0 +1,76 @@
+﻿.navbar {
+    background: transparent !important;
+}
+.logo {
+    filter: invert(0) !important;
+}
+#sign_in {
+    color: white !important;
+}
+
+.external_logins {
+    display: flex;
+}
+.symbol_button {
+    outline: none;
+    border: none;
+    background: none;
+    border-radius: 5px;
+    margin: 10px 20px;
+    height: 55px;
+    width: 55px;
+    transition: background 0.2s;
+}
+.symbol_button:hover {
+    border: none;
+    background: var(--color-theme) !important;
+}
+.symbol_button i {
+    font-size: 30px;
+}
+
+.symbol_icon {
+    transition: color 0.2s;
+    color: white !important;
+}
+
+.fa-google-button {
+    background: red !important;
+}
+.fa-facebook-f-button {
+    background: #4267B2 !important;
+}
+.fa-microsoft-button {
+    background: #00adef !important;
+}
+
+.symbol_button:hover .fa-google {
+    color: red !important;
+}
+.symbol_button:hover .fa-facebook-f {
+    color: #4267B2 !important;
+}
+.symbol_button:hover .fa-microsoft {
+    color: #00adef !important;
+}
+
+.checkbox {
+    margin-bottom: 10px;
+}
+
+.register_button {
+    background: var(--color-theme-contrast);
+    color: var(--color-reverse) !important;
+    margin-bottom: 20px;
+}
+.register_button:hover {
+    background: var(--color-light);
+}
+#remember-me {
+    font-size: 0.95em;
+}
+#forgot-password, #resend-confirmation {
+    font-size: 0.9em;
+}
+
+
