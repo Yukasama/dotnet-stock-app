@@ -1,24 +1,24 @@
 ﻿.navbar {
-    height: var(--height-navbar);
-    width: 100%;
-    background: var(--color-theme);
-    align-items: center;
-    display: flex;
-    flex-wrap: nowrap;
-    position: fixed;
-    transition: height 0.2s;
-    z-index: 10;
+  height: var(--height-navbar);
+  width: 100%;
+  background: var(--color-theme);
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  position: fixed;
+  transition: height 0.2s;
+  z-index: 10;
 }
 .logo_container {
-    flex: 1;
+  flex: 1;
 }
 .logo {
-    height: 55px;
-    filter: invert(1);
-    cursor: pointer;
+  height: 55px;
+  filter: invert(1);
+  cursor: pointer;
 }
 .logo.dark {
-    filter: invert(0);
+  filter: invert(0);
 }
 .logo_container a {
     height: 100%;
@@ -26,60 +26,55 @@
 }
 
 .searchbar_container {
-    flex: 2;
-    display: flex;
-    justify-content: center;
+  flex: 2.5;
+  display: flex;
+  justify-content: center;
 }
 .searchbar {
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    background: var(--color-theme-contrast);
-    width: 50%;
-    padding: 5px 10px;
-    transition: padding 0.3s;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  background: var(--color-theme-contrast);
+  width: 50%;
+  padding: 5px 10px;
+  transition: padding 0.3s;
 }
 .searchbar i {
-    font-size: 18px;
-    padding: 5px;
-    transform: translate(0, 0.5px);
+  font-size: 18px;
+  padding: 5px;
+  transform: translate(0, 0.5px);
 }
 
 .profile {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    flex: 1;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  flex: 1;
 }
 .profile:hover {
-    background: var(--color-theme-contrast);
+  background: var(--color-theme-contrast);
 }
 .profile i {
-    font-size: 22px;
+  font-size: 22px;
 }
 .profile_container {
-    position: fixed;
-    display: none;
-    top: 85px;
-    right: 1%;
+  position: fixed;
+  display: none;
+  top: 85px;
+  right: 1%;
 }
 .profile_container.show {
-    display: flex;
+  display: flex;
 }
 
 .nav_login {
-    flex: 1;
-    gap: 30px;
+  flex: 1;
+  gap: 30px;
 }
-
-
 
 @media screen and (max-width: 768px) {
-    .searchbar {
-        padding: 5px 10px;
-    }
+  .searchbar {
+    padding: 5px 10px;
+  }
 }
-
-
-
