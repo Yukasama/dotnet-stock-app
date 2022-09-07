@@ -20,6 +20,10 @@
 .logo.dark {
     filter: invert(0);
 }
+.logo_container a {
+    height: 100%;
+    width: 100%;
+}
 
 .searchbar_container {
     flex: 2;

@@ -59,12 +59,12 @@
 }
 
 .register_button {
-    background: var(--color-theme-contrast);
+    background: var(--color-light);
     color: var(--color-reverse) !important;
     margin-bottom: 20px;
 }
 .register_button:hover {
-    background: var(--color-light);
+    background: var(--color-theme-contrast);
 }
 #remember-me {
     font-size: 0.95em;

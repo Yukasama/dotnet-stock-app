@@ -40,6 +40,16 @@
     border: var(--color-light) 1px solid;
     margin-bottom: 3px;
 }
+.form_input:focus {
+    background: var(--color-theme-contrast);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px var(--color-theme) inset !important;
+    -webkit-text-fill-color: var(--color-reverse);
+}
 .form-floating:hover .form_label {
     color: var(--color-first) !important;
 }
