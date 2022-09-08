@@ -21,11 +21,11 @@
   filter: invert(0) !important;
 }
 .logo_container a {
-    display: block;
+  display: block;
 }
 
 .searchbar_container {
-  flex: 2.5;
+  flex: 2;
   display: flex;
   justify-content: center;
 }
@@ -34,7 +34,7 @@
   align-items: center;
   border-radius: 5px;
   background: var(--color-theme-contrast);
-  width: 50%;
+  width: 60%;
   padding: 5px 10px;
   transition: padding 0.3s;
 }
@@ -45,9 +45,9 @@
 }
 
 .profile_wrapper {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 .profile {
   height: 50px;
@@ -78,7 +78,7 @@
 
 @media screen and (max-width: 768px) {
   .searchbar {
-      width: 80%;
+    width: 80%;
   }
   .searchbar {
     padding: 5px 10px;

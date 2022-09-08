@@ -4,6 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="utf-8" />
@@ -14,33 +15,34 @@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/fontawesomefree/css/all.min.css" />
-    
+
     <link rel="stylesheet" href="~/css/config.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/classes/master.css" asp-append-version="true" />
 
     <link rel="stylesheet" href="~/css/layout/layout.css" asp-append-version="true" />
 
 </head>
+
 <body>
 
     @{
         var path = @Context.Request.Path.ToString();
         string[] cleanPaths = new string[]
         {
-            "/Identity/Account/Login",
-            "/Identity/Account/Register",
+    "/Identity/Account/Login",
+    "/Identity/Account/Register",
         };
     }
 
     <partial name="_Notification" />
 
     <nav class="navbar">
-        <div class="logo_container flex_box">
+        <div class="logo_container border flex_box">
             <a asp-page="/Home">
                 <img class="logo" src="~/img/favicon.png" />
             </a>
         </div>
-        <div class="searchbar_container">
+        <div class="searchbar_container border">
             <div class="searchbar">
                 <i class="fa-solid fa-search"></i>
                 <input class="input searchbar" placeholder="Search.." />
@@ -58,8 +60,9 @@
                     <i class="fa-solid fa-user list_icon"></i>
                     <div class="list_container">
                         <!-- @User.Identity?.Name?.Split("@")[0].ToUpper() -->
-                        <small class="list_con_text user_name">Yukasama</small>
-                        <a class="list_con_text manage_account" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Account</a>
+                    <small class="list_con_text user_name">Yukasama</small>
+                        <a class="list_con_text manage_account" asp-area="Identity" asp-page="/Account/Manage/Index"
+                        title="Manage">Manage Account</a>
                     </div>
                 </div>
                 <div class="list_separator"></div>
@@ -79,7 +82,8 @@
                     <p class="list_text">Settings</p>
                 </a>
                 <div class="list_separator"></div>
-                <form class="list_link list_form" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="POST">
+                <form class="list_link list_form" asp-area="Identity" asp-page="/Account/Logout"
+                asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="POST">
                     <i class="fa-solid fa-arrow-right-from-bracket list_icon"></i>
                     <button type="submit" class="list_text">Logout</button>
                 </form>
@@ -87,16 +91,15 @@
         }
         else
         {
-            <div class="nav_login flex_box">
+            <div class="nav_login border flex_box">
                 <a id="sign_in" asp-area="Identity" asp-page="/Account/Login">Sign&nbspIn</a>
                 <a id="register" class="button" asp-area="Identity" asp-page="/Account/Register">Register</a>
-            </div>                
+            </div>
             <div class="hamburger">
                 <div class="hamburger_line"></div>
                 <div class="hamburger_line"></div>
                 <div class="hamburger_line"></div>
             </div>
-
         }
     </nav>
 
@@ -216,4 +219,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
+
 </html>
