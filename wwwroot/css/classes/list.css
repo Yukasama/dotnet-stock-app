@@ -23,7 +23,7 @@
     background: var(--color-light);
 }
 .list_link:hover > .list_icon {
-    color: var(--color-first) !important;
+    color: var(--color-first);
 }
 
 .list_icon {
@@ -43,7 +43,7 @@
     width: 245px;
     margin: 3px 8px;
     padding: 0.5px 0;
-    background: var(--color-separator) !important;
+    background: var(--color-separator);
 }
 
 .list_container {
@@ -57,7 +57,7 @@
     font-size: 16px;
 }
 .manage_account {
-    color: var(--color-first) !important;
+    color: var(--color-first);
 }
 
 .list_path {
@@ -65,7 +65,7 @@
 }
 .page_path {
     font-size: 14px;
-    color: var(--color-first) !important;
+    color: var(--color-first);
 }
 
 .dark_mode_icons {
@@ -92,6 +92,6 @@
 }
 .list_link:hover > .dark_mode_icons > .dark_icon, 
 .list_link:hover > .dark_mode_icons > .light_icon {
-    color: var(--color-first) !important;
+    color: var(--color-first);
 }
 

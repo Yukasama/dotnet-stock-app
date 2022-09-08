@@ -31,18 +31,15 @@
             </div>
         </div>
         <div>
-            <button id="login-submit" type="submit" class="normal_button form_button">Log in</button>
+            <button id="login-submit" type="submit" class="button form_button">Log in</button>
             <div class="form_separator"></div>
-            <button class="normal_button form_button register_button" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">
+            <button class="button form_button register_button" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">
                 Register
             </button>
         </div>
         <div>
             <p>
                 <a id="forgot-password" class="form_text" asp-page="./ForgotPassword">Forgot your password?</a>
-            </p>
-            <p>
-                
             </p>
             <p>
                 <a id="resend-confirmation" class="form_text" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
@@ -59,7 +56,7 @@
             {
                 name = "fa-brands fa-facebook-f";
             }
-            <button type="submit" class="symbol_button @name-button" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+            <button type="submit" class="icon_button @name-button" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
                 <i class="symbol_icon @name"></i>
             </button>
         }

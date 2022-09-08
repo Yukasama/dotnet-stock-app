@@ -18,17 +18,17 @@
 .form_title {
     font-size: 1.9em;
     font-weight: 300;
-    color: var(--color-first) !important;
+    color: var(--color-first);
 }
 .form_title_border {
-    background: var(--color-first) !important;
+    background: var(--color-first);
     height: 40px;
     width: 2px;
     position: absolute;
     transform: translate(-30px, 3px);
 }
 .form_subtitle {
-    color: white !important;
+    color: white;
     font-size: 1.5em;
     font-weight: 300;
 }
@@ -44,10 +44,10 @@
     background: var(--color-theme-contrast);
 }
 .form-floating:hover .form_label {
-    color: var(--color-first) !important;
+    color: var(--color-first);
 }
 .form_text {
-    color: var(--color-reverse) !important;
+    color: var(--color-reverse);
 }
 .form_error {
     font-size: 0.85em;

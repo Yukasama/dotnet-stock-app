@@ -52,7 +52,7 @@
                     <i class="fa-solid fa-user list_icon"></i>
                     <div class="list_container">
                         <!-- @User.Identity?.Name?.Split("@")[0].ToUpper() -->
-                        <a class="list_con_text user_name">Yukasama</a>
+                        <small class="list_con_text user_name">Yukasama</small>
                         <a class="list_con_text manage_account" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Manage Account</a>
                     </div>
                 </div>
@@ -202,8 +202,9 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="~/js/web/event.js"></script>
-    <script src="~/js/project/navbar.js"></script>
     <script src="~/js/web/darkmode.js"></script>
+
+    <script src="~/js/project/navbar.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 
