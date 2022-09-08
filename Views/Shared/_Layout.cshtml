@@ -24,24 +24,28 @@
 <body>
 
     @{
-        var path = @Context.Request.Path;
+        var path = @Context.Request.Path.ToString();
+        string[] cleanPaths =
+        {
+            "Identity/Account/Login",
+            "Identity/Account/Register",
+        };
+        Console.WriteLine(path, cleanPaths);
     }
-
     <nav class="navbar">
         <div class="logo_container flex_box">
-            <div>
+            <a asp-page="/Home">
                 <img class="logo" src="~/img/favicon.png" />
-                <a asp-page="/Home"></a>
-            </div>
+            </a>
         </div>
         <div class="searchbar_container">
             <div class="searchbar">
                 <i class="fa-solid fa-search"></i>
-                <input class="input searchbar" placeholder="Search.."/>
+                <input class="input searchbar" placeholder="Search.." />
             </div>
         </div>
         @if (SignInManager.IsSignedIn(User))
-        {   
+        {
             <div class="profile_wrapper">
                 <div class="profile flex_box">
                     <i class="fa-solid fa-user"></i>
@@ -60,7 +64,7 @@
                 <a class="list_link dark_mode" title="Change Theme">
                     <div class="dark_mode_icons">
                         <i class="fa-solid fa-moon list_icon dark_icon"></i>
-                        <i class="fa-solid fa-sun list_icon light_icon"></i>     
+                        <i class="fa-solid fa-sun list_icon light_icon"></i>
                     </div>
                     <p class="list_text">Theme</p>
                 </a>
@@ -83,7 +87,7 @@
         {
             <div class="nav_login flex_box">
                 <a id="sign_in" asp-area="Identity" asp-page="/Account/Login">Sign&nbspIn</a>
-                <a id="register" class="button" asp-area="Identity" asp-page="/Account/Register">Register</a> 
+                <a id="register" class="button" asp-area="Identity" asp-page="/Account/Register">Register</a>
             </div>
             <div class="hamburger">
                 <div class="hamburger_line"></div>
@@ -93,7 +97,7 @@
         }
     </nav>
 
-    @if (path != "/Identity/Account/Login") 
+    @if (cleanPaths.Contains(path))
     {
         <div class="list sidebar">
             <a class="list_nolink list_path" title="Current Path: @path">
@@ -187,8 +191,8 @@
             Terms & Conditions
             Privacy
         </footer>
-    } 
-    else 
+    }
+    else
     {
         <div class="content">
             <main role="main" class="">

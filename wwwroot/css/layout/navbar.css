@@ -20,9 +20,8 @@
 .logo.dark {
   filter: invert(0);
 }
-.logo_container div a {
-    height: 100%;
-    width: 100%;
+.logo_container a {
+    display: block;
 }
 
 .searchbar_container {

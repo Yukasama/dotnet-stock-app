@@ -8,7 +8,7 @@
 }
 
 .content_area {
-    transform: translate(calc(var(--width-sidebar) + 5px), calc(var(--height-navbar) + 5px));
+    transform: translate(var(--width-sidebar), var(--height-navbar));
     height: calc(100% - var(--height-navbar));
     width: calc(100% - var(--width-sidebar));
 }

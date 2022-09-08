@@ -1,11 +1,10 @@
 ﻿@page
 @model LoginModel
-
 @{
     ViewData["Title"] = "Log in";
 }
 
-<link rel="stylesheet" href="~/css/identity/login.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/identity/account.css" asp-append-version="true" />
 
 <div class="form_container">
     <form class="form" method="POST">
@@ -13,12 +12,14 @@
         <p class="form_title">Sign In</p>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-floating form_input_field">
-            <input asp-for="Input.Email" class="form-control form_input" autocomplete="username" aria-required="true" required/>
+            <input asp-for="Input.Email" class="form-control form_input" autocomplete="username" aria-required="true"
+                required />
             <label asp-for="Input.Email" class="form-label form_label"></label>
             <span asp-validation-for="Input.Email" class="form_error"></span>
         </div>
         <div class="form-floating form_input_field">
-            <input asp-for="Input.Password" class="form-control form_input" autocomplete="current-password" aria-required="true" required />
+            <input asp-for="Input.Password" class="form-control form_input" autocomplete="current-password"
+                aria-required="true" required />
             <label asp-for="Input.Password" class="form-label form_label"></label>
             <span asp-validation-for="Input.Password" class="form_error"></span>
         </div>
@@ -31,24 +32,26 @@
             </div>
         </div>
         <div>
-            <button id="login-submit" type="submit" class="button form_button">Log in</button>
+            <button id="login-submit" type="submit" class="button form_button">Sign In</button>
             <div class="form_separator"></div>
-            <button class="button form_button register_button" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">
+            <a class="button form_button register_button" asp-page="./Register">
                 Register
-            </button>
+            </a>
         </div>
         <div>
             <p>
                 <a id="forgot-password" class="form_text" asp-page="./ForgotPassword">Forgot your password?</a>
             </p>
             <p>
-                <a id="resend-confirmation" class="form_text" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                <a id="resend-confirmation" class="form_text" asp-page="./ResendEmailConfirmation">Resend email
+                    confirmation</a>
             </p>
         </div>
     </form>
 
     <p class="form_subtitle">Or Sign In with External Services</p>
-    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="POST" class="external_logins">
+    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="POST"
+        class="external_logins">
         @foreach (var provider in Model.ExternalLogins)
         {
             string name = "fa-brands fa-" + provider.Name.ToLower();
@@ -56,15 +59,14 @@
             {
                 name = "fa-brands fa-facebook-f";
             }
-            <button type="submit" class="icon_button @name-button" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+            <button type="submit" class="icon_button @name-button" name="provider" value="@provider.Name"
+            title="Log in using your @provider.DisplayName account">
                 <i class="symbol_icon @name"></i>
             </button>
         }
     </form>
-
-
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }
