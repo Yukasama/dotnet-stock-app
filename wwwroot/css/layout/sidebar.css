@@ -1,8 +1,21 @@
 ﻿.sidebar {
     position: fixed;
     top: var(--height-navbar);
-    z-index: 9;
+    z-index: 8;
     overflow-y: auto;
     overflow-x: hidden;
     height: calc(100vh - 80px);
+}
+
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 86px !important;
+    }
+    .sidebar .list_text {
+        display: none;
+    }
+    .sidebar .list_link .list_icon, .sidebar .list_nolink .list_icon {
+        justify-content: center;
+    }
 }

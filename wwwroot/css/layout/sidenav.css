@@ -1,0 +1,53 @@
+﻿.sidenav {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 100%;
+    background: var(--color-theme);
+    z-index: 9;
+    transform: translate(0, -300px);
+    padding: 110px 30px;
+    gap: 2px;
+    transition: transform 0.5s ease;
+}
+.sidenav.show {
+    transform: translate(0, 0);
+}
+
+.sidenav .button {
+    width: 100%;
+    border-radius: var(--border-radius);
+    height: 50px;
+    font-size: 1.1em !important;
+}
+.sidenav .button:last-child {
+    background: var(--color-light);
+}
+.sidenav .button:hover:last-child {
+    background: var(--color-theme-contrast);
+}
+.sidenav .form_separator {
+    padding: 0.5px;
+}
+
+.hamburger.show {
+    transform: translate(-2px, 0);
+    padding-right: 10px;
+}
+.hamburger_line {
+    transition: transform 0.2s, opacity 0.2s, visibility 0.2s;
+}
+.hamburger.show .hamburger_line1 {
+    transform: translate(6px, 6.1px) rotate(45deg);
+}
+.hamburger.show .hamburger_line2 {
+    transform: translate(-20px, 0);
+    opacity: 0;
+    visibility: hidden;
+}
+.hamburger.show .hamburger_line3 {
+    transform: translate(6px, -5.5px) rotate(-45deg);
+}
+
+

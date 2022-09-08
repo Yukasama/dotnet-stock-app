@@ -75,12 +75,22 @@
   flex: 1;
   gap: 30px;
 }
+.hamburger {
+    display: none;
+}
 
 @media screen and (max-width: 768px) {
-  .searchbar {
-    width: 80%;
+  .searchbar_container {
+      flex: 3;
   }
   .searchbar {
+    width: 80%;
     padding: 5px 10px;
+  }
+  #sign_in, #register {
+      display: none;
+  }
+  .hamburger {
+      display: flex;
   }
 }

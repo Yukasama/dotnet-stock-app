@@ -57,6 +57,7 @@ function events(eventElement, showElement, event, action, background) {
                 }
             }
             else if (event == "click" || event == "mouseover") {
+                eventElement.classList.toggle("show");
                 showElement.classList.toggle("show");
             }
             else if (event == "scroll") {

@@ -37,12 +37,12 @@
     <partial name="_Notification" />
 
     <nav class="navbar">
-        <div class="logo_container border flex_box">
+        <div class="logo_container flex_box">
             <a asp-page="/Home">
                 <img class="logo" src="~/img/favicon.png" />
             </a>
         </div>
-        <div class="searchbar_container border">
+        <div class="searchbar_container">
             <div class="searchbar">
                 <i class="fa-solid fa-search"></i>
                 <input class="input searchbar" placeholder="Search.." />
@@ -91,21 +91,27 @@
         }
         else
         {
-            <div class="nav_login border flex_box">
+            <div class="nav_login flex_box">
                 <a id="sign_in" asp-area="Identity" asp-page="/Account/Login">Sign&nbspIn</a>
                 <a id="register" class="button" asp-area="Identity" asp-page="/Account/Register">Register</a>
-            </div>
-            <div class="hamburger">
-                <div class="hamburger_line"></div>
-                <div class="hamburger_line"></div>
-                <div class="hamburger_line"></div>
+                <div class="hamburger">
+                    <div class="hamburger_line hamburger_line1"></div>
+                    <div class="hamburger_line hamburger_line2"></div>
+                    <div class="hamburger_line hamburger_line3"></div>
+                </div>
             </div>
         }
     </nav>
 
+    <div class="sidenav">
+        <button class="button">Register</button>
+        <div class="form_separator"></div>
+        <button class="button">Sign In</button>
+    </div>
+
     @if (!cleanPaths.Contains(path))
     {
-        <div class="list sidebar">
+        <div class="sidebar list">
             <a class="list_nolink list_path" title="Current Path: @path">
                 <i class="fa-solid fa-shoe-prints list_icon"></i>
                 <p class="list_text page_path">@path</p>
@@ -215,6 +221,7 @@
     <script src="~/js/web/darkmode.js"></script>
 
     <script src="~/js/project/navbar.js"></script>
+    <script src="~/js/project/sidenav.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 
