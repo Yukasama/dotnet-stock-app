@@ -1,0 +1,10 @@
+﻿
+<link rel="stylesheet" href="~/css/identity/notification.css" asp-append-version="true" />
+
+
+@if (TempData["Logout - Success"] != null) 
+{
+    <div class="notification">
+        @TempData["Logout - Success"]
+    </div>
+}

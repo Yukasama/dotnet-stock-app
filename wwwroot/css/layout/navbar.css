@@ -14,11 +14,11 @@
 }
 .logo {
   height: 55px;
-  filter: invert(1);
+  filter: invert(1) !important;
   cursor: pointer;
 }
 .logo.dark {
-  filter: invert(0);
+  filter: invert(0) !important;
 }
 .logo_container a {
     display: block;

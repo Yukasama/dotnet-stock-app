@@ -1,0 +1,8 @@
+﻿.notification {
+    position: fixed;
+    top: 0;
+    left: auto;
+    height: 100px;
+    width: 200px;
+    background: green;
+}

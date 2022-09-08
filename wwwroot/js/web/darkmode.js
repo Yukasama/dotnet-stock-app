@@ -5,6 +5,7 @@ const dark_icon = document.querySelector(".dark_icon");
 const light_icon = document.querySelector(".light_icon");
 const logo = document.querySelector(".logo");
 
+
 const enableDarkMode = () => {
     document.body.classList.add("dark");
     localStorage.setItem("darkMode", "enabled");
@@ -22,11 +23,12 @@ const disableDarkMode = () => {
 };
 
 
-if(darkMode === "enabled") {
+if (darkMode === "enabled") {
     enableDarkMode();
 } else {
     disableDarkMode();
 };
+
 
 dark_mode.addEventListener("click", function() {
     darkMode = localStorage.getItem("darkMode");

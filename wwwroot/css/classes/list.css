@@ -68,6 +68,20 @@
     color: var(--color-first);
 }
 
+.list_form button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: var(--color-theme);
+    outline: none;
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+.list_form:hover button {
+    background: var(--color-light);
+}
+
 .dark_mode_icons {
     display: flex;
     justify-content: center;
