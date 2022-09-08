@@ -1,40 +1,43 @@
 /* BUTTONS */
 .button,
-.normal_button,
-.normal_button_outline,
+.button_outline,
 .smart_button,
 .smart_button_outline,
 .icon_button,
 .create_button,
 .delete_button,
 .symbol_button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.95em !important;
-  cursor: pointer;
-  border: none;
-  white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.95em !important;
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
 }
 
-.normal_button {
-  padding: 8px 25px;
-  background: var(--color-first);
-  color: white !important;
-  transition: background 0.2s;
+.button, .button_outline {
+    padding: 9px 25px;
+    width: 110px;
+    height: 40px;
+    background: var(--color-first);
 }
-.normal_button i,
-.normal_button a {
-  color: white !important;
+.button,
+.button i,
+.button a {
+    color: white !important;
 }
-.normal_button_outline {
+.button_outline {
   background: var(--color-theme);
   border: 2px solid var(--color-reverse);
   color: var(--color-reverse);
-  padding: 7px 21px;
+  padding: 9px 21px;
 }
-.normal_button:hover {
+.button:hover {
   background: var(--color-first-hover);
+}
+.button_outline:hover {
+    background: var(--color-theme-contrast);
 }
 
 .smart_button,
@@ -139,21 +142,7 @@
   opacity: 0;
 }
 
-.create_button,
-.delete_button {
-  background: transparent;
-  height: 40px;
-  width: 40px;
-}
-.create_button > i,
-.delete_button > i {
-  font-size: 25px;
-  color: rgb(0, 255, 0);
-}
-.delete_button > i {
-  color: rgb(255, 0, 0);
-  font-size: 27px;
-}
+
 
 .symbol_button {
   height: 50px;

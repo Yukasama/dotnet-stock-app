@@ -42,20 +42,14 @@
   color: rgb(0, 255, 0);
   opacity: 1;
 }
-.input:-webkit-autofill,
-.input:-webkit-autofill:hover,
-.input:-webkit-autofill:focus,
-.input:-webkit-autofill:active {
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px var(--color-theme-contrast) inset !important;
   -webkit-text-fill-color: var(--color-reverse);
 }
-.input_theme:-webkit-autofill,
-.input_theme:-webkit-autofill:hover,
-.input_theme:-webkit-autofill:focus,
-.input_theme:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px var(--color-theme) inset !important;
-  -webkit-text-fill-color: var(--color-reverse);
-}
+
 
 /* EXTENDED INPUT FIELD => ACCOUNT FIELD */
 

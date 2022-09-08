@@ -1,12 +1,6 @@
-.circle {
-  position: absolute;
-  height: 350px;
-  width: 350px;
-  border-radius: 50%;
-  background: var(--color-first);
-}
 
 /* COLOR GRADIENTS */
+
 .red-gradient,
 .yellow-gradient,
 .green-gradient,

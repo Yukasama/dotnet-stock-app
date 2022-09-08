@@ -1,3 +1,6 @@
+
+/* SHORTCUTS */
+
 .flex {
   display: flex;
 }
@@ -18,10 +21,12 @@
   border: 1px solid rgb(0, 140, 255) !important;
 }
 
+
 /* FLEX OBJECTS */
 
 .flex_box,
-.flex_form {
+.flex_form,
+.flex_gap {
   display: flex;
 }
 .flex_box {
@@ -32,33 +37,13 @@
   align-items: center;
   flex-direction: column;
 }
-
-/* BASIC WEB LAYOUT */
-
-/*
-<div class="layout">
-  <div class="window">
-    <div class="view">
-      <div class="view_item"></div>
-      <div class="view_item"></div>
-    </div>
-    <div class="view">
-      <div class="view_item"></div>
-      <div class="view_item"></div>
-    </div>
-  </div>
-</div>
-*/
-
-.layout {
-  display: flex;
-  width: 100%;
+.flex_gap {
+    gap: 10px;
 }
-.window {
-  width: 100%;
-  overflow: auto;
-  margin: 0 var(--gap) var(--gap) var(--gap);
-}
+
+
+/* GRID VIEW */
+
 .view {
   width: 100%;
   display: none;
@@ -84,57 +69,3 @@
   font-size: 0.9em;
 }
 
-/* DJANGO FLASH MESSAGES */
-
-/*
-{% if messages %}
-<ul class="messages">
-  {% for message in messages %}
-  <li>{{message}}</li>
-  {% endfor %}
-</ul>
-{% endif %}
-*/
-
-.messages li {
-  color: red;
-  text-align: center;
-  font-size: 0.8em;
-}
-
-/* ARROW BACK */
-
-/*
-<div class="arrow_back flex">
-  <i class="fa-solid fa-arrow-left-long"></i>
-  <a href="{{request.META.HTTP_REFERER}}"></a>
-</div>
-*/
-
-/* LAYOUT FOR MESSAGE */
-
-/*
-<div class="message_field flex">
-  <p class="message_text">You have no Portfolios yet.</p>
-  <button class="icon_button portfolio_createone">
-    <i class="fa-solid fa-arrow-right-to-bracket portfolio_icon"></i>
-    <a>Create One</a>
-  </button>
-</div>
-*/
-
-.message_field {
-  height: 800px;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.message_text {
-  color: var(--color-text-theme);
-  font-size: 2em;
-  font-weight: 300;
-}
-.message_field button {
-  margin: 20px;
-}
