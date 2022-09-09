@@ -1,5 +1,5 @@
 //Loops through Elements to determine Active Element
-function activeLooper(elements, loopType, views) {
+function activeLooper(elements, loopType, views = "") {
 
   try {
       if (loopType == "list") {
