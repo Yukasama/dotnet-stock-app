@@ -1,13 +1,14 @@
 ﻿.sidenav {
     position: fixed;
-    display: flex;
+    display: none;
     flex-direction: column;
+    align-items: center;
     height: 300px;
     width: 100%;
     background: var(--color-theme);
     z-index: 9;
     transform: translate(0, -300px);
-    padding: 110px 30px;
+    padding: 100px 30px;
     gap: 2px;
     transition: transform 0.5s ease;
 }
@@ -21,10 +22,10 @@
     height: 50px;
     font-size: 1.1em !important;
 }
-.sidenav .button:last-child {
+.sidenav .sidenav_signin {
     background: var(--color-light);
 }
-.sidenav .button:hover:last-child {
+.sidenav .sidenav_signin:hover {
     background: var(--color-theme-contrast);
 }
 .sidenav .form_separator {
@@ -50,4 +51,46 @@
     transform: translate(6px, -5.5px) rotate(-45deg);
 }
 
+.theme_switcher {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    height: 40px !important;
+    border-radius: 5px;
+    width: 200px;
+    background: var(--color-theme);
+}
+.theme_switcher .switch_dark {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.theme_switcher .switch_light {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.switch_dark, .switch_light {
+    height: 40px;
+    width: 80px;
+    background: transparent;
+    border: none;
+    background: var(--color-first);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.switch_dark:hover, .switch_light:hover {
+    background: var(--color-first-dark);
+}
+.switch_theme.switch_active {
+    background: var(--color-first-dark);
+}
+.switch_icon {
+    font-size: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .sidenav {
+        display: flex;
+    }
+}
 
