@@ -1,98 +1,100 @@
 ﻿.sidenav {
-    position: fixed;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    height: 320px;
-    width: 100%;
-    background: var(--color-theme);
-    z-index: 9;
-    transform: translate(0, -300px);
-    padding: 100px 30px;
-    gap: 2px;
-    transition: transform 0.5s ease;
+  position: fixed;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  height: 320px;
+  width: 100%;
+  background: var(--color-theme);
+  z-index: 9;
+  transform: translate(0, -300px);
+  padding: 100px 30px;
+  gap: 2px;
+  transition: transform 0.5s ease;
 }
 .sidenav.show {
-    transform: translate(0, 0);
+  transform: translate(0, 0);
 }
 
 .sidenav .button {
-    width: 100%;
-    border-radius: var(--border-radius);
-    height: 50px;
-    font-size: 1.1em !important;
+  width: 100%;
+  border-radius: var(--border-radius);
+  height: 50px;
+  font-size: 1.1em !important;
 }
 .sidenav .sidenav_signin {
-    background: var(--color-light);
+  background: var(--color-light);
+  color: var(--color-reverse);
 }
 .sidenav .sidenav_signin:hover {
-    background: var(--color-theme-contrast);
+  background: var(--color-theme-contrast);
 }
 .sidenav .form_separator {
-    padding: 0.5px;
+  padding: 0.5px;
 }
 
 .hamburger.show {
-    transform: translate(-2px, 0);
-    padding-right: 10px;
+  transform: translate(-2px, 0);
+  padding-right: 10px;
 }
 .hamburger_line {
-    transition: transform 0.2s, opacity 0.2s, visibility 0.2s;
+  transition: transform 0.2s, opacity 0.2s, visibility 0.2s;
 }
 .hamburger.show .hamburger_line1 {
-    transform: translate(6px, 6.1px) rotate(45deg);
+  transform: translate(6px, 6.1px) rotate(45deg);
 }
 .hamburger.show .hamburger_line2 {
-    transform: translate(-20px, 0);
-    opacity: 0;
-    visibility: hidden;
+  transform: translate(-20px, 0);
+  opacity: 0;
+  visibility: hidden;
 }
 .hamburger.show .hamburger_line3 {
-    transform: translate(6px, -5.5px) rotate(-45deg);
+  transform: translate(6px, -5.5px) rotate(-45deg);
 }
 
 .theme_switcher {
-    display: flex;
-    margin-top: 30px;
-    justify-content: center;
-    height: 40px !important;
-    border-radius: 5px;
-    width: 200px;
-    background: var(--color-theme);
+  display: flex;
+  margin-top: 30px;
+  justify-content: center;
+  height: 40px !important;
+  border-radius: 5px;
+  width: 200px;
+  background: var(--color-theme);
 }
 .theme_switcher .switch_dark {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 .theme_switcher .switch_light {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
-.switch_dark, .switch_light {
-    height: 40px;
-    width: 80px;
-    background: transparent;
-    border: none;
-    background: var(--color-first);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background 0.2s;
-}
-.switch_theme:hover .switch_icon {
-    color: yellow;
+.switch_dark,
+.switch_light {
+  height: 40px;
+  width: 80px;
+  background: transparent;
+  border: none;
+  background: var(--color-first);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.2s;
 }
 .switch_theme.active {
-    background: var(--color-first-dark);
+  background: var(--color-first-dark);
 }
 .switch_icon {
-    font-size: 20px;
-    transition: color 0.2s;
+  font-size: 20px;
+  transition: color 0.2s;
+  color: white;
+}
+.switch_theme:hover .switch_icon {
+  color: yellow;
 }
 
 @media screen and (max-width: 768px) {
-    .sidenav {
-        display: flex;
-    }
+  .sidenav {
+    display: flex;
+  }
 }
-
