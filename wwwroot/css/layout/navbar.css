@@ -11,6 +11,19 @@
 }
 .logo_container {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.hamburger_container {
+  margin: 0 60px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.hamburger_container:hover {
+  background: var(--color-theme-contrast);
 }
 .logo {
   height: 55px;
@@ -76,7 +89,7 @@
   gap: 30px;
 }
 .hamburger {
-    display: none;
+    display: flex;
 }
 
 @media screen and (max-width: 768px) {
@@ -89,8 +102,5 @@
   }
   #sign_in, #register {
       display: none;
-  }
-  .hamburger {
-      display: flex;
   }
 }

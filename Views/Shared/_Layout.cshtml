@@ -38,6 +38,13 @@
 
     <nav class="navbar">
         <div class="logo_container flex_box">
+            <div class="hamburger_container flex_box">
+                <div id="hamburger_sidebar" class="hamburger_static">
+                    <div class="hamburger_line hamburger_line1"></div>
+                    <div class="hamburger_line hamburger_line2"></div>
+                    <div class="hamburger_line hamburger_line3"></div>
+                </div>
+            </div>
             <a asp-page="/Home">
                 <img class="logo" src="~/img/favicon.png" />
             </a>
@@ -94,11 +101,6 @@
             <div class="nav_login flex_box">
                 <a id="sign_in" asp-area="Identity" asp-page="/Account/Login">Sign&nbspIn</a>
                 <a id="register" class="button" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                <div class="hamburger">
-                    <div class="hamburger_line hamburger_line1"></div>
-                    <div class="hamburger_line hamburger_line2"></div>
-                    <div class="hamburger_line hamburger_line3"></div>
-                </div>
             </div>
         }
     </nav>

@@ -33,24 +33,7 @@
   padding: 0.5px;
 }
 
-.hamburger.show {
-  transform: translate(-2px, 0);
-  padding-right: 10px;
-}
-.hamburger_line {
-  transition: transform 0.2s, opacity 0.2s, visibility 0.2s;
-}
-.hamburger.show .hamburger_line1 {
-  transform: translate(6px, 6.1px) rotate(45deg);
-}
-.hamburger.show .hamburger_line2 {
-  transform: translate(-20px, 0);
-  opacity: 0;
-  visibility: hidden;
-}
-.hamburger.show .hamburger_line3 {
-  transform: translate(6px, -5.5px) rotate(-45deg);
-}
+
 
 .theme_switcher {
   display: flex;

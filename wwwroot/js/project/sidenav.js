@@ -1,4 +1,3 @@
 
-const sidenav = document.querySelector(".sidenav");
-const hamburger = document.querySelector(".hamburger");
-eventHandler(hamburger, sidenav, "click");
+const switch_theme = document.querySelectorAll(".switch_theme");
+activeLooper(switch_theme, "navigation")

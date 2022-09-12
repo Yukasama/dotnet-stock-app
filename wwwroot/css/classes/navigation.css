@@ -8,7 +8,7 @@
 </div>
 */
 
-.hamburger {
+.hamburger, .hamburger_static {
   height: 18px;
   width: 20px;
   justify-content: space-around;
@@ -22,12 +22,26 @@
   width: 20px;
   background: var(--color-reverse);
 }
-.hamburger_line_active1 {
-  transform: rotate(45deg) translate(7px, 7px);
+
+.hamburger.show {
+    transform: translate(-2px, 0);
+    padding-right: 10px;
 }
-.hamburger_line_active2 {
-  opacity: 0;
+
+.hamburger_line {
+    transition: transform 0.2s, opacity 0.2s, visibility 0.2s;
 }
-.hamburger_line_active3 {
-  transform: rotate(-45deg) translate(6.2px, -6.2px);
+
+.hamburger.show .hamburger_line1 {
+    transform: translate(6px, 6.1px) rotate(45deg);
+}
+
+.hamburger.show .hamburger_line2 {
+    transform: translate(-20px, 0);
+    opacity: 0;
+    visibility: hidden;
+}
+
+.hamburger.show .hamburger_line3 {
+    transform: translate(6px, -5.5px) rotate(-45deg);
 }

@@ -7,6 +7,9 @@
 #sign_in {
     color: white !important;
 }
+.hamburger_container:hover {
+    background: var(--color-first-dark);
+}
 .hamburger_line {
     background: white !important;
 }
