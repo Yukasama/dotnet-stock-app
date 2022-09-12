@@ -13,6 +13,12 @@
 .hamburger_line {
     background: white !important;
 }
+.profile i {
+    color: white;
+}
+.profile:hover {
+    background: var(--color-third-dark);
+}
 
 .external_logins {
     display: flex;

@@ -55,54 +55,77 @@
                 <input class="input searchbar" placeholder="Search.." />
             </div>
         </div>
-        @if (SignInManager.IsSignedIn(User))
-        {
-            <div class="profile_wrapper">
-                <div class="profile flex_box">
-                    <i class="fa-solid fa-user"></i>
-                </div>
+
+        <div class="profile_wrapper">
+            <div class="search_icon_container flex_box">
+                <i class="fa-solid fa-search"></i>
             </div>
-            <div class="list profile_container">
+            <div class="profile flex_box">
+                @if (SignInManager.IsSignedIn(User)) 
+                {
+                    <i class="fa-solid fa-user"></i>
+                }
+                else 
+                {
+                    <i class="fa-solid fa-user-secret"></i>
+                }
+            </div>
+        </div>
+        <div class="list profile_container">
+            @if (SignInManager.IsSignedIn(User))
+            {
                 <div class="list_nolink">
                     <i class="fa-solid fa-user list_icon"></i>
                     <div class="list_container">
                         <!-- @User.Identity?.Name?.Split("@")[0].ToUpper() -->
-                    <small class="list_con_text user_name">Yukasama</small>
+                        <small class="list_con_text user_name">Yukasama</small>
                         <a class="list_con_text manage_account" asp-area="Identity" asp-page="/Account/Manage/Index"
-                        title="Manage">Manage Account</a>
+                       title="Manage">Manage Account</a>
+                    </div>
+                </div>
+            } 
+            else 
+            {
+                <div class="list_nolink register_container">
+                    <i class="fa-solid fa-user-secret list_icon"></i>
+                    <div class="list_container">
+                        <small class="list_con_text user_name">Not Logged In</small>
+                        <a class="list_con_text" id="register" asp-area="Identity" asp-page="/Account/Register"
+                       title="Register"><i class="fa-solid fa-plus"></i>Create Account</a>
                     </div>
                 </div>
                 <div class="list_separator"></div>
-                <a class="list_link dark_mode" title="Change Theme">
-                    <div class="dark_mode_icons">
-                        <i class="fa-solid fa-moon list_icon dark_icon"></i>
-                        <i class="fa-solid fa-sun list_icon light_icon"></i>
-                    </div>
-                    <p class="list_text">Theme</p>
+                <a class="list_link" id="sign_in" asp-area="Identity" asp-page="/Account/Login">
+                    <i class="fa-solid fa-arrow-right-to-bracket list_icon"></i>
+                    <p class="list_text">Sign&nbspIn</p>
                 </a>
-                <a class="list_link">
-                    <i class="fa-solid fa-flag list_icon"></i>
-                    <p class="list_text">Language</p>
-                </a>
+            }
+            <div class="list_separator"></div>
+            <a class="list_link dark_mode" title="Change Theme">
+                <div class="dark_mode_icons">
+                    <i class="fa-solid fa-moon list_icon dark_icon"></i>
+                    <i class="fa-solid fa-sun list_icon light_icon"></i>
+                </div>
+                <p class="list_text">Theme</p>
+            </a>
+            <a class="list_link">
+                <i class="fa-solid fa-flag list_icon"></i>
+                <p class="list_text">Language</p>
+            </a>
+            @if (SignInManager.IsSignedIn(User)) 
+            {
                 <a class="list_link" href="">
                     <i class="fa-solid fa-gear list_icon"></i>
                     <p class="list_text">Settings</p>
                 </a>
                 <div class="list_separator"></div>
                 <form class="list_link list_form" asp-area="Identity" asp-page="/Account/Logout"
-                asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="POST">
+                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="POST">
                     <i class="fa-solid fa-arrow-right-from-bracket list_icon"></i>
                     <button type="submit" class="list_text">Logout</button>
                 </form>
-            </div>
-        }
-        else
-        {
-            <div class="nav_login flex_box">
-                <a id="sign_in" asp-area="Identity" asp-page="/Account/Login">Sign&nbspIn</a>
-                <a id="register" class="button" asp-area="Identity" asp-page="/Account/Register">Register</a>
-            </div>
-        }
+            }
+        </div>
     </nav>
 
     <div class="sidenav">

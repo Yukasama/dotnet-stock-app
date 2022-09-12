@@ -39,6 +39,7 @@
     background: var(--color-theme-contrast);
     border: var(--color-light) 1px solid;
     margin-bottom: 3px;
+    color: var(--color-reverse) !important;
 }
 .form_input:focus {
     background: var(--color-theme-contrast);

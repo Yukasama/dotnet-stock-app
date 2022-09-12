@@ -53,12 +53,7 @@
 .list_con_text {
     font-size: 14px;
 }
-.user_name {
-    font-size: 16px;
-}
-.manage_account {
-    color: var(--color-first);
-}
+
 
 .list_path {
     height: 40px;

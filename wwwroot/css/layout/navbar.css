@@ -16,7 +16,7 @@
   justify-content: flex-start;
 }
 .hamburger_container {
-  margin: 0 60px;
+  margin: 0 10%;
   height: 50px;
   width: 50px;
   border-radius: 50%;
@@ -24,6 +24,9 @@
 }
 .hamburger_container:hover {
   background: var(--color-theme-contrast);
+}
+.hamburger {
+    display: flex;
 }
 .logo {
   height: 55px;
@@ -57,6 +60,20 @@
   transform: translate(0, 0.5px);
 }
 
+.search_icon_container {
+    display: none;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.search_icon_container:hover {
+    background: var(--color-theme-contrast);
+}
+.search_icon_container i {
+    font-size: 20px;
+}
+
 .profile_wrapper {
   flex: 1;
   display: flex;
@@ -84,23 +101,58 @@
   display: flex;
 }
 
-.nav_login {
-  flex: 1;
-  gap: 30px;
+.register_container {
+    height: 70px;
 }
-.hamburger {
+#register {
+    background: var(--color-first);
+    color: white;
+    font-size: 15px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 10px;
+    margin: 7px 0 5px 0;
+}
+#register:hover {
+    background: var(--color-first-dark);
+}
+#register i {
+    margin: 0 7px 2px 0;
+    font-size: 17px;
+    color: white;
+}
+.user_name {
+    font-size: 16px;
+}
+.manage_account {
+    color: var(--color-first);
 }
 
+
+
 @media screen and (max-width: 768px) {
+  .logo {
+      height: 45px;
+      width: 45px;
+  }
+  .hamburger_container {
+      margin: 0 8% 0 9%;
+  }
+  .profile_wrapper {
+      justify-content: flex-end;  
+  }
+  .profile {
+      margin: 0 12% 0 5%;
+  }
   .searchbar_container {
-      flex: 3;
+      display: none;
+  }
+  .search_icon_container {
+      display: flex;
   }
   .searchbar {
     width: 80%;
     padding: 5px 10px;
-  }
-  #sign_in, #register {
-      display: none;
   }
 }
