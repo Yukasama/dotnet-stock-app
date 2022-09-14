@@ -33,6 +33,12 @@
         }
 
         string[] singleUrls = path.Split("/");
+        string[] weirdRedirectUrls = { "?page=%2F" };
+        foreach(string url in singleUrls) {
+            if (url.Contains(weirdRedirectUrls[0])) {
+                url.Replace(weirdRedirectUrls[0], string.Empty);
+            }
+        }
 
         string tempUrls = "";
         var combinedUrlsList = new List<string>();
@@ -159,7 +165,7 @@
             </p>
         </a>
         <div class="list_separator"></div>
-        <a class="list_link" asp-page="/Home">
+        <a class="list_link" href="/Home">
             <i class="fa-solid fa-home list_icon"></i>
             <p class="list_text">Home</p>
         </a>
