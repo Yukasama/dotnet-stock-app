@@ -1,12 +1,12 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Symbol";
 }
 
-haha
 
-
-
+@foreach (var h in Model.data.Data)
+ {
+     <p>h.Date</p>
+ }
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

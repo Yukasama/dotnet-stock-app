@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Obliviate.Data;
+using Obliviate.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -21,6 +22,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequiredLength = 8;
 });
+
+builder.Services.AddScoped<StockManager, StockData>();
 
 builder.Services.AddAuthentication()
    .AddGoogle(options =>
