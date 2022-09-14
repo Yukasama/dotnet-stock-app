@@ -27,16 +27,17 @@
 
     @{
         var path = @Context.Request.Path.ToString();
-
-        if (path == "/") {
+        if (path == "/")
+        {
             path = "";
         }
 
         string[] singleUrls = path.Split("/");
-        
+
         string tempUrls = "";
         var combinedUrlsList = new List<string>();
-        for (int i = 0; i < singleUrls.Length; i++) {  
+        for (int i = 0; i < singleUrls.Length; i++)
+        {
             tempUrls += $"{singleUrls[i]}/";
             combinedUrlsList.Add(tempUrls);
         }
@@ -76,11 +77,11 @@
                 <i class="fa-solid fa-search"></i>
             </div>
             <div class="profile flex_box">
-                @if (SignInManager.IsSignedIn(User)) 
+                @if (SignInManager.IsSignedIn(User))
                 {
                     <i class="fa-solid fa-user"></i>
                 }
-                else 
+                else
                 {
                     <i class="fa-solid fa-user-secret"></i>
                 }
@@ -95,18 +96,18 @@
                         <!-- @User.Identity?.Name?.Split("@")[0].ToUpper() -->
                         <small class="list_con_text user_name">Yukasama</small>
                         <a class="list_con_text manage_account" asp-area="Identity" asp-page="/Account/Manage/Index"
-                       title="Manage">Manage Account</a>
+                           title="Manage">Manage Account</a>
                     </div>
                 </div>
-            } 
-            else 
+            }
+            else
             {
                 <div class="list_nolink register_container">
                     <i class="fa-solid fa-user-secret list_icon"></i>
                     <div class="list_container">
                         <small class="list_con_text user_name">Not Logged In</small>
                         <a class="list_con_text" id="register" asp-area="Identity" asp-page="/Account/Register"
-                       title="Register"><i class="fa-solid fa-plus"></i>Create Account</a>
+                           title="Register"><i class="fa-solid fa-plus"></i>Create Account</a>
                     </div>
                 </div>
                 <div class="list_separator"></div>
@@ -127,7 +128,7 @@
                 <i class="fa-solid fa-flag list_icon"></i>
                 <p class="list_text">Language</p>
             </a>
-            @if (SignInManager.IsSignedIn(User)) 
+            @if (SignInManager.IsSignedIn(User))
             {
                 <a class="list_link" href="">
                     <i class="fa-solid fa-gear list_icon"></i>
@@ -135,7 +136,7 @@
                 </a>
                 <div class="list_separator"></div>
                 <form class="list_link list_form" asp-area="Identity" asp-page="/Account/Logout"
-                  asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="POST">
+                      asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="POST">
                     <i class="fa-solid fa-arrow-right-from-bracket list_icon"></i>
                     <button type="submit" class="list_text">Logout</button>
                 </form>
@@ -144,115 +145,107 @@
     </nav>
 
 
-    @if (!cleanPaths.Contains(path))
-    {
-        <div class="sidebar list">
-            <a class="list_nolink list_path" title="Current Path: @path">
-                <i class="fa-solid fa-shoe-prints list_icon"></i>
-                <p class="page_path">
-                    @for (int i = 0; i < singleUrls.Length; i++) {
-                        if (singleUrls[i] != "") {
-                            <a href="@combinedUrls[i]" class="page_path_part">/@singleUrls[i]</a>
-                        }   
+    <div class="sidebar list">
+        <a class="list_nolink list_path" title="Current Path: @path">
+            <i class="fa-solid fa-shoe-prints list_icon"></i>
+            <p class="page_path">
+                @for (int i = 0; i < singleUrls.Length; i++)
+                {
+                    if (singleUrls[i] != "")
+                    {
+                        <a href="@combinedUrls[i]" class="page_path_part">/@singleUrls[i]</a>
                     }
-                </p>
-            </a>
-            <div class="list_separator"></div>
-            <a class="list_link" asp-page="/Home">
-                <i class="fa-solid fa-home list_icon"></i>
-                <p class="list_text">Home</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-signal list_icon"></i>
-                <p class="list_text">Portfolio</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-eye list_icon"></i>
-                <p class="list_text">Watchlist</p>
-            </a>
-            <div class="list_separator"></div>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-calendar list_icon"></i>
-                <p class="list_text">Calendar</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-list-check list_icon"></i>
-                <p class="list_text">Portfolio Manager</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-chart-line list_icon"></i>
-                <p class="list_text">Algorithm</p>
-            </a>
-            <div class="list_separator"></div>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-            <a href="" class="list_link">
-                <i class="fa-solid fa-graduation-cap list_icon"></i>
-                <p class="list_text">Education</p>
-            </a>
-        </div>
+                }
+            </p>
+        </a>
+        <div class="list_separator"></div>
+        <a class="list_link" asp-page="/Home">
+            <i class="fa-solid fa-home list_icon"></i>
+            <p class="list_text">Home</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-signal list_icon"></i>
+            <p class="list_text">Portfolio</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-eye list_icon"></i>
+            <p class="list_text">Watchlist</p>
+        </a>
+        <div class="list_separator"></div>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-calendar list_icon"></i>
+            <p class="list_text">Calendar</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-list-check list_icon"></i>
+            <p class="list_text">Portfolio Manager</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-chart-line list_icon"></i>
+            <p class="list_text">Algorithm</p>
+        </a>
+        <div class="list_separator"></div>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+        <a href="" class="list_link">
+            <i class="fa-solid fa-graduation-cap list_icon"></i>
+            <p class="list_text">Education</p>
+        </a>
+    </div>
 
-        <div class="content_area">
-            <main role="main" class="">
-                @RenderBody()
-            </main>
-        </div>
 
-        <footer class="footer">
-            Terms & Conditions
-            Privacy
-        </footer>
-    }
-    else
-    {
-        <div class="content">
-            <main role="main">
-                @RenderBody()
-            </main>
-        </div>
-    }
+    <div class="content">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        Terms & Conditions
+        Privacy
+    </footer>
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

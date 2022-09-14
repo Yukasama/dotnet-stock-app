@@ -169,22 +169,11 @@ namespace Obliviate.Controllers
             return View(stock);
         }
 
-        //GET Stocks/<Ticker>
-        public async Task<IActionResult> Default(string symbol)
+
+        //GET Stocks/Symbol
+        public IActionResult Symbol()
         {
-            if (symbol == null || _context.Stock == null)
-            {
-                return NotFound();
-            }
-
-            var stock = await _context.Stock
-                .FirstOrDefaultAsync(m => m.Name == symbol);
-            if (stock == null)
-            {
-                return NotFound();
-            }
-
-            return View(stock);
+            return View();
         }
 
 
