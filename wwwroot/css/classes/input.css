@@ -27,9 +27,6 @@
   height: 100%;
   background: transparent;
 }
-.input + i {
-  opacity: 0;
-}
 .input::placeholder {
   font-weight: 400;
 }

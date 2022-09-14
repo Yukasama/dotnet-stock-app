@@ -1,4 +1,7 @@
-﻿.navbar {
+﻿body {
+    overflow: hidden;
+}
+.navbar {
     background: transparent !important;
 }
 .logo {
@@ -16,8 +19,11 @@
 .profile i {
     color: white;
 }
-.profile:hover {
+.profile:hover, .search_icon_container:hover {
     background: var(--color-third-dark);
+}
+.search_icon_container i {
+    color: white;
 }
 
 .external_logins {

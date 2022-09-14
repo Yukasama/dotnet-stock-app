@@ -59,8 +59,16 @@
     height: 40px;
 }
 .page_path {
+    position: absolute;
+    margin-left: 64px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+.page_path_part {
     font-size: 14px;
     color: var(--color-first);
+    text-decoration: none;
 }
 
 .list_form button {
