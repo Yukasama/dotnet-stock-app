@@ -10,6 +10,6 @@ namespace Obliviate.Data
             : base(options)
         {
         }
-        public DbSet<Obliviate.Models.Stocks.IncomeStatement>? IncomeStatement { get; set; }
+        public DbSet<Models.Stocks.IncomeStatement>? IncomeStatement { get; set; }
     }
 }

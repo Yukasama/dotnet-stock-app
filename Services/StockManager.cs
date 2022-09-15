@@ -1,5 +1,6 @@
 ﻿using Obliviate.Models.Stocks;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Obliviate.Services
 {
