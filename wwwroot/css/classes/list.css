@@ -1,6 +1,6 @@
 ﻿.list {
     width: var(--width-sidebar);
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    box-shadow: 0 1px 10px rgb(0 0 0 / 0.1);
     padding: 10px;
     display: flex;
     flex-direction: column;

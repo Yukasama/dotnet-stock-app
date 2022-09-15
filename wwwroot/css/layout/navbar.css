@@ -1,13 +1,14 @@
 ﻿.navbar {
-  height: var(--height-navbar);
-  width: 100%;
-  background: var(--color-theme);
-  align-items: center;
-  display: flex;
-  flex-wrap: nowrap;
-  position: fixed;
-  transition: height 0.2s;
-  z-index: 10;
+    height: var(--height-navbar);
+    width: 100%;
+    background: var(--color-theme);
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    position: fixed;
+    transition: height 0.2s;
+    z-index: 10;
+    box-shadow: 0 1px 10px rgb(0 0 0 / 0.1);
 }
 .logo_container {
   flex: 1;
