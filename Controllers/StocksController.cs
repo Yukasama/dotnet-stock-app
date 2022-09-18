@@ -29,6 +29,7 @@ namespace Obliviate.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    System.Diagnostics.Debug.WriteLine("####success");
                     db.IncomeStatement.Add(incomeStatement);
                     db.SaveChanges();
                 }
