@@ -39,18 +39,6 @@
         </div>
 
         <div class="metrics stock_item">
-            <div class="metrics_link">
-                <div class="metrics_text">P/E Ratio</div>
-                <div class="metrics_value">23.49</div>
-            </div>
-            <div class="metrics_link">
-                <div class="metrics_text">EPS</div>
-                <div class="metrics_value">11.92</div>
-            </div>
-            <div class="metrics_link">
-                <div class="metrics_text">Profit Margin</div>
-                <div class="metrics_value">20.52%</div>
-            </div>
         </div>
 
         <div class="evaluations stock_item">
@@ -101,7 +89,7 @@
                     <img src="~/img/favicon.png">
                 </div>
                 <div class="list_text_container">Company</div>
-                <div class="list_price_container">Price Change</div>
+                <div class="list_price_container">Price</div>
                 <div class="list_attribute_container">P/E Ratio</div>
                 <div class="list_attribute_container">EPS</div>
             </a>
@@ -158,8 +146,6 @@
         <div class="separator_text">Fundamental Charts</div>
         <div class="separator_line"></div>
     </div>
-    
-
     <div class="statistics flex_swap">
         <div class="statistics_chart stock_item">
             <canvas id="chart_margin" ></canvas>
@@ -173,7 +159,65 @@
     </div>
 
 
-    <div class="financials stock_item"></div>
+    <div class="separator">
+        <div class="separator_line"></div>
+        <div class="separator_text">Financial Overview</div>
+        <div class="separator_line"></div>
+    </div>
+    <div class="financials stock_item">
+        <div class="financials_config">
+            <div class="financials_controls_container">
+                <div class="separator">
+                    <div class="separator_line"></div>
+                    <div class="separator_text">Type</div>
+                    <div class="separator_line"></div>
+                </div>
+                <div class="financials_controls flex">
+                    <div class="financial_control active">Quick View</div>
+                    <div class="financial_control">Income Statement</div>
+                    <div class="financial_control">Balance Sheet</div>
+                    <div class="financial_control">Cashflow</div>
+                </div>
+            </div>
+            <div class="financials_display_container">
+                <div class="separator">
+                    <div class="separator_line"></div>
+                    <div class="separator_text">Theme</div>
+                    <div class="separator_line"></div>
+                </div>
+                <div class="financials_display flex">
+                    <div class="financial_display active">Normal</div>
+                    <div class="financial_display">Colored</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="financials_view active list">
+            <div class="list_link">
+                <div class="financials_header">Revenue</div>
+                <div class="financials_text">$238297</div>
+            </div>
+        </div>
+        <div class="financials_view list">
+            <div class="list_link">
+                <div class="financials_header">Revenue</div>
+                <div class="financials_text">$238297</div>
+            </div>
+        </div>
+        <div class="financials_view list">
+            <div class="list_link">
+                <div class="financials_header">Revenue</div>
+                <div class="financials_text">$238298</div>
+            </div>
+        </div>
+        <div class="financials_view list">
+            <div class="list_link">
+                <div class="financials_header">Revenue</div>
+                <div class="financials_text">$238297</div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
@@ -181,7 +225,7 @@
 <script>
     const stock_chart = document.getElementById('stock_chart');
     const stock_chart1 = new Chart(stock_chart, {
-        type: "bar",
+        type: "line",
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
@@ -233,64 +277,50 @@
 
     const chart_ratio = document.getElementById('chart_ratio');
     const chart_ratio1 = new Chart(chart_ratio, {
-        type: "bar",
+        type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: [2015, 2016, 2017, 2018, 2019, 2020, 2021],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
+                label: "EPS",
+                data: [2015, 2016, 2017, 2018, 2019, 2020, 2021],
+                backgroundColor: "rgb(110, 255, 255)",
+                borderColor: "rgb(110, 255, 255, 0.3)",
+            }, {
+                label: "P/B Ratio",
+                data: [2014, 2015, 2016, 2017, 2018, 2019, 2021],
+                backgroundColor: "rgb(110, 255, 0)",
+                borderColor: "rgb(110, 255, 0, 0.3)",
+            }, {
+                label: "P/E Ratio",
+                data: [1, 2, 3, 4, 5, 6, 7],
+                backgroundColor: "rgb(138, 48, 255)",
+                borderColor: "rgb(138, 48, 255, 0.3)",
+                yAxisID: "right",
+            },],
         },
-        options: chartConfig(),
+        options: chartConfig("normal", true, "rgb(138, 48, 255)"),
     });
 
     const chart_dividend = document.getElementById('chart_dividend');
     const chart_dividend1 = new Chart(chart_dividend, {
-        type: "bar",
+        type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: [2014, 2015, 2016, 2017, 2018, 2019, 2021],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
+                label: "Dividend in %",
+                data: [2014, 2015, 2016, 2017, 2018, 2019, 2021],
+                backgroundColor: "rgb(20, 150, 255)",
+                borderColor: "rgb(20, 150, 255, 0.3)",
+                yAxisID: "right",
+            }, {
+                label: "Payout Ratio",
+                data: [2015, 2016, 2017, 2018, 2019, 2020, 2021],
+                backgroundColor: "rgb(144, 0, 255)",
+                borderColor: "rgb(144, 0, 255, 0.4)",
             }]
         },
-        options: chartConfig(),
+        options: chartConfig("pct", true, "rgb(20, 150, 255)"),
     });
-
 
 </script>
 

@@ -31,10 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\js\project\components\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
     <None Remove="Microsoft.AspNetCore.Razor.Runtime" />
     <None Remove="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" />

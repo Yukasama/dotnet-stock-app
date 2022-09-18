@@ -64,11 +64,11 @@
     display: flex;
 }
 .stock_price_icon {
-    font-size: 25px;
+    font-size: 24px;
     margin-bottom: 2px;
 }
 .stock_price {
-    font-size: 2em;
+    font-size: 1.9em;
 }
 .stock_price_container, .stock_percent_container {
     display: flex;
@@ -102,33 +102,20 @@
     background: rgb(255 0 0 / 0.1);
     height: 20px;
     width: 20px;
-    font-size: 13px;
+    font-size: 10px;
     margin: 0 6px;
 }
 
 
 .metrics {
-    width: 25%;
+    width: 29%;
     padding: 15px 22px;
     height: 100%;
-}
-.metrics_link {
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
-}
-.metrics_text {
-    color: var(--color-text-theme);
-    width: 130px;
-}
-.metrics_value {
-    font-size: 1.35em;
-    color: var(--color-second);
 }
 
 .evaluations {
     height: 100%;
-    width: 40%;
+    width: 36%;
     padding: 15px 22px;
     display: flex;
     align-items: center;
@@ -259,7 +246,7 @@
     font-size: 12px;
 }
 .list_attribute_container {
-    width: 100px;
+    width: 120px;
 }
 
 
@@ -272,6 +259,40 @@
 .statistics_chart canvas {
     transform: scale(0.94);
 }
+
+
+.financials {
+    padding: 15px 20px;
+}
+.financials_config {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+.financial_control, .financial_display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--color-light);
+    height: 50px;
+    width: 200px;
+    cursor: pointer;
+}
+.financial_control.active {
+    background: var(--color-first);
+    color: white;
+}
+.financial_display.active {
+    background: var(--color-third);
+}
+.financials_view {
+    display: none;
+    margin-top: 50px;
+}
+.financials_view.active {
+    display: flex;
+}
+
 
 
 
