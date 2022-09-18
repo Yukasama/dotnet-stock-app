@@ -38,6 +38,14 @@
     margin: 20px 20px 20px 0;
 }
 
+.list_img {
+    margin: 20px;
+}
+.list_img img {
+    height: 30px;
+    width: 30px;
+}
+
 .list_separator {
     height: 1px;
     width: 245px;
@@ -57,6 +65,7 @@
 
 .list_path {
     height: 40px;
+    background: var(--color-first);
 }
 .page_path {
     position: absolute;
@@ -67,8 +76,12 @@
 }
 .page_path_part {
     font-size: 14px;
-    color: var(--color-first);
+    color: white;
     text-decoration: none;
+}
+.page_path_part:hover {
+    text-decoration: underline;
+    color: white;
 }
 
 .list_form button {
@@ -111,4 +124,3 @@
 .list_link:hover > .dark_mode_icons > .light_icon {
     color: var(--color-first);
 }
-

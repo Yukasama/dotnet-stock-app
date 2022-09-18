@@ -23,6 +23,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 8;
 });
 
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
 builder.Services.AddScoped<StockManager, StockData>();
 
 builder.Services.AddAuthentication()

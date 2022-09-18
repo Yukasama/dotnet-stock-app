@@ -1,6 +1,10 @@
 ﻿body {
     overflow: hidden;
 }
+.content {
+    transform: translate(0px, 0px);
+}
+
 .navbar {
     background: transparent !important;
 }

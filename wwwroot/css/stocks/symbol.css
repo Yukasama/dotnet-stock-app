@@ -1,2 +1,278 @@
-﻿body {
+﻿.symbol {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+}
+.stock_item {
+    background: var(--color-theme-contrast);
+    border-radius: 5px;
+}
+.flex_swap {
+    display: flex;
+    gap: 12px;
+}
+
+
+.stock {
+    display: flex;
+    align-items: center;
+    height: 150px;
+}
+.stock_symbol {
+    padding: 15px 22px;
+    align-items: center;
+    display: flex;
+    gap: 30px;
+    width: 35%;
+    height: 100%;
+}
+.stock_logo img {
+    height: 80px;
+    width: 80px;
+}
+
+.stock_info {
+    display: flex;
+    flex-direction: column;
+}
+.stock_name {
+    font-size: 1.4em;
+}
+.stock_ticker {
+    color: var(--color-text-theme);
+}
+.separator {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.separator_line {
+    height: 1px;
+    margin: 5px 0;
+    background: var(--color-separator);
+    flex: 2;
+}
+.separator_text {
+    color: var(--color-separator);
+    text-align: center;
+    margin: 0 10px;
+}
+
+.stock_change_container {
+    display: flex;
+}
+.stock_price_icon {
+    font-size: 25px;
+    margin-bottom: 2px;
+}
+.stock_price {
+    font-size: 2em;
+}
+.stock_price_container, .stock_percent_container {
+    display: flex;
+    align-items: center;
+}
+.stock_price_container {
+    margin-right: 10px;
+}
+.stock_percent_icon, .stock_percent {
+    color: rgb(49, 255, 114);
+}
+.stock_percent_icon {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background: rgb(49, 255, 114, 0.1);
+}
+.stock_percent {
+    font-size: 0.95em;
+    border-radius: 5px;
+    margin: 6px 0 0 5px;
+}
+
+.metrics {
+    width: 25%;
+    padding: 15px 22px;
+    height: 100%;
+}
+.metrics_link {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+.metrics_text {
+    color: var(--color-text-theme);
+    width: 130px;
+}
+.metrics_value {
+    font-size: 1.35em;
+    color: var(--color-second);
+}
+
+.evaluations {
+    height: 100%;
+    width: 40%;
+    padding: 15px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.evaluations_first {
+    display: flex;
+    padding-top: 5px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.evaluations_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+.evaluations_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+.evaluations_numbers, .evaluations_headers {
+    justify-content: space-between;
+}
+.evaluations_number, .evaluations_header {
+    text-align: center;
+}
+.evaluations_number {
+    font-size: 1.1em;
+}
+.evaluations_eye_num {
+    font-size: 1.4em;
+}
+.evaluations_header {
+    color: var(--color-text-theme);
+    font-size: 0.9em;
+}
+.evaluations_eye {
+    color: var(--color-first);
+}
+.evaluations_bar {
+    width: 65%;
+    min-width: 300px;
+    height: 3px;
+    background: var(--color-light);
+}
+.evaluations_progress {
+    height: 100%;
+    width: 65%;
+    background: var(--color-first);
+}
+.evaluations_description {
+    display: flex;
+    width: 60%;
+    min-width: 300px;
+    justify-content: space-between;
+    margin: 2px 0 10px 0;
+}
+.evaluations_text {
+    color: var(--color-text-theme);
+    font-size: 0.7em;
+}
+.separator_vertical {
+    padding: 0 0.5px;
+    height: 100%;
+    margin: 0 10%;
+    background: var(--color-separator);
+}
+
+
+.chart_competitors {
+    display: flex;
+}
+.chart {
+    width: 60%;
+}
+.chart canvas {
+    transform: scale(0.94);
+}
+
+
+.competitors {
+    width: 40%;
+    gap: 10px;
+}
+.list_headers {
+    background: var(--color-first);
+}
+.list_headers .list_img {
+    opacity: 0;
+}
+.list_headers * {
+    font-size: 1.05em;
+}
+.list_text {
+    width: 200px;
+}
+.list_price {
+    width: 100px;
+}
+.list_gain {
+    width: 150px;
+    display: flex;
+    align-items: center;
+}
+.list_gain .stock_percent_icon {
+    height: 27px;
+    width: 27px;
+    font-size: 14px;
+}
+.list_gain .stock_percent {
+    margin: 0 0 0 6px;
+    font-size: 15px;
+}
+
+
+.statistics {
+    display: flex;
+}
+.statistics_chart {
+    width: 33%;
+}
+.statistics_chart canvas {
+    transform: scale(0.94);
+}
+
+
+
+
+@media screen and (max-width: 1100px) {
+    .flex_swap {
+        flex-direction: column;
+    }
+    .flex_swap > * {
+        width: 100%;
+    }
+
+    .stock {
+        height: 600px;
+    }
+    .stock_logo {
+        margin: 0;
+    }
+    .evaluations {
+        flex-direction: column;
+    }
+    .evaluations_first {
+        width: 70%;
+    }
+    .evaluations_bar, .evaluations_progress {
+        width: 95%;
+    }
+    .separator_vertical {
+        width: 100%;
+        padding: 0.5px 0;
+        margin: 20px;
+    }
+
 }

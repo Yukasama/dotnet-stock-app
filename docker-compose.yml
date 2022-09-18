@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  obliviate:
+    image: ${DOCKER_REGISTRY-}obliviate
+    build:
+      context: .
+      dockerfile: ./Dockerfile

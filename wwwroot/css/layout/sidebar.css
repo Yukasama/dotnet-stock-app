@@ -12,6 +12,7 @@
 }
 
 
+
 @media screen and (max-width: 768px) {
     .sidebar {
         width: 86px !important;
@@ -21,5 +22,9 @@
     }
     .sidebar .list_link .list_icon, .sidebar .list_nolink .list_icon {
         justify-content: center;
+    }
+
+    .page_path {
+        display: none;
     }
 }
