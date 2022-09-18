@@ -10,7 +10,7 @@
 
         <div class="stock_symbol stock_item">
             <a href="https://www.apple.com" target="_" class="stock_logo">
-                <img src="~/img/favicon.png">
+                <img src="~/img/favicon.jpg">
             </a>
             <div class="stock_info">
                 <div class="stock_name">Apple Inc.</div>
@@ -26,6 +26,13 @@
                     <div class="stock_percent_container">
                         <i class="fa-solid fa-arrow-trend-up stock_percent_icon flex_box"></i>
                         <div class="stock_percent">+14.43 (7.23%)</div>
+                    </div>
+                </div>
+                <div class="stock_after flex">
+                    <div class="stock_after_price">After Hours: $156.89</div>
+                    <div class="stock_after_container flex">
+                        <i class="fa-solid fa-arrow-trend-down stock_percent_icon stock_after_icon flex_box"></i>
+                        <div class="stock_after_percent">-9.43 (-5.63%)</div>
                     </div>
                 </div>
             </div>
@@ -87,37 +94,60 @@
     <div class="chart_competitors flex_swap">
         <div class="chart stock_item">
             <canvas id="stock_chart"></canvas>
-        </div> 
+        </div>
         <div class="competitors stock_item list">
             <a class="list_nolink list_headers">
                 <div class="list_img">
                     <img src="~/img/favicon.png">
                 </div>
-                <div class="list_text">Company</div>
-                <div class="list_text list_price">Price</div>
-                <div class="list_gain">Gain/Loss</div>
+                <div class="list_text_container">Company</div>
+                <div class="list_price_container">Price Change</div>
+                <div class="list_attribute_container">P/E Ratio</div>
+                <div class="list_attribute_container">EPS</div>
             </a>
             <a class="list_link">
                 <div class="list_img">
-                    <img src="~/img/favicon.png">
-                </div>
-                <div class="list_text">Apple Inc.</div>
-                <div class="list_text list_price">$156.83</div>
-                <div class="list_text list_gain">
-                    <i class="fa-solid fa-arrow-trend-up stock_percent_icon flex_box"></i>
-                    <div class="stock_percent">+14.43 (7.23%)</div>
-                </div>
-            </a>
-            <a class="list_link">
-                <div class="list_img">
-                    <img src="~/img/favicon.png">
+                    <img src="~/img/favicon.jpg">
                 </div>                
-                <div class="list_text">Microsoft Inc.</div>
-                <div class="list_text list_price">$156.83</div>
-                <div class="list_text list_gain">
+                <div class="list_text_container">
+                    <div class="list_ticker">AAPL</div>
+                    <div class="list_name">Apple Inc.</div>
+                </div>
+                <div class="list_price_container flex">
                     <i class="fa-solid fa-arrow-trend-up stock_percent_icon flex_box"></i>
-                    <div class="stock_percent">+14.43 (7.23%)</div>
-                </div>            
+                    <div class="list_price_wrapper">
+                        <div class="list_price">$156.83</div>
+                        <div class="stock_percent">+14.43 (7.23%)</div>
+                    </div>
+                </div>
+                <div class="list_attribute_container">
+                    <div class="list_attribute">23.15</div>
+                </div>
+                <div class="list_attribute_container">
+                    <div class="list_attribute">$4.12</div>
+                </div>
+            </a>
+            <a class="list_link">
+                <div class="list_img">
+                    <img src="~/img/favicon.jpg">
+                </div>                
+                <div class="list_text_container">
+                    <div class="list_ticker">MSFT</div>
+                    <div class="list_name">Microsoft Inc.</div>
+                </div>
+                <div class="list_price_container flex">
+                    <i class="fa-solid fa-arrow-trend-up stock_percent_icon flex_box"></i>
+                    <div class="list_price_wrapper">
+                        <div class="list_price">$156.83</div>
+                        <div class="stock_percent">+14.43 (7.23%)</div>
+                    </div>
+                </div>
+                <div class="list_attribute_container">
+                    <div class="list_attribute">19.85</div>
+                </div>  
+                <div class="list_attribute_container">
+                    <div class="list_attribute">$19.83</div>
+                </div>     
             </a>
         </div>
     </div>
@@ -158,12 +188,12 @@
                 label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',

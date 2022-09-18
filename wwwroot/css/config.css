@@ -24,6 +24,7 @@
     --color-third: rgb(156, 14, 221);
     --color-third-dark: rgb(124, 20, 196);
     --color-third-light: rgb(193, 70, 255);
+    --color-gain: rgb(0, 196, 62);
     /* LAYOUT SIZES */
     --height-navbar: 80px;
     --width-sidebar: 280px;
@@ -44,6 +45,7 @@
     /* COLOR VARIATIONS */
     --color-first: rgb(19, 145, 218);
     --color-first-dark: rgb(10, 71, 161);
+    --color-gain: rgb(49, 255, 114);
 }
 
 

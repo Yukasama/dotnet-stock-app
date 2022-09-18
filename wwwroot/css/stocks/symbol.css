@@ -17,7 +17,7 @@
 .stock {
     display: flex;
     align-items: center;
-    height: 150px;
+    height: 160px;
 }
 .stock_symbol {
     padding: 15px 22px;
@@ -28,8 +28,9 @@
     height: 100%;
 }
 .stock_logo img {
-    height: 80px;
-    width: 80px;
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
 }
 
 .stock_info {
@@ -77,7 +78,7 @@
     margin-right: 10px;
 }
 .stock_percent_icon, .stock_percent {
-    color: rgb(49, 255, 114);
+    color: var(--color-gain);
 }
 .stock_percent_icon {
     border-radius: 50%;
@@ -90,6 +91,21 @@
     border-radius: 5px;
     margin: 6px 0 0 5px;
 }
+.stock_after_price, .stock_after_percent {
+    font-size: 0.8em;
+}
+.stock_after_percent {
+    color: red;
+}
+.stock_after_icon {
+    color: red;
+    background: rgb(255 0 0 / 0.1);
+    height: 20px;
+    width: 20px;
+    font-size: 13px;
+    margin: 0 6px;
+}
+
 
 .metrics {
     width: 25%;
@@ -198,9 +214,15 @@
 }
 
 
+
+
 .competitors {
     width: 40%;
     gap: 10px;
+    box-shadow: 0 0 rgb(0 0 0 / 0);
+}
+.competitors .list_link {
+    height: 60px;
 }
 .list_headers {
     background: var(--color-first);
@@ -210,26 +232,34 @@
 }
 .list_headers * {
     font-size: 1.05em;
+    color: white;
 }
-.list_text {
-    width: 200px;
+.list_text_container {
+    width: 130px;
 }
-.list_price {
-    width: 100px;
+.list_img img {
+    border-radius: 3px;
 }
-.list_gain {
-    width: 150px;
-    display: flex;
+.list_name {
+    color: var(--color-text-theme);
+    font-size: 0.8em;
+}
+.list_price_container {
+    width: 160px;
     align-items: center;
 }
-.list_gain .stock_percent_icon {
-    height: 27px;
-    width: 27px;
-    font-size: 14px;
+.list_price_container .stock_percent_icon {
+    height: 23px;
+    width: 23px;
+    font-size: 12px;
+    margin: 7px 7px 7px 0;
 }
-.list_gain .stock_percent {
+.list_price_wrapper .stock_percent {
     margin: 0 0 0 6px;
-    font-size: 15px;
+    font-size: 12px;
+}
+.list_attribute_container {
+    width: 100px;
 }
 
 

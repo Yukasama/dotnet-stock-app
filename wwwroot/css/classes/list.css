@@ -67,6 +67,9 @@
     height: 40px;
     background: var(--color-first);
 }
+.list_path .list_icon {
+    color: white;
+}
 .page_path {
     position: absolute;
     margin-left: 64px;
