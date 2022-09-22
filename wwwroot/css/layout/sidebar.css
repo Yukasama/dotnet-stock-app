@@ -5,11 +5,11 @@
     overflow-y: auto;
     overflow-x: hidden;
     height: calc(100vh - 80px);
-    display: none;
+    transform: translate(-100%, 0);
+    transition: transform 0.225s ease-in-out;
 }
 .sidebar.show {
-    display: flex;
-}
+    transform: translate(0, 0);}
 
 
 

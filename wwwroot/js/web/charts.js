@@ -90,11 +90,11 @@ function chartConfig(args="normal", right=false, rightColor='grey', sole=false, 
 }
 
 
-function basicChart(chartClass, chartObject, chartType, chartColor, chartData) {
+function basicChart(chartClass, chartObject, chartType, chartColor, chartLabel, chartData) {
   chartObject = new Chart(chartClass, {
     type: chartType,
     data: {
-      labels: years,
+      labels: chartLabel,
       datasets: [{
         data: chartData,
         backgroundColor: chartColor,
