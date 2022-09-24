@@ -338,13 +338,31 @@
     width: 300px;
 }
 .financials_sideheader i {
-    font-size: 20px;
+    font-size: 15px;
     margin: 10px;
     padding: 5px;
     cursor: pointer;
 }
+.info_box {
+    visibility: hidden;
+    opacity: 0;
+    height: 0px;
+    transition: visibility 0.2s, opacity 0.2s, height 0.2s;
+    background: var(--color-first-light) !important;
+    align-items: center;
+}
+.info_box.show {
+    visibility: visible;
+    opacity: 1;
+    height: 50px;
+}
+.financials_info {
+    margin-left: 30px;
+    font-size: 0.9em;
+    color: white;
+}
 .financials_years {
-    margin: 50px 0 5px 0;
+    margin-top: 50px;
     background: var(--color-first) !important;
     border-radius: 5px;
 }

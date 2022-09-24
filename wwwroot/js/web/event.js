@@ -5,9 +5,9 @@ let background_blur = document.querySelector(".background_blur");
 //EventHandler => Takes charge of adding and removing classes to and from elements
 function eventHandler(eventElement, showElement, event="mouseover", action="show", repeat="once", background="none") {
     if (repeat == "multiple") {
-        eventElement.forEach(element => {
-            events(element, showElement, event, action, background);
-        })
+        for (let i = 0; i < eventElement.length; i++) {
+            events(eventElement[i], showElement[i], event, action, background);
+        }
     }
     else if (repeat == "once") {
         events(eventElement, showElement, event, action, background);
