@@ -2,8 +2,7 @@
 const info_symbol = document.querySelectorAll(".info_symbol");
 const info_box = document.querySelectorAll(".info_box");
 
-eventHandler(info_symbol, info_box, "mouseover", "show", "multiple")
-eventHandler(info_symbol, info_box, "mouseleave", "hide", "multiple")
+eventHandler(info_symbol, info_box, "click", "show", "multiple")
 
 const stock_chart = document.getElementById('stock_chart');
 const stock_chart1 = new Chart(stock_chart, {

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Obliviate.Models.Stocks.IncomeStatement
+@{
     ViewData["Title"] = "Symbol";
 }
 
@@ -13,7 +14,7 @@
                 <img src="~/img/favicon.jpg">
             </a>
             <div class="stock_info">
-                <div class="stock_name">Apple Inc.</div>
+                <div class="stock_name">@Model.Symbol</div>
                 <div class="stock_ticker">AAPL</div>
                 <div class="separator">
                     <div class="separator_line"></div>
@@ -90,7 +91,7 @@
                 </div>
                 <div class="list_text_container">Company</div>
                 <div class="list_price_container">Price</div>
-                <div class="list_attribute_container">P/E Ratio</div>
+                <div class="list_attribute_container">P/E</div>
                 <div class="list_attribute_container">EPS</div>
             </a>
             <a class="list_link">
