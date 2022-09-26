@@ -1,0 +1,251 @@
+﻿@model IEnumerable<Obliviate.Models.Stock>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReportedCurrency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FillingDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AcceptedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CalendarYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Period)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Revenue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostOfRevenue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrossProfit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GrossProfitRatio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResearchAndDevelopmentExpenses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GeneralAndAdministrativeExpenses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellingAndMarketingExpenses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellingGeneralAndAdministrativeExpenses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtherExpenses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperatingExpenses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostAndExpenses)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterestIncome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InterestExpense)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepreciationAndAmortization)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ebitda)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ebitdaratio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperatingIncome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperatingIncomeRatio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalOtherIncomeExpensesNet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncomeBeforeTax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncomeBeforeTaxRatio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncomeTaxExpense)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetIncome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NetIncomeRatio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Eps)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Epsdiluted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeightedAverageShsOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeightedAverageShsOutDil)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Link)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinalLink)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReportedCurrency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FillingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AcceptedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalendarYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Period)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Revenue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CostOfRevenue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrossProfit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GrossProfitRatio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResearchAndDevelopmentExpenses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GeneralAndAdministrativeExpenses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellingAndMarketingExpenses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellingGeneralAndAdministrativeExpenses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherExpenses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperatingExpenses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CostAndExpenses)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestIncome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InterestExpense)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepreciationAndAmortization)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ebitda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ebitdaratio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperatingIncome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OperatingIncomeRatio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalOtherIncomeExpensesNet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncomeBeforeTax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncomeBeforeTaxRatio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncomeTaxExpense)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetIncome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetIncomeRatio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Eps)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Epsdiluted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeightedAverageShsOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeightedAverageShsOutDil)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Link)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinalLink)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Symbol">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Symbol">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Symbol">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

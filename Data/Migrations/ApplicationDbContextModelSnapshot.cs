@@ -8,7 +8,7 @@ using Obliviate.Data;
 
 #nullable disable
 
-namespace Obliviate.Data.Migrations
+namespace Obliviate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -224,35 +224,34 @@ namespace Obliviate.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Obliviate.Models.Stocks.IncomeStatement", b =>
+            modelBuilder.Entity("Obliviate.Models.Stock", b =>
                 {
                     b.Property<string>("Symbol")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AcceptedDate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CalendarYear")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cik")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("CostOfRevenue")
-                        .HasColumnType("float");
+                    b.Property<long>("CostAndExpenses")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CostOfRevenue")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Date")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("DepreciationAndAmortization")
-                        .HasColumnType("float");
+                    b.Property<long>("DepreciationAndAmortization")
+                        .HasColumnType("bigint");
 
-                    b.Property<double>("Ebitda")
-                        .HasColumnType("float");
+                    b.Property<long>("Ebitda")
+                        .HasColumnType("bigint");
 
                     b.Property<double>("Ebitdaratio")
                         .HasColumnType("float");
@@ -264,52 +263,49 @@ namespace Obliviate.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("FillingDate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FinalLink")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("GeneralAndAdministrativeExpenses")
                         .HasColumnType("float");
 
-                    b.Property<double>("GrossProfit")
-                        .HasColumnType("float");
+                    b.Property<long>("GrossProfit")
+                        .HasColumnType("bigint");
 
                     b.Property<double>("GrossProfitRatio")
                         .HasColumnType("float");
 
-                    b.Property<double>("IncomeBeforeTax")
-                        .HasColumnType("float");
+                    b.Property<long>("IncomeBeforeTax")
+                        .HasColumnType("bigint");
 
                     b.Property<double>("IncomeBeforeTaxRatio")
                         .HasColumnType("float");
 
-                    b.Property<double>("IncomeTaxExpense")
-                        .HasColumnType("float");
+                    b.Property<long>("IncomeTaxExpense")
+                        .HasColumnType("bigint");
 
-                    b.Property<double>("InterestExpense")
-                        .HasColumnType("float");
+                    b.Property<long>("InterestExpense")
+                        .HasColumnType("bigint");
 
-                    b.Property<double>("InterestIncome")
-                        .HasColumnType("float");
+                    b.Property<long>("InterestIncome")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Link")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("NetIncome")
-                        .HasColumnType("float");
+                    b.Property<long>("NetIncome")
+                        .HasColumnType("bigint");
 
                     b.Property<double>("NetIncomeRatio")
                         .HasColumnType("float");
 
-                    b.Property<double>("OperatingExpenses")
-                        .HasColumnType("float");
+                    b.Property<long>("OperatingExpenses")
+                        .HasColumnType("bigint");
 
-                    b.Property<double>("OperatingIncome")
-                        .HasColumnType("float");
+                    b.Property<long>("OperatingIncome")
+                        .HasColumnType("bigint");
 
                     b.Property<double>("OperatingIncomeRatio")
                         .HasColumnType("float");
@@ -318,37 +314,35 @@ namespace Obliviate.Data.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Period")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReportedCurrency")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("ResearchAndDevelopmentExpenses")
-                        .HasColumnType("float");
+                    b.Property<long>("ResearchAndDevelopmentExpenses")
+                        .HasColumnType("bigint");
 
-                    b.Property<double>("Revenue")
-                        .HasColumnType("float");
+                    b.Property<long>("Revenue")
+                        .HasColumnType("bigint");
 
                     b.Property<double>("SellingAndMarketingExpenses")
                         .HasColumnType("float");
 
-                    b.Property<double>("SellingGeneralAndAdministrativeExpenses")
-                        .HasColumnType("float");
+                    b.Property<long>("SellingGeneralAndAdministrativeExpenses")
+                        .HasColumnType("bigint");
 
-                    b.Property<double>("TotalOtherIncomeExpensesNet")
-                        .HasColumnType("float");
+                    b.Property<int>("TotalOtherIncomeExpensesNet")
+                        .HasColumnType("int");
 
-                    b.Property<double>("WeightedAverageShsOut")
-                        .HasColumnType("float");
+                    b.Property<long>("WeightedAverageShsOut")
+                        .HasColumnType("bigint");
 
-                    b.Property<double>("WeightedAverageShsOutDil")
-                        .HasColumnType("float");
+                    b.Property<long>("WeightedAverageShsOutDil")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Symbol");
 
-                    b.ToTable("IncomeStatement");
+                    b.ToTable("Stock");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

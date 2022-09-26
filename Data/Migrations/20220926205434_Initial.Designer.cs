@@ -9,17 +9,17 @@ using Obliviate.Data;
 
 #nullable disable
 
-namespace Obliviate.Data.Migrations
+namespace Obliviate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220905105621_stock-model")]
-    partial class stockmodel
+    [Migration("20220926205434_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -224,6 +224,127 @@ namespace Obliviate.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Obliviate.Models.Stock", b =>
+                {
+                    b.Property<string>("Symbol")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AcceptedDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CalendarYear")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cik")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("CostAndExpenses")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("CostOfRevenue")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Date")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("DepreciationAndAmortization")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Ebitda")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("Ebitdaratio")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Eps")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Epsdiluted")
+                        .HasColumnType("float");
+
+                    b.Property<string>("FillingDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FinalLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("GeneralAndAdministrativeExpenses")
+                        .HasColumnType("float");
+
+                    b.Property<long>("GrossProfit")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("GrossProfitRatio")
+                        .HasColumnType("float");
+
+                    b.Property<long>("IncomeBeforeTax")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("IncomeBeforeTaxRatio")
+                        .HasColumnType("float");
+
+                    b.Property<long>("IncomeTaxExpense")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("InterestExpense")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("InterestIncome")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("NetIncome")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("NetIncomeRatio")
+                        .HasColumnType("float");
+
+                    b.Property<long>("OperatingExpenses")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("OperatingIncome")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("OperatingIncomeRatio")
+                        .HasColumnType("float");
+
+                    b.Property<double>("OtherExpenses")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Period")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReportedCurrency")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ResearchAndDevelopmentExpenses")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Revenue")
+                        .HasColumnType("bigint");
+
+                    b.Property<double>("SellingAndMarketingExpenses")
+                        .HasColumnType("float");
+
+                    b.Property<long>("SellingGeneralAndAdministrativeExpenses")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TotalOtherIncomeExpensesNet")
+                        .HasColumnType("int");
+
+                    b.Property<long>("WeightedAverageShsOut")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("WeightedAverageShsOutDil")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Symbol");
+
+                    b.ToTable("Stock");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

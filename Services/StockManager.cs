@@ -1,12 +1,12 @@
-﻿using Obliviate.Models.Stocks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Obliviate.Models;
 
 namespace Obliviate.Services
 {
     public interface StockManager
     {
-        IncomeStatement GetFinancials();
+        Stock GetFinancials();
     }
 
 
@@ -19,7 +19,7 @@ namespace Obliviate.Services
             _configuration = configuration;
         }
 
-        public IncomeStatement GetFinancials()
+        public Stock GetFinancials()
         {
             string API_KEY = _configuration.GetValue<string>("FMP_API_KEY");
             string baseUrl = _configuration.GetValue<string>("FMP_API_URL");
@@ -34,11 +34,11 @@ namespace Obliviate.Services
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
 
-                    return JsonConvert.DeserializeObject<IncomeStatement>(result);
+                    return JsonConvert.DeserializeObject<Stock>(result);
 
                 } else
                 {
-                    return new IncomeStatement(){};
+                    return new Stock(){};
                 }
             }
 
