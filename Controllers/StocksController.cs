@@ -25,8 +25,9 @@ namespace Obliviate.Controllers
               return View(await _context.Stock.ToListAsync());
         }
 
-        // GET: Stocks/Details/5
-        public async Task<IActionResult> Details(string id)
+        // GET: Stocks/<Symbol>
+        [Route("Stocks/{id}")]
+        public async Task<IActionResult> Symbol(string id)
         {
             if (id == null || _context.Stock == null)
             {
