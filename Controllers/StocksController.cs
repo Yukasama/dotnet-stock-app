@@ -19,10 +19,10 @@ namespace Obliviate.Controllers
             _context = context;
         }
 
-        // GET: Stocks/{AAPL}
-        public IActionResult Symbol(string symbol)
+        // GET: Stocks
+        public async Task<IActionResult> Index()
         {
-              return View();
+              return View(await _context.Stock.ToListAsync());
         }
 
         // GET: Stocks/<Symbol>
