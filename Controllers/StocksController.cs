@@ -45,6 +45,7 @@ namespace Obliviate.Controllers
         }
 
         // GET: Stocks/Create
+        [Route("Stocks/Create")]
         public IActionResult Create()
         {
             return View();
@@ -55,6 +56,7 @@ namespace Obliviate.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Stocks/Create")]
         public async Task<IActionResult> Create([Bind("Date,Symbol,ReportedCurrency,Cik,FillingDate,AcceptedDate,CalendarYear,Period,Revenue,CostOfRevenue,GrossProfit,GrossProfitRatio,ResearchAndDevelopmentExpenses,GeneralAndAdministrativeExpenses,SellingAndMarketingExpenses,SellingGeneralAndAdministrativeExpenses,OtherExpenses,OperatingExpenses,CostAndExpenses,InterestIncome,InterestExpense,DepreciationAndAmortization,Ebitda,Ebitdaratio,OperatingIncome,OperatingIncomeRatio,TotalOtherIncomeExpensesNet,IncomeBeforeTax,IncomeBeforeTaxRatio,IncomeTaxExpense,NetIncome,NetIncomeRatio,Eps,Epsdiluted,WeightedAverageShsOut,WeightedAverageShsOutDil,Link,FinalLink")] Stock stock)
         {
             if (ModelState.IsValid)
