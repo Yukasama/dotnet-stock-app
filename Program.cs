@@ -10,10 +10,18 @@ var config = builder.Configuration;
 
 // Add services to the container.
 var connectionString = "";
-connectionString = builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
+if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
+else
+{
+    connectionString = builder.Configuration.GetConnectionString("MacConnection");
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
