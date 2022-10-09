@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Obliviate.Data;
 using Obliviate.Models;
+using Obliviate.Services;
 
 namespace Obliviate.Controllers
 {
     public class StocksController : Controller
     {
         private readonly ApplicationDbContext _context;
+
+        private readonly StockManager _stockmanager;
 
         public StocksController(ApplicationDbContext context)
         {
@@ -46,9 +49,9 @@ namespace Obliviate.Controllers
 
         // GET: Stocks/Manage
         [Route("Stocks/Manage")]
-        public IActionResult Manage()
+        public async Task<IActionResult> Manage()
         {
-            return View();
+            return View(await _context.Stock.ToListAsync());
         }
 
         // POST: Stocks/Manage
@@ -57,8 +60,9 @@ namespace Obliviate.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Stocks/Manage")]
-        public async Task<IActionResult> Manage([Bind("Date,Symbol,ReportedCurrency,Cik,FillingDate,AcceptedDate,CalendarYear,Period,Revenue,CostOfRevenue,GrossProfit,GrossProfitRatio,ResearchAndDevelopmentExpenses,GeneralAndAdministrativeExpenses,SellingAndMarketingExpenses,SellingGeneralAndAdministrativeExpenses,OtherExpenses,OperatingExpenses,CostAndExpenses,InterestIncome,InterestExpense,DepreciationAndAmortization,Ebitda,Ebitdaratio,OperatingIncome,OperatingIncomeRatio,TotalOtherIncomeExpensesNet,IncomeBeforeTax,IncomeBeforeTaxRatio,IncomeTaxExpense,NetIncome,NetIncomeRatio,Eps,Epsdiluted,WeightedAverageShsOut,WeightedAverageShsOutDil,Link,FinalLink")] Stock stock)
+        public async Task<IActionResult> Update()
         {
+            var stock = _stockmanager.GetFinancials();
             if (ModelState.IsValid)
             {
                 _context.Add(stock);
