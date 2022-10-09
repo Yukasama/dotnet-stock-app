@@ -18,9 +18,10 @@ if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 }
 else
 {
+    string connectionPw = config.GetValue<string>("AzureSQL");
     connectionString = builder.Configuration.GetConnectionString("MacConnection");
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
+        options.UseSqlServer(connectionString + connectionPw));
 }
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
