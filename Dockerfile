@@ -12,6 +12,7 @@ RUN dotnet restore "./Obliviate.csproj"
 COPY . .
 WORKDIR "/src/."
 RUN dotnet build "Obliviate.csproj" -c Release -o /app/build
+# RUN msbuild /p:Configuration=Release "Obliviate.csproj"
 
 FROM build AS publish
 RUN dotnet publish "Obliviate.csproj" -c Release -o /app/publish /p:UseAppHost=false

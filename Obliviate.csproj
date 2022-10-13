@@ -8,6 +8,10 @@
     <DockerComposeProjectPath>docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
+  <Target Name="Build">
+    <MSBuild Projects="@(Obliviate.csproj)"/>
+  </Target>
+
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="28.0.1" />
     <PackageReference Include="IronPython" Version="2.7.12" />
@@ -43,4 +47,5 @@
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
   </ItemGroup>
+  
 </Project>

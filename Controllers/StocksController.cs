@@ -15,11 +15,12 @@ namespace Obliviate.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        private readonly StockManager _stockmanager;
+        private readonly StockManager _stockManager;
 
-        public StocksController(ApplicationDbContext context)
+        public StocksController(ApplicationDbContext context, StockManager stockManager)
         {
             _context = context;
+            _stockManager = stockManager;
         }
 
         // GET: Stocks
@@ -59,10 +60,10 @@ namespace Obliviate.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Stocks/Manage")]
+        [Route("Stocks/Update")]
         public async Task<IActionResult> Update()
         {
-            var stock = _stockmanager.GetFinancials();
+            Stock stock = _stockManager.GetFinancials();
             if (ModelState.IsValid)
             {
                 _context.Add(stock);

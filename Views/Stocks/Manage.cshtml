@@ -4,6 +4,12 @@
     ViewData["Title"] = "Manage";
 }
 
+@using (Html.BeginForm("Update", "Stocks", FormMethod.Post)) {
+    <div class="controls">
+        <button type="submit" class="button">Update</button>
+    </div>
+}
+
 
 <table class="table">
     <tr>

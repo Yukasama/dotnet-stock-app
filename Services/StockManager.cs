@@ -34,7 +34,17 @@ namespace Obliviate.Services
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
 
-                    return JsonConvert.DeserializeObject<Stock>(result);
+                    System.Diagnostics.Debug.WriteLine(result);
+
+                    var deserialized = JsonConvert.DeserializeObject<List<Stock>>(result);
+
+                    Stock last = new Stock(){};
+                    foreach(Stock item in deserialized) {
+                        last = item;
+                    }
+
+
+                    return last;
 
                 } else
                 {

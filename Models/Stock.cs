@@ -9,8 +9,10 @@ namespace Obliviate.Models
         public string? Date { get; set; }
 
         [Key]
+        public string Key { get; set; }
+
         [JsonProperty("symbol")]
-        public string Symbol { get; set; }
+        public string? Symbol { get; set; }
 
         [JsonProperty("reportedCurrency")]
         public string? ReportedCurrency { get; set; }
