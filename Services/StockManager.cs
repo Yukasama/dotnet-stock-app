@@ -42,6 +42,8 @@ namespace Obliviate.Services
                     foreach(Stock item in deserialized) {
                         last = item;
                     }
+                    string key = last.Symbol + last.CalendarYear;
+                    last.Key = key;
 
 
                     return last;
