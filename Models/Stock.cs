@@ -87,7 +87,7 @@ namespace Obliviate.Models
         public double OperatingIncomeRatio { get; set; }
 
         [JsonProperty("totalOtherIncomeExpensesNet")]
-        public int TotalOtherIncomeExpensesNet { get; set; }
+        public long TotalOtherIncomeExpensesNet { get; set; }
 
         [JsonProperty("incomeBeforeTax")]
         public long IncomeBeforeTax { get; set; }
