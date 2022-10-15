@@ -9,8 +9,6 @@ namespace Obliviate.Models
         public string? Date { get; set; }
 
         [Key]
-        public string Key { get; set; }
-
         [JsonProperty("symbol")]
         public string? Symbol { get; set; }
 
@@ -33,88 +31,88 @@ namespace Obliviate.Models
         public string? Period { get; set; }
 
         [JsonProperty("revenue")]
-        public long Revenue { get; set; }
+        public string? Revenue { get; set; }
 
         [JsonProperty("costOfRevenue")]
-        public long CostOfRevenue { get; set; }
+        public string? CostOfRevenue { get; set; }
 
         [JsonProperty("grossProfit")]
-        public long GrossProfit { get; set; }
+        public string? GrossProfit { get; set; }
 
         [JsonProperty("grossProfitRatio")]
-        public double GrossProfitRatio { get; set; }
+        public string? GrossProfitRatio { get; set; }
 
         [JsonProperty("researchAndDevelopmentExpenses")]
-        public long ResearchAndDevelopmentExpenses { get; set; }
+        public string? ResearchAndDevelopmentExpenses { get; set; }
 
         [JsonProperty("generalAndAdministrativeExpenses")]
-        public double GeneralAndAdministrativeExpenses { get; set; }
+        public string? GeneralAndAdministrativeExpenses { get; set; }
 
         [JsonProperty("sellingAndMarketingExpenses")]
-        public double SellingAndMarketingExpenses { get; set; }
+        public string? SellingAndMarketingExpenses { get; set; }
 
         [JsonProperty("sellingGeneralAndAdministrativeExpenses")]
-        public long SellingGeneralAndAdministrativeExpenses { get; set; }
+        public string? SellingGeneralAndAdministrativeExpenses { get; set; }
 
         [JsonProperty("otherExpenses")]
-        public double OtherExpenses { get; set; }
+        public string? OtherExpenses { get; set; }
 
         [JsonProperty("operatingExpenses")]
-        public long OperatingExpenses { get; set; }
+        public string? OperatingExpenses { get; set; }
 
         [JsonProperty("costAndExpenses")]
-        public long CostAndExpenses { get; set; }
+        public string? CostAndExpenses { get; set; }
 
         [JsonProperty("interestIncome")]
-        public long InterestIncome { get; set; }
+        public string? InterestIncome { get; set; }
 
         [JsonProperty("interestExpense")]
-        public long InterestExpense { get; set; }
+        public string? InterestExpense { get; set; }
 
         [JsonProperty("depreciationAndAmortization")]
-        public long DepreciationAndAmortization { get; set; }
+        public string? DepreciationAndAmortization { get; set; }
 
         [JsonProperty("ebitda")]
-        public long Ebitda { get; set; }
+        public string? Ebitda { get; set; }
 
         [JsonProperty("ebitdaratio")]
-        public double Ebitdaratio { get; set; }
+        public string? Ebitdaratio { get; set; }
 
         [JsonProperty("operatingIncome")]
-        public long OperatingIncome { get; set; }
+        public string? OperatingIncome { get; set; }
 
         [JsonProperty("operatingIncomeRatio")]
-        public double OperatingIncomeRatio { get; set; }
+        public string? OperatingIncomeRatio { get; set; }
 
         [JsonProperty("totalOtherIncomeExpensesNet")]
-        public long TotalOtherIncomeExpensesNet { get; set; }
+        public string? TotalOtherIncomeExpensesNet { get; set; }
 
         [JsonProperty("incomeBeforeTax")]
-        public long IncomeBeforeTax { get; set; }
+        public string? IncomeBeforeTax { get; set; }
 
         [JsonProperty("incomeBeforeTaxRatio")]
-        public double IncomeBeforeTaxRatio { get; set; }
+        public string? IncomeBeforeTaxRatio { get; set; }
 
         [JsonProperty("incomeTaxExpense")]
-        public long IncomeTaxExpense { get; set; }
+        public string? IncomeTaxExpense { get; set; }
 
         [JsonProperty("netIncome")]
-        public long NetIncome { get; set; }
+        public string? NetIncome { get; set; }
 
         [JsonProperty("netIncomeRatio")]
-        public double NetIncomeRatio { get; set; }
+        public string? NetIncomeRatio { get; set; }
 
         [JsonProperty("eps")]
-        public double Eps { get; set; }
+        public string? Eps { get; set; }
 
         [JsonProperty("epsdiluted")]
-        public double Epsdiluted { get; set; }
+        public string? Epsdiluted { get; set; }
 
         [JsonProperty("weightedAverageShsOut")]
-        public long WeightedAverageShsOut { get; set; }
+        public string? WeightedAverageShsOut { get; set; }
 
         [JsonProperty("weightedAverageShsOutDil")]
-        public long WeightedAverageShsOutDil { get; set; }
+        public string? WeightedAverageShsOutDil { get; set; }
 
         [JsonProperty("link")]
         public string? Link { get; set; }

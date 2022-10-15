@@ -66,6 +66,12 @@ namespace Obliviate.Controllers
             Stock stock = _stockManager.GetFinancials();
             if (ModelState.IsValid)
             {
+                var testPK = stock.Symbol;
+                if(_context.Stock.Find(testPK) != null)
+                {
+                    _context.Remove(_context.Stock.Find(testPK));
+                    _context.SaveChanges();
+                }
                 _context.Add(stock);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
