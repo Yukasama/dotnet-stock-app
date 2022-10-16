@@ -218,14 +218,9 @@
                     <div class="financial_cell">
                         <canvas class="revenue basic_chart"></canvas>
                     </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
+                    @foreach(var item in Model.Revenue.Split(",")) {
+                        <div class="financials_cell financials_text dollar">@item</div>
+                    }
                 </div>
                 <div class="financials_row info_box flex">
                     <div class="financials_info">Selling General & Administrative</div>
@@ -1480,7 +1475,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
 </div>
 
 

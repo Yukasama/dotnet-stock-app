@@ -20,51 +20,74 @@ namespace Obliviate.Services
             _configuration = configuration;
         }
 
-        public Stock GetFinancials()
+        /// <summary>
+        /// JSON Response from a specified API 
+        /// </summary>
+        /// <param name="symbol">Symbol of Stock (eg. AAPL)</param>
+        /// <param name="api">Which API to use</param>
+        /// <returns>JSON Array</returns>
+        public dynamic? GetData(string symbol, string api="FMP")
         {
-            string API_KEY = _configuration.GetValue<string>("FMP_API_KEY");
-            string baseUrl = _configuration.GetValue<string>("FMP_API_URL");
+            //API Initialization
+            string API_KEY = "";
+            string baseUrl = "";
+            if (api == "FMP")
+            {
+                API_KEY = _configuration.GetValue<string>("FMP_API_KEY");
+                baseUrl = _configuration.GetValue<string>("FMP_API_URL");
+            }
 
-            using(var client = new HttpClient())
+            using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseUrl);
 
-                HttpResponseMessage response = client.GetAsync("income-statement/MSFT?limit=120&apikey=" + API_KEY).Result;
-            
+                HttpResponseMessage response = client.GetAsync(
+                    $"income-statement/{symbol}?apikey=" + API_KEY).Result;
+
                 if (response.IsSuccessStatusCode)
                 {
-                    Stock stock = new Stock();
                     var result = response.Content.ReadAsStringAsync().Result;
                     dynamic? jsonObj = JsonConvert.DeserializeObject(result);
+                    return jsonObj;
+                }
+                return null;
+            }
+        }
 
-                    int i = 0;
-                    foreach(var obj in jsonObj)
+        public Stock GetFinancials()
+        {
+            Stock stock = new Stock();
+            dynamic? jsonObj = GetData("AAPL");
+
+            int i = 0;
+            if(jsonObj != null)
+            {
+                foreach (var obj in jsonObj)
+                {
+                    foreach (PropertyInfo prop in stock.GetType().GetProperties())
                     {
-                        foreach(PropertyInfo prop in stock.GetType().GetProperties())
+                        if (prop.CanWrite)
                         {
-                            if(prop.CanWrite)
+                            if (i != 0 && prop.Name.ToLower() != "symbol")
                             {
-                                if (i != 0 && prop.Name.ToLower() != "symbol")
-                                {
-                                    var prev = prop.GetValue(stock);
-                                    prop.SetValue(stock, $"{obj[prop.Name.ToLower()]},{prev}", null);
-                                } else
-                                {
-                                    prop.SetValue(stock, $"{obj[prop.Name.ToLower()]}", null);
-                                }
+                                var prev = prop.GetValue(stock);
+                                prop.SetValue(stock, $"{obj[prop.Name.ToLower()]},{prev}", null);
+                            }
+                            else
+                            {
+                                prop.SetValue(stock, $"{obj[prop.Name.ToLower()]}", null);
                             }
                         }
-                        ++i;
                     }
-
-                    return stock;
-
-                } else
-                {
-                    return new Stock();
+                    ++i;
                 }
+            } 
+            else
+            {
+                return stock;
             }
 
+            return stock;
         }
     }
 }
