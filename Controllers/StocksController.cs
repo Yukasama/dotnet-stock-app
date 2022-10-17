@@ -69,7 +69,7 @@ namespace Obliviate.Controllers
                 if (ModelState.IsValid)
                 {
                     var testPK = stock.Symbol;
-                    if (_context.Stock.Find(testPK) != null)
+                    if (_context.Stock.Find(testPK) != null && stock != null)
                     {
                         _context.Remove(_context.Stock.Find(testPK));
                         _context.SaveChanges();

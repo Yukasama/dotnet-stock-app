@@ -43,8 +43,18 @@ namespace Obliviate.Services
             {
                 client.BaseAddress = new Uri(baseUrl);
 
-                HttpResponseMessage response = client.GetAsync(
+                HttpResponseMessage incomeStatement = client.GetAsync(
                     $"income-statement/{symbol}?limit=120&apikey=" + API_KEY).Result;
+                HttpResponseMessage balanceSheet = client.GetAsync(
+                    $"balance-sheet-statement/{symbol}?limit=120&apikey=" + API_KEY).Result;
+                HttpResponseMessage cashFlow = client.GetAsync(
+                    $"cash-flow-statement/{symbol}?limit=120&apikey=" + API_KEY).Result;
+                HttpResponseMessage ratios = client.GetAsync(
+                    $"ratios/{symbol}?apikey=" + API_KEY).Result;
+                HttpResponseMessage keyMetrics = client.GetAsync(
+                    $"key-metrics/{symbol}?apikey=" + API_KEY).Result;
+
+
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -94,7 +104,7 @@ namespace Obliviate.Services
             } 
             else
             {
-                return stock;
+                return null;
             }
 
             return stock;
