@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Obliviate.Models;
 using System.Reflection;
+using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace Obliviate.Services
 {
     public interface StockManager
     {
-        Stock GetFinancials();
+        Stock GetFinancials(string s);
     }
 
 
@@ -42,7 +44,7 @@ namespace Obliviate.Services
                 client.BaseAddress = new Uri(baseUrl);
 
                 HttpResponseMessage response = client.GetAsync(
-                    $"income-statement/{symbol}?apikey=" + API_KEY).Result;
+                    $"income-statement/{symbol}?limit=120&apikey=" + API_KEY).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -54,30 +56,38 @@ namespace Obliviate.Services
             }
         }
 
-        public Stock GetFinancials()
+        public Stock GetFinancials(string symbol)
         {
             Stock stock = new Stock();
-            dynamic? jsonObj = GetData("AAPL");
+            dynamic? jsonObj = GetData(symbol);
+
+            string[] keys = {};
+            string[] nones = {"symbol", "reportedCurrency", "period", "cik", "finalLink"};
 
             int i = 0;
             if(jsonObj != null)
             {
                 foreach (var obj in jsonObj)
                 {
+                    if(i == 0) {
+                        JObject keysParsed = JObject.Parse(obj.ToString());
+                        Dictionary<string, string>? keysObj = keysParsed.ToObject<Dictionary<string, string>>();
+                        keys = keysObj.Keys.ToArray();
+                    }
+
+                    int j = 0;
                     foreach (PropertyInfo prop in stock.GetType().GetProperties())
                     {
-                        if (prop.CanWrite)
+                        if (i != 0 && !nones.Contains(keys[j]))
                         {
-                            if (i != 0 && prop.Name.ToLower() != "symbol")
-                            {
-                                var prev = prop.GetValue(stock);
-                                prop.SetValue(stock, $"{obj[prop.Name.ToLower()]},{prev}", null);
-                            }
-                            else
-                            {
-                                prop.SetValue(stock, $"{obj[prop.Name.ToLower()]}", null);
-                            }
+                            var prev = prop.GetValue(stock);
+                            prop.SetValue(stock, $"{obj[keys[j]]},{prev}", null);
                         }
+                        else
+                        {
+                            prop.SetValue(stock, $"{obj[keys[j]]}", null);
+                        }
+                        ++j;
                     }
                     ++i;
                 }

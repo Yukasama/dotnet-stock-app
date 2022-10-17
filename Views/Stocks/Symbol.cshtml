@@ -195,14 +195,9 @@
         <div class="financials_row financials_years flex">
             <div class="financials_cell financials_sideheader financials_topheader"></div>
             <div class="financials_cell financials_header financials_topheader"></div>
-            <div class="financials_cell financials_header financials_topheader">2015</div>
-            <div class="financials_cell financials_header financials_topheader">2016</div>
-            <div class="financials_cell financials_header financials_topheader">2017</div>
-            <div class="financials_cell financials_header financials_topheader">2018</div>
-            <div class="financials_cell financials_header financials_topheader">2019</div>
-            <div class="financials_cell financials_header financials_topheader">2020</div>
-            <div class="financials_cell financials_header financials_topheader">2021</div>
-            <div class="financials_cell financials_header financials_topheader">2022</div>
+            @foreach(var item in Model.CalendarYear.Split(",")) {
+                <div class="financials_cell financials_header financials_topheader">@item</div>
+            }     
         </div>
 
         <div class="financials_view active">

@@ -63,20 +63,22 @@ namespace Obliviate.Controllers
         [Route("Stocks/Update")]
         public async Task<IActionResult> Update()
         {
-            Stock stock = _stockManager.GetFinancials();
-            if (ModelState.IsValid)
-            {
-                var testPK = stock.Symbol;
-                if(_context.Stock.Find(testPK) != null)
+            string[] stockList = {"BLK", "JPM"};
+            foreach(string s in stockList) {
+                Stock stock = _stockManager.GetFinancials(s);
+                if (ModelState.IsValid)
                 {
-                    _context.Remove(_context.Stock.Find(testPK));
-                    _context.SaveChanges();
+                    var testPK = stock.Symbol;
+                    if (_context.Stock.Find(testPK) != null)
+                    {
+                        _context.Remove(_context.Stock.Find(testPK));
+                        _context.SaveChanges();
+                    }
+                    _context.Add(stock);
+                    await _context.SaveChangesAsync();
                 }
-                _context.Add(stock);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            return View(stock);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
