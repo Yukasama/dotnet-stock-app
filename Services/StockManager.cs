@@ -54,8 +54,6 @@ namespace Obliviate.Services
                 HttpResponseMessage keyMetrics = client.GetAsync(
                     $"key-metrics/{symbol}?apikey=" + API_KEY).Result;
 
-
-
                 if (response.IsSuccessStatusCode)
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
