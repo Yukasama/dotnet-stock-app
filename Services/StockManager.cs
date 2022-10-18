@@ -4,12 +4,15 @@ using Obliviate.Models;
 using System.Reflection;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using Azure;
+using System.Collections;
 
 namespace Obliviate.Services
 {
     public interface StockManager
     {
         Stock GetFinancials(string s);
+        Dictionary<int, JObject> GetData(string s, string a);
     }
 
 
@@ -28,7 +31,7 @@ namespace Obliviate.Services
         /// <param name="symbol">Symbol of Stock (eg. AAPL)</param>
         /// <param name="api">Which API to use</param>
         /// <returns>JSON Array</returns>
-        public dynamic? GetData(string symbol, string api="FMP")
+        public Dictionary<int, JObject> GetData(string symbol, string api="FMP")
         {
             //API Initialization
             string API_KEY = "";
@@ -39,43 +42,71 @@ namespace Obliviate.Services
                 baseUrl = _configuration.GetValue<string>("FMP_API_URL");
             }
 
+            Dictionary<string, string> apiCalls = new()
+            {
+                {"incomeStatement", $"income-statement/{symbol}?apikey={API_KEY}"},
+                {"balanceSheet", $"balance-sheet-statement/{symbol}?apikey={API_KEY}"},
+                {"cashFlow", $"cash-flow-statement/{symbol}?apikey={API_KEY}"},
+                {"ratios", $"ratios/{symbol}?limit=120&apikey={API_KEY}"},
+                {"key-metrics", $"key-metrics/{symbol}?limit=120&apikey={API_KEY}"},
+            };
+
+            //Where Stock Data will be stored
+            Dictionary<int, JObject> stockData = new();
+
+            //Getting Data from API
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(baseUrl);
 
-                HttpResponseMessage incomeStatement = client.GetAsync(
-                    $"income-statement/{symbol}?limit=120&apikey=" + API_KEY).Result;
-                HttpResponseMessage balanceSheet = client.GetAsync(
-                    $"balance-sheet-statement/{symbol}?limit=120&apikey=" + API_KEY).Result;
-                HttpResponseMessage cashFlow = client.GetAsync(
-                    $"cash-flow-statement/{symbol}?limit=120&apikey=" + API_KEY).Result;
-                HttpResponseMessage ratios = client.GetAsync(
-                    $"ratios/{symbol}?apikey=" + API_KEY).Result;
-                HttpResponseMessage keyMetrics = client.GetAsync(
-                    $"key-metrics/{symbol}?apikey=" + API_KEY).Result;
-
-                if (response.IsSuccessStatusCode)
+                foreach (KeyValuePair<string, string> call in apiCalls)
                 {
-                    var result = response.Content.ReadAsStringAsync().Result;
-                    dynamic? jsonObj = JsonConvert.DeserializeObject(result);
-                    return jsonObj;
+                    HttpResponseMessage apiCall = client.GetAsync($"{baseUrl}{call.Value}").Result;
+                    if (apiCall.IsSuccessStatusCode)
+                    {
+                        var result = apiCall.Content.ReadAsStringAsync().Result;
+                        JArray jsonObj = JArray.Parse(result);
+
+                        int i = 0;
+                        foreach (JObject obj in jsonObj)
+                        {
+                            if (!stockData.ContainsKey(i))
+                            {
+                                JObject startObject = new() { };
+                                startObject.Merge(obj);
+                                stockData.Add(i, startObject);
+                            } else
+                            {
+                                stockData[i].Merge(obj);
+                            }
+                            ++i;
+                        }
+                    }
                 }
-                return null;
             }
+            return stockData;
         }
 
         public Stock GetFinancials(string symbol)
         {
-            Stock stock = new Stock();
-            dynamic? jsonObj = GetData(symbol);
+            Stock stock = new Stock();  
+            Dictionary<int, JObject> stockData = GetData(symbol);
 
+            string[] stockArray = { };
+
+            foreach(KeyValuePair<int, JObject> obj in stockData)
+            {
+            }
+
+            System.Diagnostics.Debug.WriteLine(stockData + "-");
+            
             string[] keys = {};
             string[] nones = {"symbol", "reportedCurrency", "period", "cik", "finalLink"};
 
             int i = 0;
-            if(jsonObj != null)
+            if(stockData != null)
             {
-                foreach (var obj in jsonObj)
+                foreach (var obj in stockArray)
                 {
                     if(i == 0) {
                         JObject keysParsed = JObject.Parse(obj.ToString());
@@ -89,11 +120,11 @@ namespace Obliviate.Services
                         if (i != 0 && !nones.Contains(keys[j]))
                         {
                             var prev = prop.GetValue(stock);
-                            prop.SetValue(stock, $"{obj[keys[j]]},{prev}", null);
+                            prop.SetValue(stock, $",{prev}", null);
                         }
                         else
                         {
-                            prop.SetValue(stock, $"{obj[keys[j]]}", null);
+                            prop.SetValue(stock, $"", null);
                         }
                         ++j;
                     }
@@ -104,8 +135,9 @@ namespace Obliviate.Services
             {
                 return null;
             }
-
+            
             return stock;
+            
         }
     }
 }
