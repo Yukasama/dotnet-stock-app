@@ -5,16 +5,14 @@ using System.Reflection;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using Azure;
-using System.Diagnostics;
 using System.Collections;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Obliviate.Services
 {
     public interface StockManager
     {
         Stock GetFinancials(string s);
-        List<JObject> GetJSON(string s, string a, string d);
+        dynamic[] GetData(string s, string a);
     }
 
 
@@ -28,13 +26,12 @@ namespace Obliviate.Services
         }
 
         /// <summary>
-        /// Format JSON API Request
+        /// JSON Response from a specified API 
         /// </summary>
         /// <param name="symbol">Symbol of Stock (eg. AAPL)</param>
         /// <param name="api">Which API to use</param>
-        /// <param name="data">Which Data to get</param>
-        /// <returns>Formatted JSON List</returns>
-        public List<JObject> GetJSON(string symbol, string api="FMP", string data="standard")
+        /// <returns>JSON Array</returns>
+        public dynamic[] GetData(string symbol, string api="FMP")
         {
             //API Initialization
             string API_KEY = "", baseUrl = "";
@@ -45,16 +42,13 @@ namespace Obliviate.Services
             }
 
             //Where API Calls with {Name: URL} are stored
-            List<string> apiCalls = new()
+            Dictionary<string, string> apiCalls = new()
             {
-                {$"v3/discounted-cash-flow/{symbol}?apikey={API_KEY}"},
-                {$"v3/income-statement/{symbol}?apikey={API_KEY}"},
-                {$"v3/balance-sheet-statement/{symbol}?apikey={API_KEY}"},
-                {$"v3/cash-flow-statement/{symbol}?apikey={API_KEY}"},
-                {$"v3/ratios/{symbol}?limit=120&apikey={API_KEY}"},
-                {$"v3/key-metrics/{symbol}?limit=120&apikey={API_KEY}"},
-                {$"v3/profile/{symbol}?&apikey={API_KEY}"},
-                {$"v3/rating/{symbol}?&apikey={API_KEY}"},
+                {"incomeStatement", $"income-statement/{symbol}?apikey={API_KEY}"},
+                {"balanceSheet", $"balance-sheet-statement/{symbol}?apikey={API_KEY}"},
+                {"cashFlow", $"cash-flow-statement/{symbol}?apikey={API_KEY}"},
+                {"ratios", $"ratios/{symbol}?limit=120&apikey={API_KEY}"},
+                {"key-metrics", $"key-metrics/{symbol}?limit=120&apikey={API_KEY}"},
             };
 
             //Where Stock Data will be stored
@@ -63,24 +57,19 @@ namespace Obliviate.Services
             //Getting Data from API
             using (var client = new HttpClient())
             {
-                //Define Client Base Address
                 client.BaseAddress = new Uri(baseUrl);
 
-                //Make API Call for each Web Address in List
-                foreach (string call in apiCalls)
+                foreach (KeyValuePair<string, string> call in apiCalls)
                 {
-                    HttpResponseMessage apiCall = client.GetAsync($"{baseUrl}{call}").Result;
+                    HttpResponseMessage apiCall = client.GetAsync($"{baseUrl}{call.Value}").Result;
                     if (apiCall.IsSuccessStatusCode)
                     {
                         var result = apiCall.Content.ReadAsStringAsync().Result;
                         JArray jsonObj = JArray.Parse(result);
 
                         int i = 0;
-
-                        //Format JSON
                         foreach (JObject obj in jsonObj)
                         {
-                            //Merge JSON Objects
                             if (!stockData.ContainsKey(i))
                             {
                                 JObject startObject = new() { };
@@ -96,30 +85,23 @@ namespace Obliviate.Services
                 }
             }
 
-            //Make List from Dictionary to get rid of indeces as keys
-            List<JObject> stockArray = new();
+            //Make Array from Dictionary to get rid of indeces as keys
+            dynamic[] stockArray = { };
             foreach(KeyValuePair<int, JObject> obj in stockData)
             {
-                stockArray.Add(obj.Value);
+                stockArray.Append(obj.Value);
             }
 
             return stockArray;
         }
 
-
-
         public Stock GetFinancials(string symbol)
         {
             Stock stock = new Stock();  
-            List<JObject> stockData = GetJSON(symbol);
-
-            if (stockData.Count == 0)
-            {
-                return stock;
-            }
-
+            dynamic[] stockData = GetData(symbol);
+            
             string[] keys = {};
-            string[] nones = {"symbol", "reportedCurrency", "period", "cik"};
+            string[] nones = {"symbol", "reportedCurrency", "period", "cik", "finalLink"};
 
             int i = 0;
             foreach (var obj in stockData)
@@ -128,6 +110,10 @@ namespace Obliviate.Services
                     JObject keysParsed = JObject.Parse(obj.ToString());
                     Dictionary<string, string>? keysObj = keysParsed.ToObject<Dictionary<string, string>>();
                     keys = keysObj.Keys.ToArray();
+                    foreach(string key in keys) {
+                        Console.WriteLine(key);
+                        System.Diagnostics.Debug.WriteLine(key);
+                    }
                 }
 
                 int j = 0;
@@ -136,11 +122,11 @@ namespace Obliviate.Services
                     if (i != 0 && !nones.Contains(keys[j]))
                     {
                         var prev = prop.GetValue(stock);
-                        prop.SetValue(stock, $"{obj[keys[j]]},{prev}", null);
+                        prop.SetValue(stock, $"{keys[j]},{prev}", null);
                     }
                     else
                     {
-                        prop.SetValue(stock, $"{obj[keys[j]]}", null);
+                        prop.SetValue(stock, $"{keys[j]}", null);
                     }
                     ++j;
                 }
