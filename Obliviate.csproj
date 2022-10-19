@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <Target Name="Build">
-    <MSBuild Projects="@(Obliviate.csproj)"/>
+    <MSBuild Projects="@(Obliviate.csproj)" />
   </Target>
 
   <ItemGroup>

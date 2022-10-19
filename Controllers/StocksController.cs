@@ -63,12 +63,13 @@ namespace Obliviate.Controllers
         [Route("Stocks/Update")]
         public async Task<IActionResult> Update()
         {
-            string[] stockList = {"BLK", "JPM"};
+            string[] stockList = {"MCD"};
             foreach(string s in stockList) {
                 Stock stock = _stockManager.GetFinancials(s);
                 if (ModelState.IsValid)
                 {
                     var testPK = stock.Symbol;
+                    System.Diagnostics.Debug.WriteLine(testPK);
                     if (_context.Stock.Find(testPK) != null && stock != null)
                     {
                         _context.Remove(_context.Stock.Find(testPK));

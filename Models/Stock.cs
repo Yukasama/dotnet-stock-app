@@ -5,12 +5,18 @@ namespace Obliviate.Models
 {
     public class Stock
     {
-        [JsonProperty("date")]
-        public string? Date { get; set; }
-
         [Key]
         [JsonProperty("symbol")]
         public string? Symbol { get; set; }
+
+        [JsonProperty("date")]
+        public string? Date { get; set; }
+
+        [JsonProperty("dcf")]
+        public string? Dcf { get; set; }
+
+        [JsonProperty("Stock Price")]
+        public string? StockPrice { get; set; }
 
         [JsonProperty("reportedCurrency")]
         public string? ReportedCurrency { get; set; }
@@ -632,7 +638,149 @@ namespace Obliviate.Models
 
         [JsonProperty("capexPerShare")]
         public string? CapexPerShare { get; set; }
+
+        [JsonProperty("price")]
+        public string? Price { get; set; }
+
+        [JsonProperty("beta")]
+        public string? Beta { get; set; }
+
+        [JsonProperty("volAvg")]
+        public string? VolAvg { get; set; }
+
+        [JsonProperty("mktCap")]
+        public string? MktCap { get; set; }
+
+        [JsonProperty("lastDiv")]
+        public string? LastDiv { get; set; }
+
+        [JsonProperty("range")]
+        public string? Range { get; set; }
+
+        [JsonProperty("changes")]
+        public string? Changes { get; set; }
+
+        [JsonProperty("companyName")]
+        public string? CompanyName { get; set; }
+
+        [JsonProperty("currency")]
+        public string? Currency { get; set; }
+
+        [JsonProperty("isin")]
+        public string? Isin { get; set; }
+
+        [JsonProperty("cusip")]
+        public string? Cusip { get; set; }
+
+        [JsonProperty("exchange")]
+        public string? Exchange { get; set; }
+
+        [JsonProperty("exchangeShortName")]
+        public string? ExchangeShortName { get; set; }
+
+        [JsonProperty("industry")]
+        public string? Industry { get; set; }
+
+        [JsonProperty("website")]
+        public string? Website { get; set; }
+
+        [JsonProperty("description")]
+        public string? Description { get; set; }
+
+        [JsonProperty("ceo")]
+        public string? Ceo { get; set; }
+
+        [JsonProperty("sector")]
+        public string? Sector { get; set; }
+
+        [JsonProperty("country")]
+        public string? Country { get; set; }
+
+        [JsonProperty("fullTimeEmployees")]
+        public string? FullTimeEmployees { get; set; }
+
+        [JsonProperty("phone")]
+        public string? Phone { get; set; }
+
+        [JsonProperty("address")]
+        public string? Address { get; set; }
+
+        [JsonProperty("city")]
+        public string? City { get; set; }
+
+        [JsonProperty("state")]
+        public string? State { get; set; }
+
+        [JsonProperty("zip")]
+        public string? Zip { get; set; }
+
+        [JsonProperty("dcfDiff")]
+        public string? DcfDiff { get; set; }
+
+        [JsonProperty("image")]
+        public string? Image { get; set; }
+
+        [JsonProperty("ipoDate")]
+        public string? IpoDate { get; set; }
+
+        [JsonProperty("defaultImage")]
+        public bool DefaultImage { get; set; }
+
+        [JsonProperty("isEtf")]
+        public bool IsEtf { get; set; }
+
+        [JsonProperty("isActivelyTrading")]
+        public bool IsActivelyTrading { get; set; }
+
+        [JsonProperty("isAdr")]
+        public bool IsAdr { get; set; }
+
+        [JsonProperty("isFund")]
+        public bool IsFund { get; set; }
+
+        [JsonProperty("rating")]
+        public string? Rating { get; set; }
+
+        [JsonProperty("ratingScore")]
+        public string? RatingScore { get; set; }
+
+        [JsonProperty("ratingRecommendation")]
+        public string? RatingRecommendation { get; set; }
+
+        [JsonProperty("ratingDetailsDCFScore")]
+        public string? RatingDetailsDCFScore { get; set; }
+
+        [JsonProperty("ratingDetailsDCFRecommendation")]
+        public string? RatingDetailsDCFRecommendation { get; set; }
+
+        [JsonProperty("ratingDetailsROEScore")]
+        public string? RatingDetailsROEScore { get; set; }
+
+        [JsonProperty("ratingDetailsROERecommendation")]
+        public string? RatingDetailsROERecommendation { get; set; }
+
+        [JsonProperty("ratingDetailsROAScore")]
+        public string? RatingDetailsROAScore { get; set; }
+
+        [JsonProperty("ratingDetailsROARecommendation")]
+        public string? RatingDetailsROARecommendation { get; set; }
+
+        [JsonProperty("ratingDetailsDEScore")]
+        public string? RatingDetailsDEScore { get; set; }
+
+        [JsonProperty("ratingDetailsDERecommendation")]
+        public string? RatingDetailsDERecommendation { get; set; }
+
+        [JsonProperty("ratingDetailsPEScore")]
+        public string? RatingDetailsPEScore { get; set; }
+
+        [JsonProperty("ratingDetailsPERecommendation")]
+        public string? RatingDetailsPERecommendation { get; set; }
+
+        [JsonProperty("ratingDetailsPBScore")]
+        public string? RatingDetailsPBScore { get; set; }
+
+        [JsonProperty("ratingDetailsPBRecommendation")]
+        public string? RatingDetailsPBRecommendation { get; set; }
     }
-
-
 }
