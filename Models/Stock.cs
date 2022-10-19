@@ -724,19 +724,19 @@ namespace Obliviate.Models
         public string? IpoDate { get; set; }
 
         [JsonProperty("defaultImage")]
-        public bool DefaultImage { get; set; }
+        public string? DefaultImage { get; set; }
 
         [JsonProperty("isEtf")]
-        public bool IsEtf { get; set; }
+        public string? IsEtf { get; set; }
 
         [JsonProperty("isActivelyTrading")]
-        public bool IsActivelyTrading { get; set; }
+        public string? IsActivelyTrading { get; set; }
 
         [JsonProperty("isAdr")]
-        public bool IsAdr { get; set; }
+        public string? IsAdr { get; set; }
 
         [JsonProperty("isFund")]
-        public bool IsFund { get; set; }
+        public string? IsFund { get; set; }
 
         [JsonProperty("rating")]
         public string? Rating { get; set; }
