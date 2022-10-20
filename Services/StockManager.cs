@@ -8,12 +8,14 @@ using Azure;
 using System.Diagnostics;
 using System.Collections;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using static IronPython.Modules._ast;
 
 namespace Obliviate.Services
 {
     public interface StockManager
     {
         Stock GetFinancials(string s);
+        List<string> GetSymbols();
         List<JObject> GetJSON(string s, string a, string d);
     }
 
@@ -109,6 +111,35 @@ namespace Obliviate.Services
 
 
 
+        public List<string> GetSymbols()
+        {
+            string API_KEY = "", baseUrl = "";
+            API_KEY = _configuration.GetValue<string>("FMP_API_KEY");
+            baseUrl = _configuration.GetValue<string>("FMP_API_URL");
+
+            List<string> symbols = new();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseUrl);
+                HttpResponseMessage apiCall = client.GetAsync($"{baseUrl}v3/stock/list?apikey={API_KEY}").Result;
+                Debug.WriteLine(apiCall);
+                if (apiCall.IsSuccessStatusCode)
+                {
+                    var result = apiCall.Content.ReadAsStringAsync().Result;
+                    JArray jsonObj = JArray.Parse(result.ToString());
+                    foreach(JObject obj in jsonObj)
+                    {
+                        symbols.Add(obj["symbol"].ToString());
+                        Debug.WriteLine(obj["symbol"]);
+                    }
+                }
+            }
+            return symbols;
+        }
+
+
+
         public Stock GetFinancials(string symbol)
         {
             Stock stock = new Stock();
@@ -135,16 +166,25 @@ namespace Obliviate.Services
                 int j = 0;
                 foreach (PropertyInfo prop in stock.GetType().GetProperties())
                 {
-                    if (i != 0 && !nones.Contains(keys[j]))
+                    try
                     {
-                        var prev = prop.GetValue(stock);
-                        prop.SetValue(stock, $"{obj[keys[j]]},{prev}", null);
+                        if (i != 0 && !nones.Contains(keys[j]))
+                        {
+                            var prev = prop.GetValue(stock);
+                            prop.SetValue(stock, $"{obj[keys[j]]},{prev}", null);
+                        }
+                        else
+                        {
+                            prop.SetValue(stock, $"{obj[keys[j]]}", null);
+                        }
                     }
-                    else
+                    catch
                     {
-                        prop.SetValue(stock, $"{obj[keys[j]]}", null);
+                        prop.SetValue(stock, null, null);
+
                     }
-                    ++j;
+                    j++;
+
                 }
                 ++i;
             }

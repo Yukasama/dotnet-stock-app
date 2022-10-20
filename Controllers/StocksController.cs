@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -63,8 +64,9 @@ namespace Obliviate.Controllers
         [Route("Stocks/Update")]
         public async Task<IActionResult> Update()
         {
-            string[] stockList = {"MCD"};
-            foreach(string s in stockList) {
+            List<string> stockList = _stockManager.GetSymbols();
+            foreach (string s in stockList)
+            {
                 Stock stock = _stockManager.GetFinancials(s);
                 if (ModelState.IsValid)
                 {
@@ -80,6 +82,14 @@ namespace Obliviate.Controllers
                 }
             }
             return RedirectToAction(nameof(Index));
+        }
+
+
+        //POST: Stocks/Search
+        [HttpPost]
+        public async Task<IActionResult> Search()
+        {
+            return View()
         }
     }
 }

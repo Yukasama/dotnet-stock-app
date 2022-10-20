@@ -73,13 +73,17 @@
                 <img class="logo" src="~/img/favicon.png" />
             </a>
         </div>
-        <div class="searchbar_container">
-            <div class="searchbar">
-                <i class="fa-solid fa-search"></i>
-                <input class="input search_input" placeholder="Search.." />
-                <i class="fa-solid fa-xmark searchbar_x"></i>
+        @using (Html.BeginForm("Search", "Stocks", FormMethod.Post))
+        {
+            <div class="searchbar_container">
+                <div class="searchbar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="submit" class="input search_input" placeholder="Search.." />
+                    <i class="fa-solid fa-xmark searchbar_x"></i>
+                </div>
             </div>
-        </div>
+        }
+
 
         <div class="profile_wrapper">
             <div class="search_icon_container flex_box">
@@ -159,12 +163,12 @@
             <i class="fa-solid fa-shoe-prints list_icon"></i>
             <p class="page_path">
                 @for (int i = 0; i < singleUrls.Length; i++)
-                {
-                    if (singleUrls[i] != "")
                     {
+                        if (singleUrls[i] != "")
+                        {
                         <a href="@combinedUrls[i]" class="page_path_part">/@singleUrls[i]</a>
+                        }
                     }
-                }
             </p>
         </a>
         <div class="list_separator"></div>
