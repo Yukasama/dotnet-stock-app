@@ -14,7 +14,7 @@
                 <img src="~/img/favicon.jpg">
             </a>
             <div class="stock_info">
-                <div class="stock_name">Apple Inc.</div>
+                <div class="stock_name">@Model.CompanyName</div>
                 <div class="stock_ticker">@Model.Symbol</div>
                 <div class="separator">
                     <div class="separator_line"></div>
@@ -113,7 +113,7 @@
                     <div class="list_attribute">23.65</div>
                 </div>
                 <div class="list_attribute_container">
-                    <div class="list_attribute">$@Model.Eps.Split(",").Last()</div>
+                    <div class="list_attribute">$@Math.Round(Convert.ToDouble(Model.Eps.Split(",").Last()), 3)</div>
                 </div>
             </a>
             <a class="list_link">
@@ -515,98 +515,70 @@
             </div>
         </div>
         <div class="financials_view">
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Revenues</div>
-            </div>
-            <div class="financials_row_container">
+            @{
+                Dictionary<string, string[]> revenues = new() {
+                    { "Revenue", new string[]{"Revenueee", Model.Revenue } },
+                    { "Cost Of Revenues", new string[]{"Costtt",Model.CostOfRevenue } },
+                    { "Gross Profit", new string[]{"gsg", Model.GrossProfit } },
+                    { "Gross Margin", new string[]{"dsga", Model.GrossProfitMargin } }
+                };
+                Dictionary<string, string[]> expenses = new() {
+                    { "Revenue", new string[]{"Revenueee", Model.Revenue } },
+                    { "Cost Of Revenues", new string[]{"Costtt",Model.CostOfRevenue } },
+                    { "Gross Profit", new string[]{"gsg", Model.GrossProfit } },
+                    { "Gross Margin", new string[]{"dsga", Model.GrossProfitMargin } }
+                };
+                Dictionary<string, string[]> earnings = new() {
+                    { "Net Profit", new string[]{"Revenueee", Model.Revenue } },
+                    { "Cost Of Revenues", new string[]{"Costtt",Model.CostOfRevenue } },
+                    { "Gross Profit", new string[]{"gsg", Model.GrossProfit } },
+                    { "Gross Margin", new string[]{"dsga", Model.GrossProfitMargin } }
+                };
 
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Revenue
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
+                Dictionary<string, Dictionary<string, string[]>> themes = new()
+                {
+                    {"Revenue", revenues},
+                    {"Expenses", expenses},
+                    {"Earnings", earnings},
+                };
 
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Cost Of Revenues
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
+                }
 
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Gross Profit
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
+            @foreach (KeyValuePair<string, Dictionary<string, string[]>> theme in themes)
+            {
+                <div class="financials_row financials_subheader">
+                    <div class="financials_subheader_text">@theme.Key</div>
                 </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
+                <div class="financials_row_container">
+                    @foreach (KeyValuePair<string, string[]> r in theme.Value)
+                    {
+                        <div class="financials_row flex">
+                            <div class="financials_cell financials_sideheader">
+                                @r.Key
+                                <i class="fa-solid fa-question info_symbol"></i>
+                            </div>
+                            <div class="financial_cell">
+                                <canvas class="@r.Key.ToLower() basic_chart"></canvas>
+                            </div>
+                            @foreach (string d in r.Value[1].Split(","))
+                            {
+                                <div class="financials_cell financials_text dollar">@d</div>
+                            }
+                        </div>
+                        <div class="financials_row info_box flex">
+                            <div class="financials_info">@r.Value[0]</div>
+                        </div>
+                    }
                 </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Gross Margin
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
+            }
             </div>
             <div class="financials_row financials_subheader">
                 <div class="financials_subheader_text">Expenses</div>
             </div>
             <div class="financials_row_container">
                 <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">SG&A Expenses
+                    <div class="financials_cell financials_sideheader">
+                        SG&A Expenses
                         <i class="fa-solid fa-question info_symbol"></i>
                     </div>
                     <div class="financial_cell">
@@ -626,7 +598,8 @@
                 </div>
 
                 <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Research & Development
+                    <div class="financials_cell financials_sideheader">
+                        Research & Development
                         <i class="fa-solid fa-question info_symbol"></i>
                     </div>
                     <div class="financial_cell">
@@ -646,7 +619,8 @@
                 </div>
 
                 <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Operating Expenses
+                    <div class="financials_cell financials_sideheader">
+                        Operating Expenses
                         <i class="fa-solid fa-question info_symbol"></i>
                     </div>
                     <div class="financial_cell">
@@ -666,7 +640,8 @@
                 </div>
 
                 <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Operating Margin
+                    <div class="financials_cell financials_sideheader">
+                        Operating Margin
                         <i class="fa-solid fa-question info_symbol"></i>
                     </div>
                     <div class="financial_cell">
@@ -691,7 +666,8 @@
             <div class="financials_row_container">
 
                 <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">EBITDA
+                    <div class="financials_cell financials_sideheader">
+                        EBITDA
                         <i class="fa-solid fa-question info_symbol"></i>
                     </div>
                     <div class="financial_cell">
@@ -711,27 +687,8 @@
                 </div>
 
                 <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Net Profit
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>                
-                
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Profit Margin
+                    <div class="financials_cell financials_sideheader">
+                        Net Profit
                         <i class="fa-solid fa-question info_symbol"></i>
                     </div>
                     <div class="financial_cell">
@@ -751,7 +708,8 @@
                 </div>
 
                 <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">EPS
+                    <div class="financials_cell financials_sideheader">
+                        Profit Margin
                         <i class="fa-solid fa-question info_symbol"></i>
                     </div>
                     <div class="financial_cell">
@@ -771,7 +729,29 @@
                 </div>
 
                 <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">P/E Ratio
+                    <div class="financials_cell financials_sideheader">
+                        EPS
+                        <i class="fa-solid fa-question info_symbol"></i>
+                    </div>
+                    <div class="financial_cell">
+                        <canvas class="revenue basic_chart"></canvas>
+                    </div>
+                    <div class="financials_cell financials_text dollar">238297</div>
+                    <div class="financials_cell financials_text dollar">238347</div>
+                    <div class="financials_cell financials_text dollar">238347</div>
+                    <div class="financials_cell financials_text dollar">238347</div>
+                    <div class="financials_cell financials_text dollar">238347</div>
+                    <div class="financials_cell financials_text dollar">238347</div>
+                    <div class="financials_cell financials_text dollar">238347</div>
+                    <div class="financials_cell financials_text dollar">238347</div>
+                </div>
+                <div class="financials_row info_box flex">
+                    <div class="financials_info">Selling General & Administrative</div>
+                </div>
+
+                <div class="financials_row flex">
+                    <div class="financials_cell financials_sideheader">
+                        P/E Ratio
                         <i class="fa-solid fa-question info_symbol"></i>
                     </div>
                     <div class="financial_cell">
@@ -1474,7 +1454,7 @@
 </div>
 
 
-    <script src="~/js/project/symbol.js" defer></script>
+<script src="~/js/project/symbol.js" defer></script>
 
 <script>
     revenue1 = "";

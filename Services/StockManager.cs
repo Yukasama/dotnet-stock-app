@@ -131,7 +131,6 @@ namespace Obliviate.Services
                     foreach(JObject obj in jsonObj)
                     {
                         symbols.Add(obj["symbol"].ToString());
-                        Debug.WriteLine(obj["symbol"]);
                     }
                 }
             }
@@ -151,7 +150,21 @@ namespace Obliviate.Services
             }
 
             string[] keys = { };
-            string[] nones = { "symbol", "reportedCurrency", "period", "cik" };
+            string[] nones =
+            {
+                "symbol", "reportedCurrency", "period", "cik",
+                "dcf", "stockPrice", "companyName", "website", "description", "ceo",
+                "sector", "country", "fullTimeEmployees", "phone", "address", "city",
+                "state", "zip", "dcfdiff", "image", "ipoDate", "defaultImage",
+                "isEtf", "isActivelyTrading", "IsAdr", "isFund", "rating", "ratingScore",
+                "ratingRecommendation", "ratingDetailsDCFScore",
+                "ratingDetailsDCFRecommendation", "ratingDetailsROEScore",
+                "ratingDetailsROERecommendation", "ratingDetailsROAScore",
+                "ratingDetailsROARecommendation", "RatingDetailsDEScore",
+                "RatingDetailsDERecommendation", "RatingDetailsPEScore",
+                "RatingDetailsPERecommendation", "RatingDetailsPBScore",
+                "RatingDetailsPBRecommendation"
+            };
 
             int i = 0;
             foreach (var obj in stockData)

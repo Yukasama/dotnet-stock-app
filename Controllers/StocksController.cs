@@ -64,6 +64,7 @@ namespace Obliviate.Controllers
         [Route("Stocks/Update")]
         public async Task<IActionResult> Update()
         {
+            bool skip = true;
             List<string> stockList = _stockManager.GetSymbols();
             foreach (string s in stockList)
             {
@@ -71,11 +72,17 @@ namespace Obliviate.Controllers
                 if (ModelState.IsValid)
                 {
                     var testPK = stock.Symbol;
-                    System.Diagnostics.Debug.WriteLine(testPK);
-                    if (_context.Stock.Find(testPK) != null && stock != null)
+                    if (_context.Stock.Find(testPK) != null)
                     {
-                        _context.Remove(_context.Stock.Find(testPK));
-                        _context.SaveChanges();
+                        if(skip == true)
+                        {
+                            continue;
+                        } else
+                        {
+                            _context.Remove(_context.Stock.Find(testPK));
+                            _context.SaveChanges();
+                        }
+
                     }
                     _context.Add(stock);
                     await _context.SaveChangesAsync();
@@ -89,7 +96,7 @@ namespace Obliviate.Controllers
         [HttpPost]
         public async Task<IActionResult> Search()
         {
-            return View()
+            return View(await _context.Stock.ToListAsync());
         }
     }
 }

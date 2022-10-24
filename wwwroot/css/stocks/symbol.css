@@ -347,6 +347,9 @@
     padding: 5px;
     cursor: pointer;
 }
+.info_symbol:hover {
+    color: var(--color-first);
+}
 .info_box {
     visibility: hidden;
     opacity: 0;
