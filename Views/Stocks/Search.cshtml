@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Obliviate.Models.Stock>
+
+@{
+    ViewData["Title"] = "Manage";
+}
+
+@using (Html.BeginForm("Update", "Stocks", FormMethod.Post)) {
+    <div class="controls">
+        <button type="submit" class="button">Update</button>
+    </div>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FillingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Revenue)
+        </th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FillingDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Revenue)
+        </td>
+
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.Symbol">Edit</a> |
+            <a asp-action="Delete" asp-route-id="@item.Symbol">Delete</a>
+        </td>
+    </tr>
+}
+</table>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
