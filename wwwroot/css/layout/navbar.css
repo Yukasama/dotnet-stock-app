@@ -57,6 +57,10 @@
   padding: 7px 10px;
   transition: padding 0.3s;
 }
+.search_button {
+  border: none;
+  background: none;
+}
 .search_input {
   height: 100%;
 }

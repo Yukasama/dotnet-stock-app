@@ -64,7 +64,7 @@ namespace Obliviate.Controllers
         [Route("Stocks/Update")]
         public async Task<IActionResult> Update()
         {
-            bool skip = true;
+            bool skip = false;
             List<string> stockList = _stockManager.GetSymbols();
             foreach (string s in stockList)
             {
@@ -72,31 +72,46 @@ namespace Obliviate.Controllers
                 if (ModelState.IsValid)
                 {
                     var testPK = stock.Symbol;
-                    if (_context.Stock.Find(testPK) != null)
+                    if (stock.IsEtf == "False")
                     {
-                        if(skip == true)
+                        if (skip == true)
                         {
                             continue;
-                        } else
-                        {
-                            _context.Remove(_context.Stock.Find(testPK));
-                            _context.SaveChanges();
                         }
-
+                        else
+                        {
+                            if(_context.Stock.Find(testPK) != null)
+                            {
+                                _context.Remove(_context.Stock.Find(testPK));
+                                _context.SaveChanges();
+                            }
+                        }
                     }
+                    else
+                    {
+                        continue;
+                    }
+
                     _context.Add(stock);
                     await _context.SaveChangesAsync();
+                    System.Diagnostics.Debug.WriteLine($"'{testPK}' successfully pushed.");
                 }
             }
             return RedirectToAction(nameof(Index));
         }
 
 
-        //POST: Stocks/Search
-        [HttpPost]
-        public async Task<IActionResult> Search()
+        //GET: Stocks/search?q=
+        [Route("Stocks/search")]
+        public async Task<IActionResult> Search(string q)
         {
-            return View(await _context.Stock.ToListAsync());
+            ViewBag.Message = q;
+
+            var stocks = from stock in _context.Stock select stock;
+
+            stocks = stocks.Where(s => s.Symbol.StartsWith(q) || s.CompanyName.StartsWith(q));
+
+            return View(await stocks.ToListAsync());
         }
     }
 }

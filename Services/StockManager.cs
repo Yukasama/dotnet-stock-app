@@ -36,7 +36,7 @@ namespace Obliviate.Services
         /// <param name="api">Which API to use</param>
         /// <param name="data">Which Data to get</param>
         /// <returns>Formatted JSON List</returns>
-        public List<JObject> GetJSON(string symbol, string api = "FMP", string data = "standard")
+        public List<JObject> GetJSON(string symbol, string api="FMP", string data="standard")
         {
             //API Initialization
             string API_KEY = "", baseUrl = "";
@@ -150,13 +150,14 @@ namespace Obliviate.Services
             }
 
             string[] keys = { };
-            string[] nones =
+            string[] singles =
             {
                 "symbol", "reportedCurrency", "period", "cik",
-                "dcf", "stockPrice", "companyName", "website", "description", "ceo",
-                "sector", "country", "fullTimeEmployees", "phone", "address", "city",
-                "state", "zip", "dcfdiff", "image", "ipoDate", "defaultImage",
-                "isEtf", "isActivelyTrading", "IsAdr", "isFund", "rating", "ratingScore",
+                "dcf", "stockPrice", "companyName", "currency", "isin", "cusip", "exchange", "exchangeShortName", "industry", 
+                "website", "description", "ceo", "beta", "changes", "dcfDiff", "price", "mktCap",
+                "sector", "country", "fullTimeEmployees", "phone", "address", "city", "range", "capexPerShare",
+                "state", "zip", "dcfdiff", "image", "ipoDate", "defaultImage", "lastDiv", "volAvg",
+                "isEtf", "isActivelyTrading", "isAdr", "isFund", "rating", "ratingScore",
                 "ratingRecommendation", "ratingDetailsDCFScore",
                 "ratingDetailsDCFRecommendation", "ratingDetailsROEScore",
                 "ratingDetailsROERecommendation", "ratingDetailsROAScore",
@@ -181,23 +182,24 @@ namespace Obliviate.Services
                 {
                     try
                     {
-                        if (i != 0 && !nones.Contains(keys[j]))
-                        {
-                            var prev = prop.GetValue(stock);
-                            prop.SetValue(stock, $"{obj[keys[j]]},{prev}", null);
-                        }
-                        else
+                        var prev = prop.GetValue(stock);
+                        if (i == 0)
                         {
                             prop.SetValue(stock, $"{obj[keys[j]]}", null);
+                        }
+                        else if(i != 0 && singles.Contains(keys[j]))
+                        {
+                            prop.SetValue(stock, $"{prev}", null);
+                        } 
+                        else {
+                            prop.SetValue(stock, $"{obj[keys[j]]}, {prev}", null);
                         }
                     }
                     catch
                     {
                         prop.SetValue(stock, null, null);
-
                     }
-                    j++;
-
+                    ++j;
                 }
                 ++i;
             }

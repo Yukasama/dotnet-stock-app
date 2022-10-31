@@ -4,44 +4,24 @@
     ViewData["Title"] = "Manage";
 }
 
-@using (Html.BeginForm("Update", "Stocks", FormMethod.Post)) {
-    <div class="controls">
-        <button type="submit" class="button">Update</button>
-    </div>
-}
+<link rel="stylesheet" href="~/css/stocks/search.css" asp-append-version="true" />
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FillingDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Revenue)
-        </th>
-    </tr>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FillingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Revenue)
-        </td>
 
-        <td>
-            <a asp-action="Edit" asp-route-id="@item.Symbol">Edit</a> |
-            <a asp-action="Delete" asp-route-id="@item.Symbol">Delete</a>
-        </td>
-    </tr>
-}
-</table>
+<div class="list search_list">
+    <div class="search_query">Results for: @ViewBag.Message</div>
+    @foreach(var item in Model)
+    {
+        <a class="search_link list_link" asp-controller="Stocks" asp-action=@item.Symbol >
+            <img class="list_image" src="@Html.DisplayFor(modelItem => item.Image)">
+            <div class="search_container">
+                <div class="search_text">@Html.DisplayFor(modelItem => item.CompanyName)</div>
+                <div class="list_symbol">@Html.DisplayFor(modelItem => item.Symbol)</div>
+            </div>
+        </a>
+    }
+</div>
+
 
 
 @section Scripts {

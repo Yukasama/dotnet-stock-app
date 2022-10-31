@@ -14,25 +14,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FillingDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Revenue)
+            @Html.DisplayNameFor(model => model.Symbol)
         </th>
     </tr>
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FillingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Revenue)
+            @Html.DisplayFor(modelItem => item.Symbol)
         </td>
 
         <td>

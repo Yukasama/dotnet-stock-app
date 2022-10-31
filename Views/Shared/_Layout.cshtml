@@ -73,15 +73,15 @@
                 <img class="logo" src="~/img/favicon.png" />
             </a>
         </div>
-        @using (Html.BeginForm("Search", "Stocks", FormMethod.Post)) {
 
-        }
         <div class="searchbar_container">
-            <div class="searchbar">
-                <i class="fa-solid fa-search"></i>
-                <input class="input search_input" placeholder="Search.." />
+            <form class="searchbar" asp-controller="Stocks" asp-action="Search" method="GET">
+                <button class="search_button" type="submit">
+                    <i class="fa-solid fa-search"></i>
+                </button>
+                <input class="input search_input" placeholder="Search.." name="q" />
                 <i class="fa-solid fa-xmark searchbar_x"></i>
-            </div>
+            </form>
         </div>
 
         <div class="profile_wrapper">
@@ -91,11 +91,11 @@
             <div class="profile flex_box">
                 @if (SignInManager.IsSignedIn(User))
                     {
-                    <i class="fa-solid fa-user"></i>
+                        <i class="fa-solid fa-user"></i>
                     }
                     else
                     {
-                    <i class="fa-solid fa-user-secret"></i>
+                        <i class="fa-solid fa-user-secret"></i>
                     }
             </div>
         </div>
