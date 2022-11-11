@@ -1,6 +1,25 @@
-﻿@model Obliviate.Models.Stock
+﻿@model List<Obliviate.Models.Stock>
+
 @{
-    ViewData["Title"] = Model.Symbol + " 140.98$ +1.41%";
+    string? close = @Model[0].Close.Split(",").ToList().Last();
+    string? change = @Model[0].Change.Split(",").ToList().Last();
+    string? percent = Math.Round(Convert.ToDecimal(
+        Model[0].ChangePercent.Split(",").ToList().Last()) / 1000, 2).ToString();
+
+    string? pre = "+";
+    string? color = "#00ff00";
+    string? background = "rgb(49, 255, 114, 0.1)";
+    string? trend = "fa-arrow-trend-up";
+    string? symbol = "↑";
+    if(percent.Contains("-")) {
+        pre = "";
+        color = "#ff0000";
+        background = "rgb(255 0 0 / 0.1)";
+        trend = "fa-arrow-trend-down";
+        symbol = "↓";
+    }
+
+    ViewData["Title"] = $"{Model[0].Symbol} {symbol} ${@close} {@pre}{@percent}%";
 }
 
 <link rel="stylesheet" href="~/css/stocks/symbol.css" asp-append-version="true" />
@@ -10,23 +29,23 @@
     <div class="stock flex_swap">
 
         <div class="stock_symbol stock_item">
-            <a href="https://www.apple.com" target="_" class="stock_logo">
-                <img src=@Model.Image>
+            <a href=@Model[0].Website target="_" class="stock_logo">
+                <img src=@Model[0].Image>
             </a>
             <div class="stock_info">
-                <div class="stock_name">@Model.CompanyName</div>
-                <div class="stock_ticker">@Model.Symbol</div>
+                <div class="stock_name">@Model[0].CompanyName</div>
+                <div class="stock_ticker">@Model[0].Symbol</div>
                 <div class="separator">
                     <div class="separator_line"></div>
                 </div>
                 <div class="stock_change_container">
                     <div class="stock_price_container">
                         <i class="fa-solid fa-dollar-sign stock_price_icon"></i>
-                        &nbsp<div class="stock_price">163.56</div>
+                        &nbsp<div class="stock_price">@close</div>
                     </div>
                     <div class="stock_percent_container">
-                        <i class="fa-solid fa-arrow-trend-up stock_percent_icon flex_box"></i>
-                        <div class="stock_percent">+14.43 (7.23%)</div>
+                        <i class="fa-solid @trend stock_percent_icon flex_box" style="color: @color; background: @background;"></i>
+                        <div class="stock_percent" style="color: @color !important;">@pre@change (@pre@percent%)</div>
                     </div>
                 </div>
                 <div class="stock_after flex">
@@ -72,7 +91,7 @@
             </div>
             <div class="separator_vertical"></div>
             <div class="evaluations_headers evaluations_wrapper">
-                <div class="evaluations_number evaluations_eye_num">0.786</div>
+                <div class="evaluations_number evaluations_eye_num">@Model[0].targetMedian</div>
                 <div class="evaluations_header evaluations_eye">Analysts Rating</div>
             </div>
         </div>
@@ -86,58 +105,50 @@
         </div>
         <div class="competitors stock_item list">
             <a class="list_nolink list_headers">
-                <div class="list_img">
-                    <img src="~/img/favicon.png">
-                </div>
                 <div class="list_text_container">Company</div>
                 <div class="list_price_container">Price</div>
                 <div class="list_attribute_container">P/E</div>
                 <div class="list_attribute_container">EPS</div>
             </a>
-            <a class="list_link">
-                <div class="list_img">
-                    <img src="~/img/favicon.jpg">
-                </div>                
-                <div class="list_text_container">
-                    <div class="list_ticker">@Model.Symbol</div>
-                    <div class="list_name">Apple Inc.</div>
-                </div>
-                <div class="list_price_container flex">
-                    <i class="fa-solid fa-arrow-trend-up stock_percent_icon flex_box"></i>
-                    <div class="list_price_wrapper">
-                        <div class="list_price">$156.83</div>
-                        <div class="stock_percent">+14.43 (7.23%)</div>
+            @for(int i = 1; i < Model.Count; ++i) {
+                <a class="list_link" asp-controller="Stocks" asp-action=@Model[i].Symbol>
+                    <div class="list_img">
+                        <img src=@Model[i].Image>
+                    </div>                
+                    <div class="list_text_container">
+                        <div class="list_ticker">@Model[i].Symbol</div>
+                        <div class="list_name">@Model[i].CompanyName</div>
                     </div>
-                </div>
-                <div class="list_attribute_container">
-                    <div class="list_attribute">23.65</div>
-                </div>
-                <div class="list_attribute_container">
-                    <div class="list_attribute">$@Math.Round(Convert.ToDouble(Model.Eps.Split(",").Last()), 3)</div>
-                </div>
-            </a>
-            <a class="list_link">
-                <div class="list_img">
-                    <img src="~/img/favicon.jpg">
-                </div>                
-                <div class="list_text_container">
-                    <div class="list_ticker">MSFT</div>
-                    <div class="list_name">Microsoft Inc.</div>
-                </div>
-                <div class="list_price_container flex">
-                    <i class="fa-solid fa-arrow-trend-up stock_percent_icon flex_box"></i>
-                    <div class="list_price_wrapper">
-                        <div class="list_price">$156.83</div>
-                        <div class="stock_percent">+14.43 (7.23%)</div>
+                    @{ 
+                        percent = Math.Round(Convert.ToDecimal(
+                            Model[i].ChangePercent.Split(",").ToList().Last()) / 1000, 2).ToString(); 
+                        pre = "+";
+                        color = "#00ff00";
+                        background = "rgb(49, 255, 114, 0.1)";
+                        trend = "fa-arrow-trend-up";
+                        if(percent.Contains("-"))
+                        {
+                            pre = "";
+                            color = "#ff0000";
+                            background = "rgb(255 0 0 / 0.1)";
+                            trend = "fa-arrow-trend-down";
+                        }
+                    }
+                    <div class="list_price_container flex">
+                        <i class="fa-solid @trend stock_percent_icon flex_box" style="color: @color; background: @background;"></i>
+                        <div class="list_price_wrapper">
+                            <div class="list_price">$@Model[i].Close.Split(",").ToList().Last()</div>
+                            <div class="stock_percent" style="color: @color !important;">@pre@Model[i].Change.Split(",").ToList().Last() (@pre@percent%)</div>
+                        </div>
                     </div>
-                </div>
-                <div class="list_attribute_container">
-                    <div class="list_attribute">@Model.GrossProfitRatio.Split(",").Last()</div>
-                </div>  
-                <div class="list_attribute_container">
-                    <div class="list_attribute">$19.83</div>
-                </div>     
-            </a>
+                    <div class="list_attribute_container">
+                        <div class="list_attribute">@Convert.ToDecimal(Model[i].PeRatio.Split(",").ToList().Last().Substring(0, 4))</div>
+                    </div>
+                    <div class="list_attribute_container">
+                        <div class="list_attribute">@Model[i].Eps.Split(",").ToList().Last()</div>
+                    </div>
+                </a>
+            }
         </div>
     </div>
 
@@ -193,1274 +204,197 @@
             </div>
         </div>
         <div class="financials_row financials_years flex">
-            <div class="financials_cell financials_sideheader financials_topheader"></div>
+            <div class="financials_cell financials_inmillions financials_sideheader financials_topheader">In millions (USD) excl. Per Share Items</div>
             <div class="financials_cell financials_header financials_topheader"></div>
-            @foreach(var item in Model.CalendarYear.Split(",")) {
+            @{ int years = Model[0].CalendarYear.Split(",").ToList().Count; }
+            @foreach(var item in Model[0].CalendarYear.Split(",").ToList().GetRange(years - 9, 9)) {
                 <div class="financials_cell financials_header financials_topheader">@item</div>
             }     
         </div>
+        
+        @{
+            int len = Model[0].Revenue.Split(",").Length < 9 ? Model[0].Revenue.Split(",").Length : 9;
+            Dictionary<List<string>, List<string>> profile = new() {
+                { new(){"Revenue", "c", "Number"}, Model[0].Revenue.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Total Assets", "c", "Number"}, Model[0].TotalAssets.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Free Cash Flow", "c", "Number"}, Model[0].FreeCashFlow.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Market Capitalization", "c", "Number"}, Model[0].MarketCap.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Dividend %", "c", "Percentage"}, Model[0].DividendYield.Split(",").ToList().GetRange(years - len, len) },
+            };
+            Dictionary<List<string>, List<string>> margins = new() {
+                { new(){"Gross Margin", "c", "Percentage"}, Model[0].GrossProfitMargin.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Operating Margin", "c", "Percentage"}, Model[0].NetProfitMargin.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Pretax Margin", "c", "Percentage"}, Model[0].PretaxProfitMargin.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Profit Margin", "c", "Percentage"}, Model[0].NetProfitMargin.Split(",").ToList().GetRange(years - len, len) },
+            };
+            Dictionary<List<string>, List<string>> keyRatios = new() {
+                { new(){"Earnings Per Share", "c", "Ratio"}, Model[0].Eps.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"P/E Ratio", "c", "Ratio"}, Model[0].PeRatio.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"E/V to Sales", "c", "Ratio"}, Model[0].EvToSales.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"P/B Ratio", "c", "Ratio"}, Model[0].PbRatio.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Current Ratio", "c", "Ratio"}, Model[0].CurrentRatio.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Debt / Equity", "c", "Ratio"}, Model[0].DebtEquityRatio.Split(",").ToList().GetRange(years - len, len) },
+            };
 
-        <div class="financials_view active">
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Profile</div>
-            </div>
-            <div class="financials_row_container">
+            Dictionary<List<string>, List<string>> revenues = new() {
+                { new(){"Revenue", "Revenueee", "Number"}, Model[0].Revenue.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Cost Of Revenues", "Cost", "Number"}, Model[0].Revenue.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Gross Profit", "c", "Number"}, Model[0].GrossProfit.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Gross Margin", "c", "Percentage"}, Model[0].GrossProfitMargin.Split(",").ToList().GetRange(years - len, len) },
+            };
+            Dictionary<List<string>, List<string>> expenses = new() {
+                { new(){"SG&A Expenses", "Revenueee", "Number"}, Model[0].SellingGeneralAndAdministrativeExpenses.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"R&D Expenses", "c", "Number"}, Model[0].ResearchAndDevelopmentExpenses.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Operating Expenses", "c", "Number"}, Model[0].OperatingExpenses.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Operating Margin", "c", "Percentage"}, Model[0].OperatingProfitMargin.Split(",").ToList().GetRange(years - len, len) },
+            };
+            Dictionary<List<string>, List<string>> earnings = new() {
+                { new(){"Net Income", "c", "Number"}, Model[0].NetIncome.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Profit Margin", "c", "Percentage"}, Model[0].NetProfitMargin.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Earnings Per Share", "c", "Ratio"}, Model[0].Eps.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"P/E Ratio", "c", "Ratio"}, Model[0].PeRatio.Split(",").ToList().GetRange(years - len, len) },
+            };
 
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Revenue
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    @foreach(var item in Model.Revenue.Split(",")) {
-                        <div class="financials_cell financials_text dollar">@item</div>
-                    }
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
+            Dictionary<List<string>, List<string>> assets = new() {
+                { new(){"Cash & Equivalents", "c", "Number"}, Model[0].CashAndCashEquivalents.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Inventory", "c", "Number"}, Model[0].Inventory.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Account Receivables", "c", "Number"}, Model[0].AccountsReceivables.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Current Assets", "c", "Number"}, Model[0].TotalCurrentAssets.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Property, Plant & Equipment", "c", "Number"}, Model[0].PropertyPlantEquipmentNet.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Total Assets", "c", "Number"}, Model[0].TotalAssets.Split(",").ToList().GetRange(years - len, len) },
+            };
+            Dictionary<List<string>, List<string>> liabilities = new() {
+                { new(){"Account Payables", "c", "Number"}, Model[0].AccountPayables.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Short Term Debt", "c", "Number"}, Model[0].ShortTermDebt.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Current Liabilities", "c", "Number"}, Model[0].TotalCurrentLiabilities.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Total Debt", "c", "Number"}, Model[0].TotalDebt.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Total Liabilities", "c", "Number"}, Model[0].TotalDebt.Split(",").ToList().GetRange(years - len, len) },
+            };
+            Dictionary<List<string>, List<string>> equity = new() {
+                { new(){"Common Stock", "c", "Number"}, Model[0].CommonStock.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Retained Earnings", "c", "Number"}, Model[0].RetainedEarnings.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Total Equity", "c", "Number"}, Model[0].TotalEquity.Split(",").ToList().GetRange(years - len, len) },
+            };
 
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Total Assets
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
+            Dictionary<List<string>, List<string>> operations = new() {
+                { new(){"Net Income", "c", "Number"}, Model[0].NetIncome.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Depreciation & Amortization", "c", "Number"}, Model[0].DepreciationAndAmortization.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Stock Based Compensation", "c", "Number"}, Model[0].StockBasedCompensation.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Cash from Operations", "c", "Number"}, Model[0].NetCashProvidedByOperatingActivities.Split(",").ToList().GetRange(years - len, len) },
+            };
+            Dictionary<List<string>, List<string>> investing = new() {
+                { new(){"Capital Expenditure", "c", "Number"}, Model[0].CapitalExpenditure.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Capex/OCF", "c", "Number"}, Model[0].CapexToOperatingCashFlow.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Cash Aquisitions", "c", "Number"}, Model[0].AcquisitionsNet.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Cash from Investing", "c", "Number"}, Model[0].NetCashUsedForInvestingActivites.Split(",").ToList().GetRange(years - len, len) },
+            };
+            Dictionary<List<string>, List<string>> financing = new() {
+                { new(){"Debt Repayment", "c", "Number"}, Model[0].DebtRepayment.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Common Stock Issued", "c", "Number"}, Model[0].CommonStockIssued.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Common Stock Repurchased", "c", "Number"}, Model[0].CommonStockRepurchased.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Dividends Paid", "c", "Number"}, Model[0].DividendsPaid.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Cash from Financing", "c", "Number"}, Model[0].NetCashUsedProvidedByFinancingActivities.Split(",").ToList().GetRange(years - len, len) },
+                { new(){"Net Change in Cash", "c", "Number"}, Model[0].NetChangeInCash.Split(",").ToList().GetRange(years - len, len) },
+            };
 
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Free Cash Flow
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Market Capitalization
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Dividend in %
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-            </div>
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Margins</div>
-            </div>
-            <div class="financials_row_container">
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Gross Margin
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">EBITDA Margin
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Operating Margin
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Profit Margin
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-            </div>
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Key Ratios</div>
-            </div>
-            <div class="financials_row_container">
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">EPS
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">P/E Ratio
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>                
-                
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">EV/Sales
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">P/B Ratio
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Current Ratio
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">LT Debt / Equity
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-            </div>
-        </div>
-        <div class="financials_view">
-            @{
-                Dictionary<string, string[]> revenues = new() {
-                    { "Revenue", new string[]{"Revenueee", Model.Revenue } },
-                    { "Cost Of Revenues", new string[]{"Costtt",Model.CostOfRevenue } },
-                    { "Gross Profit", new string[]{"gsg", Model.GrossProfit } },
-                    { "Gross Margin", new string[]{"dsga", Model.GrossProfitMargin } }
-                };
-                Dictionary<string, string[]> expenses = new() {
-                    { "Revenue", new string[]{"Revenueee", Model.Revenue } },
-                    { "Cost Of Revenues", new string[]{"Costtt",Model.CostOfRevenue } },
-                    { "Gross Profit", new string[]{"gsg", Model.GrossProfit } },
-                    { "Gross Margin", new string[]{"dsga", Model.GrossProfitMargin } }
-                };
-                Dictionary<string, string[]> earnings = new() {
-                    { "Net Profit", new string[]{"Revenueee", Model.Revenue } },
-                    { "Cost Of Revenues", new string[]{"Costtt",Model.CostOfRevenue } },
-                    { "Gross Profit", new string[]{"gsg", Model.GrossProfit } },
-                    { "Gross Margin", new string[]{"dsga", Model.GrossProfitMargin } }
-                };
-
-                Dictionary<string, Dictionary<string, string[]>> themes = new()
-                {
-                    {"Revenue", revenues},
-                    {"Expenses", expenses},
-                    {"Earnings", earnings},
-                };
-
-                }
-
-            @foreach (KeyValuePair<string, Dictionary<string, string[]>> theme in themes)
+            List<Dictionary<string, Dictionary<List<string>, List<string>>>> categories = new()
             {
-                <div class="financials_row financials_subheader">
-                    <div class="financials_subheader_text">@theme.Key</div>
-                </div>
-                <div class="financials_row_container">
-                    @foreach (KeyValuePair<string, string[]> r in theme.Value)
-                    {
-                        <div class="financials_row flex">
-                            <div class="financials_cell financials_sideheader">
-                                @r.Key
-                                <i class="fa-solid fa-question info_symbol"></i>
+                new(){ {"Profile", profile}, {"Margins", margins}, {"Key Ratios", keyRatios}, },
+                new(){ {"Revenue", revenues}, {"Expenses", expenses}, {"Earnings", earnings}, },
+                new(){ {"Assets", assets}, {"Liabilities", liabilities}, {"Equity", equity}, },
+                new(){ {"Operations", operations}, {"Investing", investing}, {"Financing", financing}, },
+            };
+        }
+        
+        @foreach(var category in categories) 
+        {
+            <div class="financials_view">
+                @foreach (KeyValuePair<string, Dictionary<List<string>, List<string>>> sub in category)
+                {
+                    <div class="financials_row financials_subheader">
+                        <div class="financials_subheader_text">@sub.Key</div>
+                    </div>
+                    <div class="financials_row_container">
+                        @foreach (KeyValuePair<List<string>, List<string>> r in sub.Value)
+                        {
+                            <div class="financials_row flex">
+                                <div class="financials_cell financials_sideheader">
+                                    @r.Key[0]
+                                    <i class="fa-solid fa-question info_symbol"></i>
+                                </div>
+                                <div class="financial_cell">
+                                    <canvas class="@r.Key[0].ToLower() basic_chart"></canvas>
+                                </div>
+                                @{ string convert = ""; }
+                                @foreach (string d in r.Value)
+                                {
+                                    try {
+                                        if(r.Key[2] == "Number" && r.Key[0] == "Market Capitalization") {
+                                            convert = $"{Convert.ToInt64(Convert.ToDecimal(d))/10000000000}";
+                                        } else if(r.Key[2] == "Number") {
+                                            convert = $"{Convert.ToInt64(Convert.ToDecimal(d))/1000000}";
+                                        } else if(r.Key[2] == "Percentage") {
+                                            convert = $"{Convert.ToDecimal(d.Substring(0, 7)) / 100}%";
+                                        } else if(r.Key[2] == "Ratio") {
+                                            convert = $"{Convert.ToDecimal(d.Substring(0, 3))}";
+                                        } else {
+                                            convert = "N/A";
+                                        }
+                                    } catch {
+                                        convert = "N/A";
+                                    }
+
+                                    <div class="financials_cell financials_text dollar">@convert</div>
+                                }
                             </div>
-                            <div class="financial_cell">
-                                <canvas class="@r.Key.ToLower() basic_chart"></canvas>
+                            <div class="financials_row info_box flex">
+                                <div class="financials_info">@r.Key[1]</div>
                             </div>
-                            @foreach (string d in r.Value[1].Split(","))
-                            {
-                                <div class="financials_cell financials_text dollar">@d</div>
-                            }
-                        </div>
-                        <div class="financials_row info_box flex">
-                            <div class="financials_info">@r.Value[0]</div>
-                        </div>
-                    }
-                </div>
-            }
+                        }
+                    </div>
+                }
             </div>
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Expenses</div>
-            </div>
-            <div class="financials_row_container">
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">
-                        SG&A Expenses
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">
-                        Research & Development
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">
-                        Operating Expenses
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">
-                        Operating Margin
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-            </div>
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Earnings</div>
-            </div>
-            <div class="financials_row_container">
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">
-                        EBITDA
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">
-                        Net Profit
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">
-                        Profit Margin
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">
-                        EPS
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">
-                        P/E Ratio
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-            </div>
-        </div>
-        <div class="financials_view">
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Assets</div>
-            </div>
-            <div class="financials_row_container">
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Cash & Equivalents
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Inventory
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Receivables
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Current Assets
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Net Property, Plant & Equipment
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Total Assets
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-            </div>
-
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Liabilities</div>
-            </div>
-            <div class="financials_row_container">
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Accounts Payable
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Accrued Expenses
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>                
-                
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Current Portion of LT Debt
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Total Current Liabilities
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Long-Term Debt
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Total Liabilities
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-            </div>
-
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Equity</div>
-            </div>
-            <div class="financials_row_container">
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Common Stock
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Retained Earnings
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>                
-                
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Treasury Stock
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Minority Interest
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Total Equity
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-            </div>
-        </div>
-        <div class="financials_view">
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Operations</div>
-            </div>
-            <div class="financials_row_container">
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Net Income
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Depreciation & Amortization
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Other Operating Activities
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Stock-Based Compensation
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Cash from Operations
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-            </div>
-
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Investing</div>
-            </div>
-            <div class="financials_row_container">
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Capital Expenditure
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Cash Aquisitions
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Cash from Investing
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-            </div>
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Financing</div>
-            </div>
-            <div class="financials_row_container">
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Total Debt Issued
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Total Debt Repaid
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>                
-                
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Issuance of Common Stock
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Repurchase of Common Stock
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Stock Dividends Paid
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Cash from Financing
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-            </div>
-
-            <div class="financials_row financials_subheader">
-                <div class="financials_subheader_text">Bottom Line</div>
-            </div>
-            <div class="financials_row_container">
-                <div class="financials_row flex">
-                    <div class="financials_cell financials_sideheader">Net Change in Cash
-                        <i class="fa-solid fa-question info_symbol"></i>
-                    </div>
-                    <div class="financial_cell">
-                        <canvas class="revenue basic_chart"></canvas>
-                    </div>
-                    <div class="financials_cell financials_text dollar">238297</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                    <div class="financials_cell financials_text dollar">238347</div>
-                </div>
-                <div class="financials_row info_box flex">
-                    <div class="financials_info">Selling General & Administrative</div>
-                </div>
-            </div>
-        </div>
+        }
     </div>
-</div>
 
-
-<script src="~/js/project/symbol.js" defer></script>
 
 <script>
-    revenue1 = "";
-    const revenue = document.querySelector(".revenue")
-    basicChart(revenue, revenue1, "bar", "rgb(20, 150, 255)", [4, 3, 2, 1, 4, 3, 2, 1], [1, 2, 3, 4, 1, 2, 3, 4]);
+    let dates = "@Model[0].HistoryDate".toString().replaceAll("&quot;", "").split(",")
+    let close = "@Model[0].Close".toString().split(",")
+    let sma20 = "@Model[0].SMA20".toString().split(",")
+    let sma50 = "@Model[0].SMA50".toString().split(",")
+    let sma100 = "@Model[0].SMA100".toString().split(",")
+    let sma200 = "@Model[0].SMA200".toString().split(",")
+
+    let len = "@Model[0].CalendarYear".split(",").length < 10 ? "@Model[0].CalendarYear".split(",").length : 10
+    let years = "@Model[0].CalendarYear".toString().split(',')
+    years = years.slice(years.length - len, years.length)
+
+    //Margins
+    let grossMargin = "@Model[0].GrossProfitMargin".toString().split(',')
+    grossMargin = grossMargin.slice(grossMargin.length - len, grossMargin.length)
+    let operatingMargin = "@Model[0].OperatingProfitMargin".toString().split(',')
+    operatingMargin = operatingMargin.slice(operatingMargin.length - len, operatingMargin.length)
+    let profitMargin = "@Model[0].NetProfitMargin".toString().split(',')
+    profitMargin = profitMargin.slice(profitMargin.length - len, profitMargin.length)
+
+    //Metrics
+    let eps = "@Model[0].Eps".toString().split(',')
+    eps = eps.slice(eps.length - len, eps.length)
+    let peRatio = "@Model[0].PeRatio".toString().split(',')
+    peRatio = peRatio.slice(peRatio.length - len, peRatio.length)
+    let pbRatio = "@Model[0].PbRatio".toString().split(',')
+    pbRatio = pbRatio.slice(pbRatio.length - len, pbRatio.length)
+    let dividendYield = "@Model[0].DividendYield".toString().split(',')
+    dividendYield = dividendYield.slice(dividendYield.length - len, dividendYield.length)
+    let payoutRatio = "@Model[0].PayoutRatio".toString().split(',')
+    payoutRatio = payoutRatio.slice(payoutRatio.length - len, payoutRatio.length)
+
+    //revenue1 = "";
+    //const revenue = document.querySelector(".revenue")
+    //basicChart(revenue, revenue1, "bar", "rgb(20, 150, 255)", [4, 3, 2, 1, 4, 3, 2, 1], [1, 2, 3, 4, 1, 2, 3, 4]);
 
 </script>
+<script src="~/js/project/symbol.js" defer></script>
 
 

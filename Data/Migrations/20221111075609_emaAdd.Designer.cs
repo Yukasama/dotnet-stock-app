@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Obliviate.Data;
 
@@ -11,9 +12,10 @@ using Obliviate.Data;
 namespace Obliviate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221111075609_emaAdd")]
+    partial class emaAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -454,6 +456,9 @@ namespace Obliviate.Migrations
                     b.Property<string>("DividendsPaid")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EMA")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ESGScore")
                         .HasColumnType("nvarchar(max)");
 
@@ -868,9 +873,6 @@ namespace Obliviate.Migrations
                     b.Property<string>("QuickRatio")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RSI")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Range")
                         .HasColumnType("nvarchar(max)");
 
@@ -956,18 +958,6 @@ namespace Obliviate.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Roic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SMA100")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SMA20")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SMA200")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SMA50")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SalesGeneralAndAdministrativeToRevenue")
@@ -1070,9 +1060,6 @@ namespace Obliviate.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Vwap")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WPR")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Website")

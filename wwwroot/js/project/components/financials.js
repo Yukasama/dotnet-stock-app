@@ -6,6 +6,8 @@ const financials_row = document.querySelectorAll(".financials_row")
 const financial_control = document.querySelectorAll(".financial_control")
 const financials_view = document.querySelectorAll(".financials_view")
 
+financials_view[0].classList.add("active");
+
 activeLooper(financial_control, "navtabs", financials_view)
 activeLooper(financial_display, "navigation")
 

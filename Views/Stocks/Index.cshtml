@@ -13,13 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Symbol)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Eps)
             </th>
             <th></th>
         </tr>
@@ -28,18 +22,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Symbol)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Eps)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Symbol">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Symbol">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Symbol">Delete</a>
             </td>
         </tr>
 }

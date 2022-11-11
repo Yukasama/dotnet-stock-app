@@ -69,11 +69,11 @@ namespace Obliviate.Models
         [JsonProperty("costAndExpenses")]
         public string? CostAndExpenses { get; set; }
 
-        [JsonProperty("interestIncome")]
-        public string? InterestIncome { get; set; }
+        [JsonProperty("stringerestIncome")]
+        public string? stringerestIncome { get; set; }
 
-        [JsonProperty("interestExpense")]
-        public string? InterestExpense { get; set; }
+        [JsonProperty("stringerestExpense")]
+        public string? stringerestExpense { get; set; }
 
         [JsonProperty("depreciationAndAmortization")]
         public string? DepreciationAndAmortization { get; set; }
@@ -153,14 +153,14 @@ namespace Obliviate.Models
         [JsonProperty("goodwill")]
         public string? Goodwill { get; set; }
 
-        [JsonProperty("intangibleAssets")]
-        public string? IntangibleAssets { get; set; }
+        [JsonProperty("stringangibleAssets")]
+        public string? stringangibleAssets { get; set; }
 
-        [JsonProperty("goodwillAndIntangibleAssets")]
-        public string? GoodwillAndIntangibleAssets { get; set; }
+        [JsonProperty("goodwillAndstringangibleAssets")]
+        public string? GoodwillAndstringangibleAssets { get; set; }
 
-        [JsonProperty("longTermInvestments")]
-        public string? LongTermInvestments { get; set; }
+        [JsonProperty("stringTermInvestments")]
+        public string? stringTermInvestments { get; set; }
 
         [JsonProperty("taxAssets")]
         public string? TaxAssets { get; set; }
@@ -195,8 +195,8 @@ namespace Obliviate.Models
         [JsonProperty("totalCurrentLiabilities")]
         public string? TotalCurrentLiabilities { get; set; }
 
-        [JsonProperty("longTermDebt")]
-        public string? LongTermDebt { get; set; }
+        [JsonProperty("stringTermDebt")]
+        public string? stringTermDebt { get; set; }
 
         [JsonProperty("deferredRevenueNonCurrent")]
         public string? DeferredRevenueNonCurrent { get; set; }
@@ -240,8 +240,8 @@ namespace Obliviate.Models
         [JsonProperty("totalLiabilitiesAndStockholdersEquity")]
         public string? TotalLiabilitiesAndStockholdersEquity { get; set; }
 
-        [JsonProperty("minorityInterest")]
-        public string? MinorityInterest { get; set; }
+        [JsonProperty("minoritystringerest")]
+        public string? Minoritystringerest { get; set; }
 
         [JsonProperty("totalEquity")]
         public string? TotalEquity { get; set; }
@@ -402,14 +402,14 @@ namespace Obliviate.Models
         [JsonProperty("debtEquityRatio")]
         public string? DebtEquityRatio { get; set; }
 
-        [JsonProperty("longTermDebtToCapitalization")]
-        public string? LongTermDebtToCapitalization { get; set; }
+        [JsonProperty("stringTermDebtToCapitalization")]
+        public string? stringTermDebtToCapitalization { get; set; }
 
         [JsonProperty("totalDebtToCapitalization")]
         public string? TotalDebtToCapitalization { get; set; }
 
-        [JsonProperty("interestCoverage")]
-        public string? InterestCoverage { get; set; }
+        [JsonProperty("stringerestCoverage")]
+        public string? stringerestCoverage { get; set; }
 
         [JsonProperty("cashFlowToDebtRatio")]
         public string? CashFlowToDebtRatio { get; set; }
@@ -516,8 +516,8 @@ namespace Obliviate.Models
         [JsonProperty("shareholdersEquityPerShare")]
         public string? ShareholdersEquityPerShare { get; set; }
 
-        [JsonProperty("interestDebtPerShare")]
-        public string? InterestDebtPerShare { get; set; }
+        [JsonProperty("stringerestDebtPerShare")]
+        public string? stringerestDebtPerShare { get; set; }
 
         [JsonProperty("marketCap")]
         public string? MarketCap { get; set; }
@@ -576,8 +576,8 @@ namespace Obliviate.Models
         [JsonProperty("researchAndDdevelopementToRevenue")]
         public string? ResearchAndDdevelopementToRevenue { get; set; }
 
-        [JsonProperty("intangiblesToTotalAssets")]
-        public string? IntangiblesToTotalAssets { get; set; }
+        [JsonProperty("stringangiblesToTotalAssets")]
+        public string? stringangiblesToTotalAssets { get; set; }
 
         [JsonProperty("capexToOperatingCashFlow")]
         public string? CapexToOperatingCashFlow { get; set; }
@@ -782,5 +782,146 @@ namespace Obliviate.Models
 
         [JsonProperty("ratingDetailsPBRecommendation")]
         public string? RatingDetailsPBRecommendation { get; set; }
+
+        [JsonProperty("peersList")]
+        public string? peersList { get; set; }
+
+        [JsonProperty("environmentalScore")]
+        public string? environmentalScore { get; set; }
+
+        [JsonProperty("socialScore")]
+        public string? socialScore { get; set; }
+
+        [JsonProperty("governanceScore")]
+        public string? governanceScore { get; set; }
+
+        [JsonProperty("ESGScore")]
+        public string? ESGScore { get; set; }
+
+        [JsonProperty("url")]
+        public string? url { get; set; }
+
+        [JsonProperty("targetHigh")]
+        public string? targetHigh { get; set; }
+
+        [JsonProperty("targetLow")]
+        public string? targetLow { get; set; }
+
+        [JsonProperty("targetConsensus")]
+        public string? targetConsensus { get; set; }
+
+        [JsonProperty("targetMedian")]
+        public string? targetMedian { get; set; }
+
+        [JsonProperty("estimatedRevenueLow")]
+        public string? EstimatedRevenueLow { get; set; }
+
+        [JsonProperty("estimatedRevenueHigh")]
+        public string? EstimatedRevenueHigh { get; set; }
+
+        [JsonProperty("estimatedRevenueAvg")]
+        public string? EstimatedRevenueAvg { get; set; }
+
+        [JsonProperty("estimatedEbitdaLow")]
+        public string? EstimatedEbitdaLow { get; set; }
+
+        [JsonProperty("estimatedEbitdaHigh")]
+        public string? EstimatedEbitdaHigh { get; set; }
+
+        [JsonProperty("estimatedEbitdaAvg")]
+        public string? EstimatedEbitdaAvg { get; set; }
+
+        [JsonProperty("estimatedEbitLow")]
+        public string? EstimatedEbitLow { get; set; }
+
+        [JsonProperty("estimatedEbitHigh")]
+        public string? EstimatedEbitHigh { get; set; }
+
+        [JsonProperty("estimatedEbitAvg")]
+        public string? EstimatedEbitAvg { get; set; }
+
+        [JsonProperty("estimatedNetIncomeLow")]
+        public string? EstimatedNetIncomeLow { get; set; }
+
+        [JsonProperty("estimatedNetIncomeHigh")]
+        public string? EstimatedNetIncomeHigh { get; set; }
+
+        [JsonProperty("estimatedNetIncomeAvg")]
+        public string? EstimatedNetIncomeAvg { get; set; }
+
+        [JsonProperty("estimatedSgaExpenseLow")]
+        public string? EstimatedSgaExpenseLow { get; set; }
+
+        [JsonProperty("estimatedSgaExpenseHigh")]
+        public string? EstimatedSgaExpenseHigh { get; set; }
+
+        [JsonProperty("estimatedSgaExpenseAvg")]
+        public string? EstimatedSgaExpenseAvg { get; set; }
+
+        [JsonProperty("estimatedEpsAvg")]
+        public string? EstimatedEpsAvg { get; set; }
+
+        [JsonProperty("estimatedEpsHigh")]
+        public string? EstimatedEpsHigh { get; set; }
+
+        [JsonProperty("estimatedEpsLow")]
+        public string? EstimatedEpsLow { get; set; }
+
+        [JsonProperty("numberAnalystEstimatedRevenue")]
+        public string? NumberAnalystEstimatedRevenue { get; set; }
+
+        [JsonProperty("numberAnalystsEstimatedEps")]
+        public string? NumberAnalystsEstimatedEps { get; set; }
+
+        [JsonProperty("historyDate")]
+        public string? HistoryDate { get; set; }
+
+        [JsonProperty("open")]
+        public string? Open { get; set; }
+
+        [JsonProperty("high")]
+        public string? High { get; set; }
+
+        [JsonProperty("low")]
+        public string? Low { get; set; }
+
+        [JsonProperty("adjClose")]
+        public string? Close { get; set; }
+
+        [JsonProperty("volume")]
+        public string? Volume { get; set; }
+
+        [JsonProperty("change")]
+        public string? Change { get; set; }
+
+        [JsonProperty("changePercent")]
+        public string? ChangePercent { get; set; }
+
+        [JsonProperty("vwap")]
+        public string? Vwap { get; set; }
+
+        [JsonProperty("label")]
+        public string? Label { get; set; }
+
+        [JsonProperty("changeOverTime")]
+        public string? ChangeOverTime { get; set; }
+
+        [JsonProperty("sma20")]
+        public string? SMA20 { get; set; }
+
+        [JsonProperty("sma50")]
+        public string? SMA50 { get; set; }
+
+        [JsonProperty("sma100")]
+        public string? SMA100 { get; set; }
+
+        [JsonProperty("sma200")]
+        public string? SMA200 { get; set; }
+
+        [JsonProperty("wpr")]
+        public string? WPR { get; set; }
+
+        [JsonProperty("rsi")]
+        public string? RSI { get; set; }
     }
 }

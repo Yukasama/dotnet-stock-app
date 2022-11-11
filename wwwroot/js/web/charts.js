@@ -14,7 +14,8 @@ function chartConfig(args="normal", right=false, rightColor='grey', sole=false, 
                 callback: function(value, index, values) {
                 if (args == "pct") return Math.round(value * 100) + '%';
                 else return value
-                },},
+                },
+            },
             position: 'left',
             display: false,
             }
@@ -23,6 +24,7 @@ function chartConfig(args="normal", right=false, rightColor='grey', sole=false, 
     } 
 
     let config = {
+        elements: { point: { radius: 0 } },
         plugins: { legend: { labels: {
         display: sole == true ? 
         fontColor: "rgb(255, 255, 255)",
@@ -55,7 +57,15 @@ function chartConfig(args="normal", right=false, rightColor='grey', sole=false, 
         },
         scales: {
         x: {
-            grid: { display: false },
+            grid: { 
+                display: false,
+            },
+            ticks: {
+                autoSkip: true,
+                maxRotation: 0,
+                minRotation: 0,
+                maxTicksLimit: 10,
+            }
         },
         left: {
             grid: { display: false },

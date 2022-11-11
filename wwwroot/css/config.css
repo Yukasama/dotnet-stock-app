@@ -19,6 +19,7 @@
     --color-first: rgb(19, 98, 218);
     --color-first-dark: rgb(10, 71, 161);
     --color-first-light: rgba(19, 98, 235);
+    --color-first-background: rgba(23, 127, 255, 0.6);
     --color-second: rgb(2, 184, 93);
     --color-second-dark: rgb(2, 160, 54);
     --color-second-light: rgb(57, 238, 149);
@@ -47,6 +48,7 @@
     /* COLOR VARIATIONS */
     --color-first: rgb(19, 145, 218);
     --color-first-dark: rgb(10, 71, 161);
+    --color-first-background: rgba(47, 141, 255, 0.4);
     --color-gain: rgb(49, 255, 114);
 }
 

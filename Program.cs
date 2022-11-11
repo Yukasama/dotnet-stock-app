@@ -39,7 +39,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-builder.Services.AddScoped<StockManager, StockData>();
+builder.Services.AddScoped<StockManager>();
 
 builder.Services.AddAuthentication()
    .AddGoogle(options =>

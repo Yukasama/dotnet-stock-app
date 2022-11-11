@@ -1,6 +1,4 @@
-﻿@model IEnumerable<Obliviate.Models.Stock>
-
-@{
+﻿@{
     ViewData["Title"] = "Manage";
 }
 
@@ -10,28 +8,7 @@
     </div>
 }
 
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Symbol)
-        </th>
-    </tr>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Symbol)
-        </td>
-
-        <td>
-            <a asp-action="Edit" asp-route-id="@item.Symbol">Edit</a> |
-            <a asp-action="Delete" asp-route-id="@item.Symbol">Delete</a>
-        </td>
-    </tr>
-}
-</table>
-
-
+<!-- Test -->
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

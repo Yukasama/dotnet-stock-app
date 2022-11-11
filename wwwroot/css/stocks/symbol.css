@@ -30,10 +30,19 @@
     width: 35%;
     height: 100%;
 }
-.stock_logo img {
-    height: 100px;
-    width: 100px;
+.stock_logo {
+    height: 110px;
+    width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
     border-radius: 5px;
+}
+.stock_logo img {
+    max-height: 90px;
+    max-width: 90px;
+    min-width: 65px;
 }
 
 .stock_info {
@@ -79,9 +88,6 @@
 }
 .stock_price_container {
     margin-right: 10px;
-}
-.stock_percent_icon, .stock_percent {
-    color: var(--color-gain);
 }
 .stock_percent_icon {
     border-radius: 50%;
@@ -229,23 +235,32 @@
 .list_headers .list_img {
     opacity: 0;
 }
+.list_img {
+    height: 45px;
+    width: 50px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
 .list_headers * {
     font-size: 1.05em;
     color: white;
     text-align: center;
 }
 .list_text_container {
-    width: 140px;
+    width: 250px;
 }
 .list_img img {
     border-radius: 3px;
 }
 .list_name {
     color: var(--color-text-theme);
-    font-size: 0.8em;
+    font-size: 0.7em;
 }
 .list_price_container {
-    width: 170px;
+    width: 180px;
     align-items: center;
 }
 .list_price_container .stock_percent_icon {
@@ -286,6 +301,7 @@
 }
 .financial_control, .financial_display {
     display: flex;
+    margin-top: 5px;
     justify-content: center;
     align-items: center;
     border: 1px solid var(--color-light);
@@ -387,7 +403,9 @@
     margin-left: 15px;
     font-weight: 250;
 }
-
+.financials_inmillions {
+    font-size: 0.8em;
+}
 
 
 @media screen and (max-width: 1100px) {

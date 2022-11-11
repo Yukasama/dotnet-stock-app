@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Obliviate.Data;
 
@@ -11,9 +12,10 @@ using Obliviate.Data;
 namespace Obliviate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221106105317_AnalystEstimates2")]
+    partial class AnalystEstimates2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -322,16 +324,7 @@ namespace Obliviate.Migrations
                     b.Property<string>("Ceo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Change")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ChangeInWorkingCapital")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChangeOverTime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChangePercent")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Changes")
@@ -341,9 +334,6 @@ namespace Obliviate.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Close")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CommonStock")
@@ -493,60 +483,6 @@ namespace Obliviate.Migrations
                     b.Property<string>("Epsdiluted")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EstimatedEbitAvg")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedEbitHigh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedEbitLow")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedEbitdaAvg")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedEbitdaHigh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedEbitdaLow")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedEpsAvg")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedEpsHigh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedEpsLow")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedNetIncomeAvg")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedNetIncomeHigh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedNetIncomeLow")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedRevenueAvg")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedRevenueHigh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedRevenueLow")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedSgaExpenseAvg")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedSgaExpenseHigh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EstimatedSgaExpenseLow")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("EvToFreeCashFlow")
                         .HasColumnType("nvarchar(max)");
 
@@ -610,12 +546,6 @@ namespace Obliviate.Migrations
                     b.Property<string>("GrossProfitRatio")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("High")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HistoryDate")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -664,16 +594,10 @@ namespace Obliviate.Migrations
                     b.Property<string>("Isin")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Label")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastDiv")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Low")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MarketCap")
@@ -722,15 +646,6 @@ namespace Obliviate.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NetReceivables")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NumberAnalystEstimatedRevenue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NumberAnalystsEstimatedEps")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Open")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OperatingCashFlow")
@@ -868,9 +783,6 @@ namespace Obliviate.Migrations
                     b.Property<string>("QuickRatio")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RSI")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Range")
                         .HasColumnType("nvarchar(max)");
 
@@ -956,18 +868,6 @@ namespace Obliviate.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Roic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SMA100")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SMA20")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SMA200")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SMA50")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SalesGeneralAndAdministrativeToRevenue")
@@ -1064,15 +964,6 @@ namespace Obliviate.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VolAvg")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Volume")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Vwap")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WPR")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Website")
