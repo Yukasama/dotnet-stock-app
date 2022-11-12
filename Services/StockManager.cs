@@ -139,7 +139,6 @@ namespace Obliviate.Services
 
 
 
-
         private Stock GetFinancials(string symbol)
         {
             Stock stock = new();
@@ -162,7 +161,7 @@ namespace Obliviate.Services
                 "ratingDetailsDERecommendation", "ratingDetailsPEScore",
                 "ratingDetailsPERecommendation", "ratingDetailsPBScore",
                 "ratingDetailsPBRecommendation", "peersList", "targetHigh",
-                "targetLow", "targetConsensus", "targetMedian",
+                "targetLow", "targetConsensus", "targetMedian"
             };
             string[] noDots = 
             {
@@ -229,11 +228,11 @@ namespace Obliviate.Services
             jsonObj = JArray.FromObject(jsonObj.Reverse());
 
             JArray jArr = new();
-            List<string> names = new() {"sma", "sma", "sma", "sma", "williams", "rsi"};
-            List<int> periods = new() {20, 50, 100, 200, 14, 14};
+            string[] names = {"sma", "sma", "sma", "sma", "williams", "rsi"};
+            int[] periods = {20, 50, 100, 200, 14, 14};
 
             string index = "";
-            for(int i = 0; i < names.Count; ++i) {
+            for(int i = 0; i < names.Length; ++i) {
                 jArr = JArray.Parse(MakeCall(
                     $"{_baseUrl}v3/technical_indicator/daily/{symbol}?period={periods[i]}&type={names[i]}&apikey={_apiKey}"));
                 try {
@@ -244,9 +243,7 @@ namespace Obliviate.Services
 
                 index = $"{names[i]}{periods[i]}";
                 foreach(JObject j in jArr)
-                {
                     history[index] += $"{j[names[i]]}".Replace(",", ".") + ",";
-                }
                     
             }   
 
@@ -297,7 +294,6 @@ namespace Obliviate.Services
         public int GetData(string action, string symbol="", bool skip=true, List<string> already=null) 
         {
             Stock stock = new Stock();
-
             if(action == "history")
             {
                 if(already.Contains(symbol)) 
@@ -319,14 +315,19 @@ namespace Obliviate.Services
                     Debug.WriteLine($"'{symbol}' Push skipped.");
                     return 1;
                 }
-
-                stock = GetFinancials(symbol);
-                stock = GetHistory(stock);
-                if(stock.IsEtf == "False") {
-                    _context.Remove(_context.Stock.Find(symbol));
-                    _context.SaveChanges();
-                    _context.Add(stock);
+                try {
+                    stock = GetFinancials(symbol);
+                    stock = GetHistory(stock);
+                    if(stock.IsEtf == "False") {
+                        _context.Remove(_context.Stock.Find(symbol));
+                        _context.SaveChanges();
+                        _context.Add(stock);
+                    }
+                } catch (Exception e) {
+                    Debug.WriteLine($"'{symbol}' Push failed. Error: {e}");
+                    return 1;
                 }
+
             }
             return 0;
         }
