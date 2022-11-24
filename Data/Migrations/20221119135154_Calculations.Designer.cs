@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Obliviate.Data;
 
@@ -11,9 +12,11 @@ using Obliviate.Data;
 namespace Obliviate.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119135154_Calculations")]
+    partial class Calculations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1024,18 +1027,6 @@ namespace Obliviate.Migrations
                     b.Property<string>("TangibleBookValuePerShare")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TargetConsensus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetHigh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetLow")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetMedian")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("TaxAssets")
                         .HasColumnType("nvarchar(max)");
 
@@ -1082,9 +1073,6 @@ namespace Obliviate.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TotalStockholdersEquity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VolAvg")
@@ -1151,6 +1139,21 @@ namespace Obliviate.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("stringerestIncome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("targetConsensus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("targetHigh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("targetLow")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("targetMedian")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("url")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Symbol");

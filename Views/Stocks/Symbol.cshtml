@@ -30,7 +30,7 @@
 
         <div class="stock_symbol stock_item">
             <a href=@Model[0].Website target="_" class="stock_logo">
-                <img src=@Model[0].Image>
+                <img src="@Model[0].Image" alt="@Model[0].CompanyName Logo">
             </a>
             <div class="stock_info">
                 <div class="stock_name">@Model[0].CompanyName</div>
@@ -65,7 +65,7 @@
             <div class="evaluations_first">
                 <div class="evaluations_container">
                     <div class="evaluations_headers evaluations_wrapper">
-                        <div class="evaluations_number">0.45</div>
+                        <div class="evaluations_number">@Model[0].TAR</div>
                         <div class="evaluations_header">TA-R</div>
                     </div>
                     <div class="evaluations_headers evaluations_wrapper">
@@ -89,9 +89,10 @@
                     <div class="evaluations_text">1</div>
                 </div>
             </div>
+
             <div class="separator_vertical"></div>
             <div class="evaluations_headers evaluations_wrapper">
-                <div class="evaluations_number evaluations_eye_num">@Model[0].targetMedian</div>
+                <div class="evaluations_number evaluations_eye_num">@Model[0].Rating</div>
                 <div class="evaluations_header evaluations_eye">Analysts Rating</div>
             </div>
         </div>

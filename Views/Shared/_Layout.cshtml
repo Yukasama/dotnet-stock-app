@@ -37,8 +37,10 @@
 
         string[] singleUrls = path.Split("/");
         string[] weirdRedirectUrls = { "?page=%2F" };
-        foreach(string url in singleUrls) {
-            if (url.Contains(weirdRedirectUrls[0])) {
+        foreach (string url in singleUrls)
+        {
+            if (url.Contains(weirdRedirectUrls[0]))
+            {
                 url.Replace(weirdRedirectUrls[0], string.Empty);
             }
         }
@@ -55,7 +57,7 @@
         string[] cleanPaths = {
     "/Identity/Account/Login",
     "/Identity/Account/Register",
-        };
+    };
     }
 
     <partial name="_Notification" />
@@ -79,7 +81,7 @@
                 <button class="search_button" type="submit">
                     <i class="fa-solid fa-search"></i>
                 </button>
-                <input class="input search_input" placeholder="Search.." name="q" />
+                <input class="input search_input" placeholder="Search" name="q" />
                 <i class="fa-solid fa-xmark searchbar_x"></i>
             </form>
         </div>
@@ -90,36 +92,36 @@
             </div>
             <div class="profile flex_box">
                 @if (SignInManager.IsSignedIn(User))
-                    {
-                        <i class="fa-solid fa-user"></i>
-                    }
-                    else
-                    {
-                        <i class="fa-solid fa-user-secret"></i>
-                    }
+                {
+                    <i class="fa-solid fa-user"></i>
+                }
+                else
+                {
+                    <i class="fa-solid fa-user"></i>
+                }
             </div>
         </div>
         <div class="list profile_container">
             @if (SignInManager.IsSignedIn(User))
-                {
+            {
                 <div class="list_nolink">
                     <i class="fa-solid fa-user list_icon"></i>
                     <div class="list_container">
                         <!-- @User.Identity?.Name?.Split("@")[0].ToUpper() -->
-                        <small class="list_con_text user_name">Yukasama</small>
+                    <small class="list_con_text user_name">Yukasama</small>
                         <a class="list_con_text manage_account" asp-area="Identity" asp-page="/Account/Manage/Index"
-                           title="Manage">Manage Account</a>
+                        title="Manage">Manage Account</a>
                     </div>
                 </div>
-                }
-                else
-                {
+            }
+            else
+            {
                 <div class="list_nolink register_container">
-                    <i class="fa-solid fa-user-secret list_icon"></i>
+                    <i class="fa-solid fa-user list_icon"></i>
                     <div class="list_container">
                         <small class="list_con_text user_name">Not Logged In</small>
                         <a class="list_con_text" id="register" asp-area="Identity" asp-page="/Account/Register"
-                           title="Register"><i class="fa-solid fa-plus"></i>Create Account</a>
+                        title="Register"><i class="fa-solid fa-plus"></i>Create Account</a>
                     </div>
                 </div>
                 <div class="list_separator"></div>
@@ -127,7 +129,7 @@
                     <i class="fa-solid fa-arrow-right-to-bracket list_icon"></i>
                     <p class="list_text">Sign&nbspIn</p>
                 </a>
-                }
+            }
             <div class="list_separator"></div>
             <a class="list_link dark_mode" title="Change Theme">
                 <div class="dark_mode_icons">
@@ -141,18 +143,18 @@
                 <p class="list_text">Language</p>
             </a>
             @if (SignInManager.IsSignedIn(User))
-                {
+            {
                 <a class="list_link" href="">
                     <i class="fa-solid fa-gear list_icon"></i>
                     <p class="list_text">Settings</p>
                 </a>
                 <div class="list_separator"></div>
                 <form class="list_link list_form" asp-area="Identity" asp-page="/Account/Logout"
-                      asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="POST">
+                asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="POST">
                     <i class="fa-solid fa-arrow-right-from-bracket list_icon"></i>
                     <button type="submit" class="list_text">Logout</button>
                 </form>
-                }
+            }
         </div>
     </nav>
 
@@ -162,12 +164,12 @@
             <i class="fa-solid fa-shoe-prints list_icon"></i>
             <p class="page_path">
                 @for (int i = 0; i < singleUrls.Length; i++)
+                {
+                    if (singleUrls[i] != "")
                     {
-                        if (singleUrls[i] != "")
-                        {
                         <a href="@combinedUrls[i]" class="page_path_part">/@singleUrls[i]</a>
-                        }
                     }
+                }
             </p>
         </a>
         <div class="list_separator"></div>

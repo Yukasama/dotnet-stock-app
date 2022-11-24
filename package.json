@@ -4,5 +4,8 @@
     "chart.js": "^3.9.1",
     "chartjs-plugin-gradient": "^0.5.1",
     "chartjs-plugin-trendline": "^2.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.4"
   }
 }

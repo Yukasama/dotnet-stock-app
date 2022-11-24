@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Obliviate.Data;
 using Obliviate.Models;
 using Obliviate.Services;
+using Microsoft.Data.SqlClient;
 
 namespace Obliviate.Controllers
 {
@@ -27,7 +28,7 @@ namespace Obliviate.Controllers
         {
             return View(await _context.Stock.ToListAsync());
         }
-    
+
         // GET: Stocks/<Symbol>
         [Route("Stocks/{id}")]
         public async Task<IActionResult> Symbol(string id)
@@ -45,12 +46,11 @@ namespace Obliviate.Controllers
 
             List<Stock>? stockList = new();
             stockList.Add(primaryStock);
-            foreach(string p in peers) 
+            foreach (string p in peers)
             {
                 Stock? peer = _context.Stock.Find(p.Replace("[", "").Replace("]", "").Replace("\"", "").Trim());
-                if(peer != null) {
+                if (peer != null)
                     stockList.Add(peer);
-                }
             }
 
             return View(stockList);
@@ -72,27 +72,27 @@ namespace Obliviate.Controllers
         public async Task<IActionResult> Update()
         {
             int status = 0;
-            List<string> symbols = _stockManager.GetSymbols();
-            //List<string> symbols = new(){"MSFT"};
+            //List<string> symbols = _stockManager.GetSymbols();
+            List<string> symbols = new() { "GOOG" };
             Stock stock = new();
 
             //Check if Symbols are already in Database
             List<string> already = new();
             List<Stock> currentSymbols = _context.Stock.ToList();
-            foreach(Stock s in currentSymbols)
+            foreach (Stock s in currentSymbols)
                 already.Add(s.Symbol);
 
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 string action = "all";
                 Debug.WriteLine($"Initializing Database Update with Push Configuration '{action.ToUpper()}' ...");
-                foreach(string s in symbols) 
+                foreach (string s in symbols)
                 {
                     Stopwatch stopwatch2 = new();
                     stopwatch2.Start();
 
                     status = _stockManager.GetData(action, s, false, already);
-                    if(status == 0) 
+                    if (status == 0)
                     {
                         await _context.SaveChangesAsync();
                         stopwatch2.Stop();
@@ -100,7 +100,6 @@ namespace Obliviate.Controllers
                     }
                 }
             }
-
             return RedirectToAction(nameof(Manage));
         }
 
@@ -112,10 +111,10 @@ namespace Obliviate.Controllers
             ViewBag.Message = q;
 
             var symbol = _context.Stock.Find(q);
-            if(symbol != null)
+            if (symbol != null)
                 return RedirectToAction(q.ToUpper());
 
-            if(q.Contains(":"))
+            if (q.Contains(":"))
                 q = q.Replace(":", "");
 
             var stocks = from stock in _context.Stock select stock;

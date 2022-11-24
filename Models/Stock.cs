@@ -799,19 +799,19 @@ namespace Obliviate.Models
         public string? ESGScore { get; set; }
 
         [JsonProperty("url")]
-        public string? url { get; set; }
+        public string? Url { get; set; }
 
         [JsonProperty("targetHigh")]
-        public string? targetHigh { get; set; }
+        public string? TargetHigh { get; set; }
 
         [JsonProperty("targetLow")]
-        public string? targetLow { get; set; }
+        public string? TargetLow { get; set; }
 
         [JsonProperty("targetConsensus")]
-        public string? targetConsensus { get; set; }
+        public string? TargetConsensus { get; set; }
 
         [JsonProperty("targetMedian")]
-        public string? targetMedian { get; set; }
+        public string? TargetMedian { get; set; }
 
         [JsonProperty("estimatedRevenueLow")]
         public string? EstimatedRevenueLow { get; set; }
@@ -873,55 +873,26 @@ namespace Obliviate.Models
         [JsonProperty("numberAnalystsEstimatedEps")]
         public string? NumberAnalystsEstimatedEps { get; set; }
 
-        [JsonProperty("historyDate")]
         public string? HistoryDate { get; set; }
-
-        [JsonProperty("open")]
         public string? Open { get; set; }
-
-        [JsonProperty("high")]
         public string? High { get; set; }
-
-        [JsonProperty("low")]
         public string? Low { get; set; }
-
-        [JsonProperty("adjClose")]
         public string? Close { get; set; }
-
-        [JsonProperty("volume")]
         public string? Volume { get; set; }
-
-        [JsonProperty("change")]
         public string? Change { get; set; }
-
-        [JsonProperty("changePercent")]
         public string? ChangePercent { get; set; }
-
-        [JsonProperty("vwap")]
         public string? Vwap { get; set; }
-
-        [JsonProperty("label")]
         public string? Label { get; set; }
-
-        [JsonProperty("changeOverTime")]
         public string? ChangeOverTime { get; set; }
-
-        [JsonProperty("sma20")]
         public string? SMA20 { get; set; }
-
-        [JsonProperty("sma50")]
         public string? SMA50 { get; set; }
-
-        [JsonProperty("sma100")]
         public string? SMA100 { get; set; }
-
-        [JsonProperty("sma200")]
         public string? SMA200 { get; set; }
-
-        [JsonProperty("wpr")]
         public string? WPR { get; set; }
-
-        [JsonProperty("rsi")]
         public string? RSI { get; set; }
+
+        public decimal TAR { get; set; }
+        public decimal FAR { get; set; }
+        public decimal EYE { get; set; }
     }
 }

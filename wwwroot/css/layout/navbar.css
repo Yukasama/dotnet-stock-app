@@ -18,8 +18,8 @@
 }
 .hamburger_container {
   margin: 0 10%;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -31,7 +31,7 @@
 }
 
 .logo {
-  height: 55px;
+  height: 35px;
   filter: invert(1) !important;
   cursor: pointer;
 }
@@ -53,8 +53,8 @@
   justify-content: space-between;
   border-radius: 5px;
   background: var(--color-theme-contrast);
-  width: 60%;
-  padding: 7px 10px;
+  width: 55%;
+  padding: 4px 5px;
   transition: padding 0.3s;
 }
 .search_button {
@@ -64,8 +64,11 @@
 .search_input {
   height: 100%;
 }
+.search_input::placeholder {
+    font-size: 0.9em;
+}
 .searchbar i {
-  font-size: 18px;
+  font-size: 16px;
   padding: 7px 9px;
 }
 .searchbar_x {
@@ -94,8 +97,8 @@
   justify-content: center;
 }
 .profile {
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -103,7 +106,7 @@
   background: var(--color-theme-contrast);
 }
 .profile i {
-  font-size: 22px;
+  font-size: 19px;
 }
 .profile_container {
   position: fixed;

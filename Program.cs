@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
 // Add services to the container.
-var connectionString = "";
+string connectionString = "";
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 {
     connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -40,6 +40,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddScoped<StockManager>();
+builder.Services.AddScoped<StockCalculator>();
 
 builder.Services.AddAuthentication()
    .AddGoogle(options =>

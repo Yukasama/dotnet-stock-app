@@ -15,9 +15,11 @@ namespace Obliviate.Services
     {
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
-        private readonly string _apiKey;
-        private readonly string _baseUrl;
+        private readonly string? _apiKey;
+        private readonly string? _baseUrl;
         private readonly HttpClient _client;
+        private readonly StockCalculator _calculator;
+
         public StockManager(IConfiguration configuration, ApplicationDbContext context)
         {
             _configuration = configuration;
@@ -30,13 +32,21 @@ namespace Obliviate.Services
             _client.BaseAddress = new Uri(_baseUrl);
             _client.DefaultRequestHeaders.TryAddWithoutValidation
                 ("Content-Type", "application/json; charset=utf-8");
+
+            _calculator = new StockCalculator(configuration);
         }
 
 
-        private string MakeCall(string url) 
+        /// <summary>
+        /// Make Call to API, getting a HttpResponse and turning it into
+        /// a JSON String.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns>JSON String</returns>
+        private string MakeCall(string url)
         {
             HttpResponseMessage apiCall = _client.GetAsync(url).Result;
-            if(apiCall.IsSuccessStatusCode) 
+            if (apiCall.IsSuccessStatusCode)
             {
                 string result = apiCall.Content.ReadAsStringAsync().Result;
                 return result;
@@ -44,14 +54,29 @@ namespace Obliviate.Services
             return null;
         }
 
+
         /// <summary>
-        /// Format JSON API Request
+        /// Get Symbol List containing Tickers of almost every stock.
+        /// </summary>
+        /// <returns>Symbol List</returns>
+        public List<string> GetSymbols()
+        {
+            JArray jsonArr = JArray.Parse(MakeCall($"{_baseUrl}v3/stock/list?apikey={_apiKey}"));
+            List<string> symbols = new();
+            foreach (JObject obj in jsonArr)
+                symbols.Add(obj["symbol"].ToString());
+            return symbols;
+        }
+
+
+        /// <summary>
+        /// Format JSON API Request.
         /// </summary>
         /// <param name="symbol">Symbol of Stock (eg. AAPL)</param>
         /// <param name="api">Which API to use</param>
         /// <param name="data">Which Data to get</param>
-        /// <returns>Formatted JSON List</returns>
-        private List<JObject> GetJSON(string symbol, string api="FMP", string data="standard")
+        /// <returns>Formatted/Merged JSON List</returns>
+        private List<JObject> FormatJson(string symbol, string api = "FMP", string data = "standard")
         {
             //Where API Calls with {Name: URL} are stored
             string[] calls = new string[]
@@ -60,7 +85,7 @@ namespace Obliviate.Services
                 $"v4/esg-environmental-social-governance-data?symbol={symbol}&apikey={_apiKey}",
                 $"v4/price-target-consensus?symbol={symbol}&apikey={_apiKey}",
                 $"v4/stock_peers?symbol={symbol}&apikey={_apiKey}",
-                
+
                 $"v3/analyst-estimates/{symbol}?&apikey={_apiKey}",
                 $"v3/historical-discounted-cash-flow-statement/{symbol}?apikey={_apiKey}",
                 $"v3/income-statement/{symbol}?apikey={_apiKey}",
@@ -80,20 +105,23 @@ namespace Obliviate.Services
             int count = 0, otherCount = 0;
             foreach (string call in calls)
             {
-                try {
+                try
+                {
                     jsonArr = JArray.Parse(MakeCall(call));
-                } catch (System.ArgumentNullException) {
+                }
+                catch (System.ArgumentNullException)
+                {
                     continue;
                 }
 
                 //Individual Changes
                 JArray tempJsonArr = new();
-                if(call.Contains("environmental"))
+                if (call.Contains("environmental"))
                 {
                     otherCount = 0;
-                    foreach(JObject j in jsonArr) 
+                    foreach (JObject j in jsonArr)
                     {
-                        if(otherCount % 4 == 0) 
+                        if (otherCount % 4 == 0)
                             tempJsonArr.Add(j);
                         ++otherCount;
                     }
@@ -126,30 +154,22 @@ namespace Obliviate.Services
         }
 
 
-
-
-        public List<string> GetSymbols()
-        {
-            JArray jsonArr = JArray.Parse(MakeCall($"{_baseUrl}v3/stock/list?apikey={_apiKey}"));
-            List<string> symbols = new();
-            foreach(JObject obj in jsonArr)
-                symbols.Add(obj["symbol"].ToString());
-            return symbols;
-        }
-
-
-
+        /// <summary>
+        /// Adds Financials to Stock Instance
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns>Stock</returns>
         private Stock GetFinancials(string symbol)
         {
             Stock stock = new();
-            List<JObject> stockData = GetJSON(symbol);
+            List<JObject> stockData = FormatJson(symbol);
             if (stockData.Count == 0)
                 return stock;
 
             string[] singles =
             {
                 "symbol", "reportedCurrency", "period", "cik",
-                "stockPrice", "companyName", "currency", "isin", "cusip", "exchange", "exchangeShortName", "industry", 
+                "stockPrice", "companyName", "currency", "isin", "cusip", "exchange", "exchangeShortName", "industry",
                 "website", "description", "ceo", "beta", "changes", "dcfDiff", "price", "mktCap",
                 "sector", "country", "fullTimeEmployees", "phone", "address", "city", "range", "capexPerShare",
                 "state", "zip", "dcfdiff", "image", "ipoDate", "defaultImage", "lastDiv", "volAvg",
@@ -163,7 +183,7 @@ namespace Obliviate.Services
                 "ratingDetailsPBRecommendation", "peersList", "targetHigh",
                 "targetLow", "targetConsensus", "targetMedian"
             };
-            string[] noDots = 
+            string[] noDots =
             {
                 "symbol", "companyName", "description", "ceo", "address",
                 "state", "county", "city", "peersList"
@@ -177,20 +197,27 @@ namespace Obliviate.Services
             {
                 foreach (PropertyInfo prop in stock.GetType().GetProperties())
                 {
-                    name = Char.ToLower(prop.Name[0]) + prop.Name.Substring(1);
-                    prev = prop.GetValue(stock);
-                    if(!noDots.Contains(name))
-                        convert = $"{obj[name]}".Replace(",", ".");
-                    else
-                        convert = $"{obj[name]}";
+                    try
+                    {
+                        name = Char.ToLower(prop.Name[0]) + prop.Name.Substring(1);
+                        prev = prop.GetValue(stock);
+                        if (!noDots.Contains(name))
+                            convert = $"{obj[name]}".Replace(",", ".");
+                        else
+                            convert = $"{obj[name]}";
 
-                    if (i == 0)
-                        prop.SetValue(stock, convert, null);
-                    else if (i != 0 && singles.Contains(name))
-                        prop.SetValue(stock, prev, null);
-                    else
-                        prop.SetValue(stock, convert + $", {prev}", null);
-                    ++j;
+                        if (i == 0)
+                            prop.SetValue(stock, convert, null);
+                        else if (i != 0 && singles.Contains(name))
+                            prop.SetValue(stock, prev, null);
+                        else
+                            prop.SetValue(stock, convert + $", {prev}", null);
+                        ++j;
+                    }
+                    catch
+                    {
+                        prop.SetValue(stock, null, null);
+                    }
                 }
                 ++i;
             }
@@ -199,9 +226,14 @@ namespace Obliviate.Services
         }
 
 
-
-        private Dictionary<string, string> CallHistory(string symbol) 
+        /// <summary>
+        /// Adds History Data to Stock
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <returns>Stock</returns>
+        private Stock GetHistory(Stock stock)
         {
+            string symbol = stock.Symbol;
             Dictionary<string, string> history = new()
             {
                 {"date", ""},
@@ -228,26 +260,32 @@ namespace Obliviate.Services
             jsonObj = JArray.FromObject(jsonObj.Reverse());
 
             JArray jArr = new();
-            string[] names = {"sma", "sma", "sma", "sma", "williams", "rsi"};
-            int[] periods = {20, 50, 100, 200, 14, 14};
+            string[] names = { "sma", "sma", "sma", "sma", "williams", "rsi" };
+            int[] periods = { 20, 50, 100, 200, 14, 14 };
 
             string index = "";
-            for(int i = 0; i < names.Length; ++i) {
+            for (int i = 0; i < names.Length; ++i)
+            {
                 jArr = JArray.Parse(MakeCall(
                     $"{_baseUrl}v3/technical_indicator/daily/{symbol}?period={periods[i]}&type={names[i]}&apikey={_apiKey}"));
-                try {
+                try
+                {
                     jArr = JArray.FromObject(jArr.Reverse());
-                } catch (System.ArgumentNullException) {
+                }
+                catch (System.ArgumentNullException)
+                {
                     continue;
                 }
 
                 index = $"{names[i]}{periods[i]}";
-                foreach(JObject j in jArr)
+                foreach (JObject j in jArr)
                     history[index] += $"{j[names[i]]}".Replace(",", ".") + ",";
-                    
-            }   
 
-            foreach(JObject obj in jsonObj) 
+            }
+
+
+            //Combine Data to giant Strings
+            foreach (JObject obj in jsonObj)
             {
                 history["date"] += $"\"{obj["date"]}\"" + ",";
                 history["open"] += $"{obj["open"]}".Replace(",", ".") + ",";
@@ -262,13 +300,8 @@ namespace Obliviate.Services
                 history["changeOverTime"] += $"{obj["changeOverTime"]}".Replace(",", ".") + ",";
             }
 
-            return history;
-        }
-
-        private Stock GetHistory(Stock stock) {
-            Dictionary<string, string> history = CallHistory(stock.Symbol);
+            //Add Data to Stock Members
             stock.HistoryDate = history["date"].Substring(0, history["date"].Length - 1);
-
             stock.Open = history["open"].Substring(0, history["open"].Length - 1);
             stock.High = history["high"].Substring(0, history["high"].Length - 1);
             stock.Low = history["low"].Substring(0, history["low"].Length - 1);
@@ -290,46 +323,67 @@ namespace Obliviate.Services
         }
 
 
+        /// <summary>
+        /// Adds Calculations to Stock Object
+        /// </summary>
+        /// <param name="stock"></param>
+        /// <returns>Stock</returns>
+        private Stock GetCalculations(Stock stock)
+        {
+            stock.TAR = _calculator.Calculate(stock, "TAR");
+            stock.FAR = _calculator.Calculate(stock, "FAR");
+            stock.EYE = 0;
+            return stock;
+        }
 
-        public int GetData(string action, string symbol="", bool skip=true, List<string> already=null) 
+
+        /// <summary>
+        /// Pushes one Stock into Database
+        /// </summary>
+        /// <param name="action">Push Configuration</param>
+        /// <param name="symbol">Symbol to push to Database</param>
+        /// <param name="skip">Skip Stock if it's already in the Database</param>
+        /// <param name="already">List with already contained Stocks</param>
+        /// <returns></returns>
+        public int GetData(string action, string symbol = "", bool skip = true, List<string> already = null)
         {
             Stock stock = new Stock();
-            if(action == "history")
+            if (action == "history")
             {
-                if(already.Contains(symbol)) 
+                if (already.Contains(symbol))
                 {
                     stock = _context.Stock.Find(symbol);
                     stock = GetHistory(stock);
+                    stock = GetCalculations(stock);
                     _context.Update(stock);
-                } 
-                else 
+                }
+                else
                 {
                     Debug.WriteLine($"'{symbol}' History Push skipped.");
                     return 1;
                 }
-            } 
-            else if(action == "all") 
+                return 0;
+            }
+            else if (action == "all")
             {
-                if(already.Contains(symbol) && skip == true) 
+                if (already.Contains(symbol) && skip == true)
                 {
                     Debug.WriteLine($"'{symbol}' Push skipped.");
                     return 1;
                 }
-                try {
-                    stock = GetFinancials(symbol);
-                    stock = GetHistory(stock);
-                    if(stock.IsEtf == "False") {
-                        _context.Remove(_context.Stock.Find(symbol));
-                        _context.SaveChanges();
-                        _context.Add(stock);
-                    }
-                } catch (Exception e) {
-                    Debug.WriteLine($"'{symbol}' Push failed. Error: {e}");
-                    return 1;
-                }
 
+                stock = GetFinancials(symbol);
+                stock = GetHistory(stock);
+                stock = GetCalculations(stock);
+                if (stock.IsEtf == "False")
+                {
+                    _context.Remove(_context.Stock.Find(symbol));
+                    _context.SaveChanges();
+                    _context.Add(stock);
+                }
+                return 0;
             }
-            return 0;
+            return 1;
         }
     }
 }
