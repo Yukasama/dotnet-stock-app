@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Collections;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Obliviate.Services
+namespace Obliviate.Services.Stocks
 {
     public class StockManager
     {
@@ -82,9 +82,9 @@ namespace Obliviate.Services
             string[] calls = new string[]
             {
                 //API PREMIUM
-                $"v4/esg-environmental-social-governance-data?symbol={symbol}&apikey={_apiKey}",
-                $"v4/price-target-consensus?symbol={symbol}&apikey={_apiKey}",
-                $"v4/stock_peers?symbol={symbol}&apikey={_apiKey}",
+                //$"v4/esg-environmental-social-governance-data?symbol={symbol}&apikey={_apiKey}",
+                //$"v4/price-target-consensus?symbol={symbol}&apikey={_apiKey}",
+                //$"v4/stock_peers?symbol={symbol}&apikey={_apiKey}",
 
                 $"v3/analyst-estimates/{symbol}?&apikey={_apiKey}",
                 $"v3/historical-discounted-cash-flow-statement/{symbol}?apikey={_apiKey}",
@@ -102,7 +102,7 @@ namespace Obliviate.Services
             JArray jsonArr = new();
 
             //Make API Call for each Web Address in List
-            int count = 0, otherCount = 0;
+            int count = 0, otherCount = 0, errors = 0;
             foreach (string call in calls)
             {
                 try
@@ -111,8 +111,10 @@ namespace Obliviate.Services
                 }
                 catch (System.ArgumentNullException)
                 {
-                    continue;
+                    ++errors;
                 }
+                if (errors > 3)
+                    return null;
 
                 //Individual Changes
                 JArray tempJsonArr = new();
@@ -163,8 +165,8 @@ namespace Obliviate.Services
         {
             Stock stock = new();
             List<JObject> stockData = FormatJson(symbol);
-            if (stockData.Count == 0)
-                return stock;
+            if (stockData.Count == 0 || stockData == null)
+                return null;
 
             string[] singles =
             {
@@ -268,19 +270,13 @@ namespace Obliviate.Services
             {
                 jArr = JArray.Parse(MakeCall(
                     $"{_baseUrl}v3/technical_indicator/daily/{symbol}?period={periods[i]}&type={names[i]}&apikey={_apiKey}"));
-                try
-                {
-                    jArr = JArray.FromObject(jArr.Reverse());
-                }
-                catch (System.ArgumentNullException)
-                {
-                    continue;
-                }
+
+                try { jArr = JArray.FromObject(jArr.Reverse()); }
+                catch (System.ArgumentNullException) { continue; }
 
                 index = $"{names[i]}{periods[i]}";
                 foreach (JObject j in jArr)
                     history[index] += $"{j[names[i]]}".Replace(",", ".") + ",";
-
             }
 
 
@@ -330,9 +326,15 @@ namespace Obliviate.Services
         /// <returns>Stock</returns>
         private Stock GetCalculations(Stock stock)
         {
-            stock.TAR = _calculator.Calculate(stock, "TAR");
-            stock.FAR = _calculator.Calculate(stock, "FAR");
-            stock.EYE = 0;
+            try { stock.FAR = _calculator.FAR(stock); }
+            catch (Exception e) { Debug.WriteLine($"'{stock.Symbol}' FAR Push Error ocurred: " + e.Message); }
+
+            try { stock.TAR = _calculator.TAR(stock); }
+            catch (Exception e) { Debug.WriteLine($"'{stock.Symbol}' FAR Push Error ocurred: " + e.Message); }
+
+            try { stock.EYE = ""; }
+            catch (Exception e) { Debug.WriteLine($"'{stock.Symbol}' FAR Push Error ocurred: " + e.Message); }
+
             return stock;
         }
 
@@ -366,21 +368,24 @@ namespace Obliviate.Services
             }
             else if (action == "all")
             {
-                if (already.Contains(symbol) && skip == true)
-                {
-                    Debug.WriteLine($"'{symbol}' Push skipped.");
-                    return 1;
-                }
+                if (skip == true)
+                    if (already.Contains(symbol))
+                    {
+                        Debug.WriteLine($"'{symbol}' Push skipped.");
+                        return 1;
+                    }
 
                 stock = GetFinancials(symbol);
+                if (stock == null || stock.IsEtf == "true" || stock.IsEtf == null)
+                    return 1;
+
                 stock = GetHistory(stock);
                 stock = GetCalculations(stock);
-                if (stock.IsEtf == "False")
-                {
-                    _context.Remove(_context.Stock.Find(symbol));
-                    _context.SaveChanges();
-                    _context.Add(stock);
-                }
+
+                _context.Remove(_context.Stock.Find(symbol));
+                _context.SaveChanges();
+                _context.Add(stock);
+
                 return 0;
             }
             return 1;

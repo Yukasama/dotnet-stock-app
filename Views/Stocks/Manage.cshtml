@@ -1,14 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Manage";
+  ViewData["Title"] = "Manage";
 }
 
-@using (Html.BeginForm("Update", "Stocks", FormMethod.Post)) {
-    <div class="controls">
-        <button type="submit" class="button">Update</button>
-    </div>
-}
+<form class="w-100 flex justify-center" asp-controller="Stocks" asp-action="Update" method="post">
+  <div class="controls">
+    <button type="submit" class="button">Update</button>
+    <input type="checkbox" value="true" name="skip">Skip
+    <input type="checkbox" value="true" name="history">Only History
+  </div>
+</form>
+
 
 <!-- Test -->
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

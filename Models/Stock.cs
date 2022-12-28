@@ -891,8 +891,8 @@ namespace Obliviate.Models
         public string? WPR { get; set; }
         public string? RSI { get; set; }
 
-        public decimal TAR { get; set; }
-        public decimal FAR { get; set; }
-        public decimal EYE { get; set; }
+        public string? TAR { get; set; }
+        public string? FAR { get; set; }
+        public string? EYE { get; set; }
     }
 }

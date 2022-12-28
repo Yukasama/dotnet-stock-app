@@ -1,15 +1,13 @@
 using System;
 using System.Globalization;
 
-namespace Obliviate.Services
+namespace Obliviate.Services.Stocks
 {
     class StockHelper
     {
-        private readonly IConfiguration _config;
         private readonly CultureInfo _provider;
-        public StockHelper(IConfiguration configuration, CultureInfo provider)
+        public StockHelper(CultureInfo provider)
         {
-            _config = configuration;
             _provider = provider;
         }
 
@@ -25,10 +23,7 @@ namespace Obliviate.Services
             List<decimal> averageList = new();
             foreach (string d in dataList)
             {
-                try
-                {
-                    averageList.Add(Decimal.Parse(d, _provider));
-                }
+                try { averageList.Add(Decimal.Parse(d, _provider)); }
                 catch { }
             }
             decimal average = averageList.Average();

@@ -1,21 +1,18 @@
 using System;
 using System.Diagnostics;
-using Obliviate.Data;
 using Obliviate.Services;
 using Obliviate.Models;
 using System.Globalization;
 
-namespace Obliviate.Services
+namespace Obliviate.Services.Stocks
 {
     public class StockCalculator
     {
-        private readonly IConfiguration _configuration;
         private readonly CultureInfo _provider = new CultureInfo("en-US");
         private readonly StockHelper _helper;
         public StockCalculator(IConfiguration configuration)
         {
-            _configuration = configuration;
-            _helper = new StockHelper(_configuration, _provider);
+            _helper = new StockHelper(_provider);
         }
 
 
@@ -24,7 +21,7 @@ namespace Obliviate.Services
         /// </summary>
         /// <param name="stock"></param>
         /// <returns>decimal</returns>
-        private decimal TAR(Stock stock)
+        public string TAR(Stock stock)
         {
             List<string> closePrices = stock.Close.Split(",").ToList();
             decimal close = Decimal.Parse(closePrices.Last(), _provider);
@@ -52,7 +49,7 @@ namespace Obliviate.Services
                 result += _helper.LimitScale(s.Value[1], s.Value[0], s.Value[2]);
             try { tar = result / series.Count; }
             catch { tar = 0; }
-            return tar;
+            return $"{tar}";
         }
 
 
@@ -61,27 +58,10 @@ namespace Obliviate.Services
         /// </summary>
         /// <param name="stock"></param>
         /// <returns>FAR (decimal)</returns>
-        private decimal FAR(Stock stock)
+        public string FAR(Stock stock)
         {
             decimal peRatioAvg = _helper.Average(stock.PeRatio);
-
-            return peRatioAvg;
-        }
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="stock">Stock Object where Ratings should be added</param>
-        /// <param name="action">Select Rating</param>
-        /// <returns>Technical-Rating</returns>
-        public decimal Calculate(Stock stock, string action)
-        {
-            if (action == "TAR")
-                return TAR(stock);
-            else if (action == "FAR")
-                return FAR(stock);
-            return 0;
+            return $"{peRatioAvg}";
         }
     }
 }

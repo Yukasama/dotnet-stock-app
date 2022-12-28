@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Obliviate.Data;
-using Obliviate.Services;
+using Obliviate.Services.Stocks;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;

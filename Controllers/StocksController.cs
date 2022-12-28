@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Obliviate.Data;
 using Obliviate.Models;
-using Obliviate.Services;
+using Obliviate.Services.Stocks;
 using Microsoft.Data.SqlClient;
 
 namespace Obliviate.Controllers
@@ -26,7 +26,7 @@ namespace Obliviate.Controllers
         // GET: Stocks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Stock.ToListAsync());
+            return View(await _context.Stock.Where(s => s.Sector == "Technology").ToListAsync());
         }
 
         // GET: Stocks/<Symbol>
@@ -69,29 +69,40 @@ namespace Obliviate.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Stocks/Update")]
-        public async Task<IActionResult> Update()
+        public async Task<IActionResult> Update(bool skip = false, bool history = false)
         {
+            Debug.WriteLine($"Initializing Database Update...");
             int status = 0;
             //List<string> symbols = _stockManager.GetSymbols();
-            List<string> symbols = new() { "GOOG" };
+            List<string> symbols = new() { "AAPL" };
             Stock stock = new();
 
             //Check if Symbols are already in Database
             List<string> already = new();
-            List<Stock> currentSymbols = _context.Stock.ToList();
-            foreach (Stock s in currentSymbols)
-                already.Add(s.Symbol);
+            if (skip || history)
+            {
+                List<Stock> currentSymbols = _context.Stock.ToList();
+                foreach (Stock s in currentSymbols)
+                    already.Add(s.Symbol);
+            }
 
             if (ModelState.IsValid)
             {
-                string action = "all";
-                Debug.WriteLine($"Initializing Database Update with Push Configuration '{action.ToUpper()}' ...");
+                string action = history ? "history" : "all";
+
+                Debug.WriteLine($"Starting Update: Push Configuration '{action.ToUpper()}'...");
                 foreach (string s in symbols)
                 {
                     Stopwatch stopwatch2 = new();
                     stopwatch2.Start();
 
-                    status = _stockManager.GetData(action, s, false, already);
+                    try { status = _stockManager.GetData(action, s, skip, already); }
+                    catch (Exception e)
+                    {
+                        status = 1;
+                        Debug.WriteLine($"'{s}' Push failed: {e.Message}");
+                    }
+
                     if (status == 0)
                     {
                         await _context.SaveChangesAsync();

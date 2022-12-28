@@ -1,30 +1,19 @@
 ﻿@model IEnumerable<Obliviate.Models.Stock>
 
 @{
-    ViewData["Title"] = "Index";
+  ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Symbol)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Symbol)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="stocks">
+  <div class="ranking">
+    <h2 class="ranking_header">Daily Winners</h2>
+  </div>
+  <p class="ranking h-2">Daily Losers</p>
+  <div class="ranking list">
+    @foreach (var stock in Model.OrderByDescending(m => m.ChangePercent).Take(5))
+    {
+      <div class="ranking_element list_link">@stock.CompanyName</div>
+    }
+  </div>
+</div>

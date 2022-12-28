@@ -1,4 +1,4 @@
-﻿namespace Obliviate.Services
+﻿namespace Obliviate.Services.Essentials
 {
     public class EmailSender
     {

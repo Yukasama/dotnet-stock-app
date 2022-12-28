@@ -1,37 +1,37 @@
 ﻿@model IEnumerable<Obliviate.Models.Stock>
 
 @{
-    ViewData["Title"] = "Manage";
+  ViewData["Title"] = "Manage";
 }
 
 <link rel="stylesheet" href="~/css/stocks/search.css" asp-append-version="true" />
 
 
 <div class="search">
-    <div class="search_info">
-        <div class="search_query">Results for: @ViewBag.Message</div>
-    </div>
-    <div class="list search_list">
-        <div class="search_number">@Model.Count() Search Result/s</div>
-        @foreach(var item in Model)
-        {
-            <a class="search_link list_link" asp-controller="Stocks" asp-action=@item.Symbol >
-                <div href=@item.Website target="_" class="list_image">
-                    <img src=@item.Image>
-                </div>
-                <div class="search_container">
-                    <div class="search_text">@Html.DisplayFor(modelItem => item.CompanyName)</div>
-                    <div class="list_symbol">@Html.DisplayFor(modelItem => item.Symbol)</div>
-                    <div class="search_classes">
-                        <div class="search_class">@Html.DisplayFor(modelItem => item.Sector)</div>
-                        <div class="search_class">@Html.DisplayFor(modelItem => item.Industry)</div>
-                        <div class="search_class">@Html.DisplayFor(modelItem => item.RatingScore)</div>
-                    </div>
-                </div>
-            </a>
-        }
-    </div>
-    <div class="search_filters"></div>
+  <div class="search_info">
+    <div class="search_query">Results for: @ViewBag.Message</div>
+  </div>
+  <div class="list search_list">
+    <div class="search_number">@Model.Count() Search Result/s</div>
+    @foreach (var item in Model)
+    {
+      <a class="search_link list_link" asp-controller="Stocks" asp-action=@item.Symbol>
+        <div href=@item.Website target="_" class="list_image">
+          <img src=@item.Image>
+        </div>
+        <div class="search_container">
+          <div class="search_text">@Html.DisplayFor(modelItem => item.CompanyName)</div>
+          <div class="list_symbol">@Html.DisplayFor(modelItem => item.Symbol)</div>
+          <div class="search_classes">
+            <div class="search_class">@Html.DisplayFor(modelItem => item.Sector)</div>
+            <div class="search_class">@Html.DisplayFor(modelItem => item.Industry)</div>
+            <div class="search_class">@Html.DisplayFor(modelItem => item.RatingScore)</div>
+          </div>
+        </div>
+      </a>
+    }
+  </div>
+  <div class="search_filters"></div>
 </div>
 
 
@@ -39,5 +39,5 @@
 
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
