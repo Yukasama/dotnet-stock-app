@@ -1,5 +1,4 @@
 using System.Runtime.InteropServices;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Obliviate.Data;
@@ -12,14 +11,14 @@ var config = builder.Configuration;
 string connectionString = "";
 if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 {
-    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    connectionString = config.GetValue<string>("DefaultConnection");
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString));
 }
 else
 {
     string connectionPw = config.GetValue<string>("AzureSQL");
-    connectionString = builder.Configuration.GetConnectionString("MacConnection");
+    connectionString = config.GetValue<string>("MacConnection");
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString + connectionPw));
 }

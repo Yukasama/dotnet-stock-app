@@ -209,6 +209,37 @@
   background: var(--color-separator);
 }
 
+.metrics_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    margin: 3px;
+}
+.metrics_text {
+    font-size: 13px;
+    font-weight: 700;
+    width: 25px;
+}
+.metrics_bar {
+    background: var(--color-separator);
+    height: 16px;
+    width: 300px;
+    transition: 0.2s;
+}
+.metrics_progress {
+    background: linear-gradient(to right, var(--color-first), var(--color-second));
+    height: 16px;
+    width: 50%;
+}
+.metrics_progress2 {
+    width: 70%;
+}
+.metrics_progress2 {
+    width: 40%;
+}
+
+
 .chart_competitors {
   display: flex;
 }
