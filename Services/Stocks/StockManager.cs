@@ -15,9 +15,9 @@ namespace Obliviate.Services.Stocks
     {
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
-        private readonly string _apiKey;
-        private readonly string _baseUrl;
-        private static readonly HttpClient _client = new HttpClient();
+        private readonly string? _apiKey;
+        private readonly string? _baseUrl;
+        private readonly HttpClient _client;
         private readonly StockCalculator _calculator;
 
         public StockManager(IConfiguration configuration, ApplicationDbContext context)
@@ -28,6 +28,7 @@ namespace Obliviate.Services.Stocks
             _baseUrl = _configuration.GetValue<string>("FMP_API_URL");
 
             //Configuring Client
+            _client = new HttpClient();
             _client.BaseAddress = new Uri(_baseUrl);
             _client.DefaultRequestHeaders.TryAddWithoutValidation
                 ("Content-Type", "application/json; charset=utf-8");
@@ -45,7 +46,12 @@ namespace Obliviate.Services.Stocks
         private string MakeCall(string url)
         {
             HttpResponseMessage apiCall = _client.GetAsync(url).Result;
-            return apiCall.IsSuccessStatusCode ? apiCall.Content.ReadAsStringAsync().Result : null;
+            if (apiCall.IsSuccessStatusCode)
+            {
+                string result = apiCall.Content.ReadAsStringAsync().Result;
+                return result;
+            }
+            return null;
         }
 
 
@@ -324,10 +330,10 @@ namespace Obliviate.Services.Stocks
             catch (Exception e) { Debug.WriteLine($"'{stock.Symbol}' FAR Push Error ocurred: " + e.Message); }
 
             try { stock.TAR = _calculator.TAR(stock); }
-            catch (Exception e) { Debug.WriteLine($"'{stock.Symbol}' TAR Push Error ocurred: " + e.Message); }
+            catch (Exception e) { Debug.WriteLine($"'{stock.Symbol}' FAR Push Error ocurred: " + e.Message); }
 
             try { stock.EYE = ""; }
-            catch (Exception e) { Debug.WriteLine($"'{stock.Symbol}' EYE Push Error ocurred: " + e.Message); }
+            catch (Exception e) { Debug.WriteLine($"'{stock.Symbol}' FAR Push Error ocurred: " + e.Message); }
 
             return stock;
         }

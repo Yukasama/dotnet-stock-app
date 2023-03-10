@@ -74,7 +74,7 @@ namespace Obliviate.Controllers
             Debug.WriteLine($"Initializing Database Update...");
             int status = 0;
             //List<string> symbols = _stockManager.GetSymbols();
-            List<string> symbols = new() { "UAL" };
+            List<string> symbols = new() { "AAPL" };
             Stock stock = new();
 
             //Check if Symbols are already in Database

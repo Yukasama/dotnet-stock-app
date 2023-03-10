@@ -1,0 +1,113 @@
+Date,Firm,To Grade,From Grade,Action
+2012-05-02,Credit Suisse,Outperform,,main
+2012-05-02,Deutsche Bank,Hold,,main
+2012-07-02,Citigroup,Neutral,Buy,down
+2012-07-09,BMO Capital,Market Perform,Outperform,down
+2012-07-12,Morgan Stanley,Equal-Weight,Overweight,down
+2012-08-01,Topeka,Hold,,main
+2012-08-15,Standpoint Research,Buy,Hold,up
+2012-10-17,Morgan Stanley,Equal-Weight,Overweight,down
+2012-11-20,BMO Capital,Outperform,Market Perform,up
+2012-11-29,Stephens & Co.,,,init
+2013-01-02,Miller Tabak,Buy,Neutral,up
+2013-01-07,JP Morgan,Underweight,,init
+2013-02-13,Standpoint,Hold,Buy,down
+2013-02-26,BMO Capital,Market Perform,Outperform,down
+2013-04-26,Stephens & Co.,Overweight,,up
+2013-07-19,JP Morgan,Neutral,Underweight,up
+2013-10-21,Bank of America,Buy,Underperform,up
+2013-10-31,Argus,Buy,Hold,up
+2013-12-17,Macquarie,Outperform,,init
+2013-12-23,Stifel Nicolaus,Hold,,init
+2013-12-24,Stifel Nicolaus,Hold,,init
+2014-01-24,Citigroup,Sell,,main
+2014-02-05,Scotiabank,Sector Outperform,Sector Perform,up
+2014-02-05,Citigroup,Buy,Neutral,up
+2014-03-10,BMO Capital,Outperform,Market Perform,up
+2014-04-04,Citigroup,Buy,,main
+2014-04-30,Stephens & Co.,Overweight,Equal-Weight,up
+2014-07-07,Miller Tabak,Buy,Hold,up
+2014-07-09,Citigroup,Buy,,main
+2014-07-18,JP Morgan,Neutral,,main
+2014-08-06,Citigroup,Buy,,main
+2014-10-14,Citigroup,Buy,,main
+2014-10-28,JP Morgan,Neutral,,main
+2014-12-16,Citigroup,Buy,,main
+2015-01-08,BMO Capital,Market Perform,Outperform,down
+2015-01-15,Goldman Sachs,Neutral,Buy,down
+2015-01-20,JP Morgan,Underweight,Neutral,down
+2015-04-02,Citigroup,Buy,,main
+2015-07-07,Vertical Research,Hold,,init
+2015-07-29,Citigroup,Neutral,Buy,down
+2015-10-19,Buckingham Research,Neutral,,init
+2015-11-04,Buckingham Research,Neutral,,main
+2016-01-07,Standpoint Research,Buy,Hold,up
+2016-02-03,BMO Capital,Market Perform,,main
+2016-02-12,Argus,Hold,Buy,down
+2016-03-07,Bank of America,Neutral,Buy,down
+2016-04-22,JP Morgan,Neutral,Underweight,up
+2016-04-28,Standpoint Research,Hold,Buy,down
+2016-05-03,Credit Suisse,Neutral,,main
+2016-05-03,Citigroup,Neutral,,main
+2016-05-26,Citigroup,Buy,Neutral,up
+2016-07-12,BB&T Capital,Hold,,init
+2016-08-04,Argus,Buy,Hold,up
+2016-08-29,Macquarie,Outperform,,main
+2016-11-11,JP Morgan,Underweight,Neutral,down
+2016-12-14,PiperJaffray,Neutral,,init
+2017-01-06,BMO Capital,Market Perform,Outperform,down
+2017-06-01,Argus,Hold,Buy,down
+2017-07-12,Citigroup,Buy,,main
+2017-08-31,Credit Suisse,Neutral,,main
+2017-09-12,Baird,Outperform,,init
+2017-09-28,Citigroup,Neutral,Buy,down
+2017-11-01,BMO Capital,Market Perform,,main
+2018-02-07,Baird,Outperform,Outperform,main
+2018-02-07,Stephens & Co.,Overweight,Equal-Weight,up
+2018-02-28,Buckingham,Buy,Neutral,up
+2018-03-06,Citigroup,Buy,Neutral,up
+2018-03-12,Goldman Sachs,Buy,Neutral,up
+2018-04-06,Credit Suisse,Neutral,Neutral,main
+2018-04-09,Buckingham,Buy,Buy,main
+2018-05-02,Citigroup,Buy,Buy,main
+2018-05-02,Monness Crespi Hardt,Neutral,Sell,up
+2018-07-09,JP Morgan,Neutral,Underweight,up
+2018-08-01,BMO Capital,Market Perform,Market Perform,main
+2018-08-01,Buckingham,Buy,Buy,main
+2018-08-03,Morgan Stanley,Equal-Weight,Equal-Weight,main
+2018-11-08,Argus,Buy,Hold,up
+2019-02-08,Stifel Nicolaus,Buy,Hold,up
+2019-04-29,BMO Capital,Outperform,Market Perform,up
+2019-04-30,Stifel Nicolaus,Buy,Buy,main
+2019-06-26,Stifel,Buy,,main
+2019-07-19,Buckingham Research,Buy,,main
+2019-10-08,Stephens & Co.,Overweight,,init
+2019-10-17,Credit Suisse,Neutral,,main
+2019-11-06,Argus Research,Buy,,main
+2020-01-09,Monness Crespi Hardt,Sell,Neutral,down
+2020-03-02,Monness Crespi Hardt,Neutral,Sell,up
+2020-03-30,Morgan Stanley,Equal-Weight,,main
+2020-04-01,Stifel,Buy,,main
+2020-05-01,Stifel,Buy,,main
+2020-05-05,Credit Suisse,Neutral,,main
+2020-06-30,Stifel,Buy,,main
+2020-07-27,Credit Suisse,Underperform,Neutral,down
+2020-07-28,Seaport Global,Buy,,init
+2020-08-10,Morgan Stanley,Equal-Weight,,main
+2020-10-19,JP Morgan,Overweight,Neutral,up
+2020-11-02,Morgan Stanley,Equal-Weight,,main
+2020-11-02,Credit Suisse,Neutral,Underperform,up
+2020-12-14,Morgan Stanley,Equal-Weight,,main
+2021-01-11,BMO Capital,Market Perform,Outperform,down
+2021-04-21,B of A Securities,Buy,,init
+2021-04-28,Credit Suisse,Neutral,,main
+2021-05-10,Morgan Stanley,Equal-Weight,,main
+2021-07-21,Jefferies,Hold,,init
+2021-10-12,Stephens & Co.,Equal-Weight,Overweight,down
+2021-12-13,Barclays,Overweight,,main
+2022-01-11,Morgan Stanley,Equal-Weight,,main
+2022-03-16,Goldman Sachs,Buy,,main
+2022-04-19,B of A Securities,Neutral,Buy,down
+2022-04-22,Barclays,Overweight,,main
+2022-04-27,Credit Suisse,Neutral,,main
+2022-05-02,Morgan Stanley,Equal-Weight,,main

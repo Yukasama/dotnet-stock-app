@@ -19,8 +19,6 @@
         symbol = "↓";
     }
 
-    int maxYears = 5;
-
     ViewData["Title"] = $"{Model[0].Symbol} {symbol} ${@close} {@pre}{@percent}%";
 }
 
@@ -61,24 +59,6 @@
         </div>
 
         <div class="metrics stock_item">
-            <div class="metrics_item flex items-center gap-2 m-3">
-                <p class="metrics_text text-[13px] font-medium w-7">P/E</p>
-                <div class="metrics_bar bg-sun-300 dark:bg-moon-100 h-4 w-40 rounded-full hover:scale-x-[1.03] transition-transform">
-                    <div class="metrics_progress metrics_progress1 bg-gradient-to-r from-purple-500 to-blue-500 h-4 w-2/3 rounded-full"></div>
-                </div>
-            </div>
-            <div class="metrics_item flex items-center gap-2 m-3">
-                <p class="metrics_text text-[13px] font-medium w-7">EPS</p>
-                <div class="metrics_bar bg-sun-300 dark:bg-moon-100 h-4 w-40 rounded-full hover:scale-x-[1.03] transition-transform">
-                    <div class="metrics_progress metrics_progress2 bg-gradient-to-r from-purple-500 to-blue-500 h-4 w-1/2 rounded-full"></div>
-                </div>
-            </div>
-            <div class="metrics_item flex items-center gap-2 m-3">
-                <p class="metrics_text text-[13px] font-medium w-7">P/B</p>
-                <div class="metrics_bar bg-sun-300 dark:bg-moon-100 h-4 w-40 rounded-full hover:scale-x-[1.03] transition-transform">
-                    <div class="metrics_progress metrics_progress3 bg-gradient-to-r from-purple-500 to-blue-500 h-4 w-3/4 rounded-full"></div>
-                </div>
-            </div>
         </div>
 
         <div class="evaluations stock_item">
@@ -228,7 +208,7 @@
             <div class="financials_cell financials_inmillions financials_sideheader financials_topheader">In millions (USD) excl. Per Share Items</div>
             <div class="financials_cell financials_header financials_topheader"></div>
             @{ int years = Model[0].CalendarYear.Split(",").ToList().Count; }
-            @foreach(var item in Model[0].CalendarYear.Split(",").ToList().GetRange(0, maxYears)) {
+            @foreach(var item in Model[0].CalendarYear.Split(",").ToList().GetRange(years - 9, 9)) {
                 <div class="financials_cell financials_header financials_topheader">@item</div>
             }     
         </div>
